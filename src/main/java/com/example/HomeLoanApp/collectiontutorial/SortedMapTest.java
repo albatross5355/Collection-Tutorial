@@ -35,5 +35,16 @@ public class SortedMapTest {
 //        personsById.forEach((Person key, String value) -> {
 //            System.out.println("key=" + key + ", value=" + value);
 //        });
+
+
+        Comparator<String> comparator = Comparator.comparing(String::length).thenComparing(String::compareToIgnoreCase);
+        SortedMap<String, String> stringmap = new TreeMap<>(comparator);
+        stringmap.put("John","(342)123");
+        stringmap.put("Richard","(342)123");
+        stringmap.put("Donna","(342)123");
+        stringmap.put("abc","(342)123");
+        stringmap.put("Zen","(342)123");
+        System.out.println(stringmap);
+
     }
 }
