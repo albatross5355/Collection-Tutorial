@@ -61,18 +61,76 @@ public class CollectionsTest {
 //        Collections.replaceAll(list,7,1);
 //        System.out.println(list);
         System.out.println(list1);
-       int indexofS= Collections.indexOfSubList(list,list1);
+        int indexofS= Collections.indexOfSubList(list,list1);
         System.out.println(indexofS);
         int last= Collections.lastIndexOfSubList(list,list1);
         System.out.println(last);
 
-      List<Integer> unmodified =  Collections.unmodifiableList(list);
+
+        //Read only view collections
+        List<Integer> unmodified =  Collections.unmodifiableList(list);
         System.out.println("unmodified list:"+unmodified);
-        unmodified.add(11);
+//        unmodified.add(11);
         System.out.println(unmodified);
         ;
 
+
+
+
+
+        Map<String, Boolean>  map = new WeakHashMap<>();
+        Set<String> wset = Collections.newSetFromMap(map);
+
+
+
+        List<Integer> list2 = new ArrayList<>();
+        list2.add(8);
+        list2.add(6);
+        list2.add(3);
+
+        //Synchronized collections
+
+        List<Integer>  synchronizedList = Collections.synchronizedList(list2);
+
+
+        Set<String> names = new HashSet<>();
+        names.add("Ken");
+        names.add("Lee");
+        names.add("Joe");
+
+        Set ss  = Collections.synchronizedSet(names);
+
+
+        synchronized (ss)
+        {
+          Iterator iterator = ss.iterator();
+          while (iterator.hasNext()){
+              Object key = iterator.next();
+              System.out.println(key);
+          }
+        }
+
+        Set<String> set = new HashSet<>();
+        set.add("Hello");
+
+
+        System.out.println("anything");
+
+        //Checked collection
+        Set<String> checkedset = Collections.checkedSet(new HashSet<>(),String.class);
+        Set anything = checkedset;
+        anything.add("Hello");
+        System.out.println(anything);
+        mapempty(Collections.emptyMap());
+        mapempty(Map.of());
+
     }
+
+
+    public static void mapempty(Map<String,String> map){
+        System.out.println(map);
+    }
+
 
 
 }
