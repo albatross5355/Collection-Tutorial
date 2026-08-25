@@ -1,1 +1,458 @@
 
+# Java Spring Boot ? Senior Developer / Tech Lead / Solution Architect Roadmap
+
+> **Audience:** Java Spring Boot developer with 5+ years of experience.
+> **Goal:** Progress to Senior Developer, Technical Lead, or Solution Architect.
+> **Approach:** Practical, industry-focused, aligned with current enterprise standards.
+
+## How to Use This Roadmap
+
+Each topic is tagged with a **mastery level** and an **estimated time to master** (assuming ~8–10 focused hours/week on top of a day job):
+
+| Level | Meaning | Signal you've reached it |
+|-------|---------|--------------------------|
+| ? **Beginner Refresh** | Re-solidify fundamentals you already use daily | Can explain it clearly to a junior |
+| ? **Intermediate** | Apply confidently in production without hand-holding | Ship features & debug independently |
+| ? **Advanced** | Design solutions, weigh trade-offs, tune for scale | Lead a component / review others' work |
+| ? **Expert** | Set standards, make architecture decisions | Own cross-team technical direction |
+
+**Legend:** ? = estimated time to master · ? = hands-on practice recommendation
+
+---
+
+## Table of Contents
+
+1. [Core Java Mastery](#1-core-java-mastery)
+2. [Spring Ecosystem](#2-spring-ecosystem)
+3. [Microservices Architecture](#3-microservices-architecture)
+4. [Database Expertise](#4-database-expertise)
+5. [API Development](#5-api-development)
+6. [Messaging & Integration](#6-messaging--integration)
+7. [Cloud & DevOps](#7-cloud--devops)
+8. [System Design](#8-system-design)
+9. [Testing](#9-testing)
+10. [Security](#10-security)
+11. [Observability](#11-observability)
+12. [Leadership Skills](#12-leadership-skills)
+13. [Real-World Projects](#13-real-world-projects)
+14. [Interview Preparation](#14-interview-preparation)
+15. [6-Month Learning Plan](#15-6-month-learning-plan)
+
+---
+
+## 1. Core Java Mastery
+
+> The differentiator between a mid-level and senior engineer is depth here. You must reason about *how* the JVM behaves under load, not just *what* the API does.
+
+### ? Beginner Refresh (? 1–2 weeks)
+- **Collections Deep Dive** — internal structure of `HashMap` (buckets, treeification at 8 entries, resize/rehash), `ArrayList` vs `LinkedList`, `ConcurrentHashMap` lock striping, `CopyOnWriteArrayList`, `TreeMap` (red-black tree). Know Big-O and when each wins.
+- **Java 8 features** — lambdas, `Stream` API, `Optional`, method references, functional interfaces, default methods.
+- ? Rewrite a legacy imperative data-processing class using Streams; benchmark before/after.
+
+### ? Intermediate (? 3–4 weeks)
+- **Multithreading & Concurrency** — `synchronized`, `volatile`, `happens-before`, Java Memory Model, `Atomic*` classes, `ReentrantLock`, `ReadWriteLock`, `CountDownLatch`, `Semaphore`, `CyclicBarrier`.
+- **Executor Framework** — `ThreadPoolExecutor` internals (core/max pool, queue types, rejection policies), `ScheduledExecutorService`, sizing thread pools correctly.
+- **CompletableFuture** — composition (`thenApply`, `thenCompose`, `thenCombine`), exception handling (`exceptionally`, `handle`), custom executors, avoiding common blocking pitfalls.
+- **Java 11 & 17 features** — `var`, HTTP Client, records, sealed classes, pattern matching, switch expressions, text blocks.
+- ? Build a bounded producer-consumer pipeline; then rebuild it with `CompletableFuture` + a custom pool.
+
+### ? Advanced (? 4–6 weeks)
+- **JVM Internals** — class loading (bootstrap/platform/application loaders), bytecode, JIT (C1/C2, tiered compilation), escape analysis, method inlining, runtime data areas.
+- **Memory Management** — heap layout (young/old gen, Eden/Survivor), metaspace, stack vs heap, off-heap memory, memory leaks vs retention, `WeakReference`/`SoftReference`/`PhantomReference`.
+- **Garbage Collection** — G1 (default), ZGC, Shenandoah, Parallel GC; how to read GC logs, pause-time goals, tuning flags (`-Xmx`, `-XX:MaxGCPauseMillis`).
+- **Design Patterns** — GoF (Strategy, Factory, Builder, Observer, Decorator, Proxy, Template Method), plus enterprise patterns (Repository, Unit of Work, DTO, Facade). Recognize them inside Spring.
+- ? Profile a memory leak with **VisualVM / JFR / async-profiler**; capture and interpret a heap dump in **Eclipse MAT**.
+
+### ? Expert (? ongoing)
+- **Latest Java features (21+)** — virtual threads (Project Loom), structured concurrency, scoped values, pattern matching for switch, sequenced collections. Understand when virtual threads replace reactive stacks.
+- Set team-wide concurrency guidelines and JVM tuning baselines for production services.
+- ? Migrate a thread-pool-bound service to virtual threads; measure throughput and tail latency changes.
+
+---
+
+## 2. Spring Ecosystem
+
+### ? Beginner Refresh (? 1 week)
+- **Spring Core** — IoC container, bean lifecycle, dependency injection styles, `@Component`/`@Bean`, bean scopes, `ApplicationContext`.
+- **Spring Boot** — auto-configuration, starters, `application.yml` profiles, Actuator basics.
+
+### ? Intermediate (? 3–4 weeks)
+- **Spring MVC** — DispatcherServlet flow, `@RestController`, content negotiation, exception handling (`@ControllerAdvice`), validation (`@Valid`, Bean Validation).
+- **Spring Data JPA** — repositories, derived queries, JPQL, `@Query`, pagination, projections, N+1 problem, fetch strategies, `@EntityGraph`, auditing.
+- **Spring AOP** — proxies (JDK dynamic vs CGLIB), pointcuts, advice types, cross-cutting concerns (logging, metrics, transactions).
+- **Spring Security** — filter chain, authentication vs authorization, `UserDetailsService`, method security, CSRF, CORS.
+- ? Build a secured CRUD service with JPA, custom exception handling, and an AOP audit-logging aspect.
+
+### ? Advanced (? 5–7 weeks)
+- **Spring Batch** — jobs, steps, chunk vs tasklet, readers/writers/processors, restartability, partitioning for parallel processing.
+- **Spring Cloud** — Config Server, Gateway, LoadBalancer, OpenFeign, Sleuth/Micrometer Tracing.
+- **Spring WebFlux & Reactive Programming** — `Mono`/`Flux`, backpressure, `Reactor` operators, `R2DBC`, WebClient, schedulers, blocking-call detection.
+- Deep auto-configuration: writing custom starters and `@Conditional` beans.
+- ? Build a reactive gateway aggregating 3 downstream services with WebClient + resilience.
+
+### ? Expert (? ongoing)
+- Decide **WebFlux vs virtual threads vs MVC** per workload with evidence.
+- Author organization-wide Spring Boot parent/BOM and shared library conventions.
+- ? Create an internal "platform starter" enforcing logging, security, and observability defaults.
+
+---
+
+## 3. Microservices Architecture
+
+### ? Intermediate (? 3–4 weeks)
+- **Service Discovery** — client-side (Eureka) vs server-side; DNS-based discovery in Kubernetes.
+- **API Gateway** — routing, filters, cross-cutting auth, request aggregation (Spring Cloud Gateway).
+- **Circuit Breakers & Resilience4j** — circuit breaker, retry, rate limiter, bulkhead, time limiter; fallback design.
+- ? Add Resilience4j circuit breakers + retries to inter-service calls and simulate downstream failures.
+
+### ? Advanced (? 6–8 weeks)
+- **Distributed Transactions** — why 2PC fails at scale; eventual consistency.
+- **Saga Pattern** — orchestration vs choreography, compensating transactions, idempotency.
+- **Event-Driven Architecture** — event sourcing, event carried state transfer, outbox pattern.
+- **CQRS** — command/query separation, read models, projections, consistency trade-offs.
+- **Domain-Driven Design (DDD)** — bounded contexts, aggregates, entities vs value objects, ubiquitous language, context mapping, anti-corruption layer.
+- ? Implement an order flow with the **outbox pattern + Saga** across two services; enforce idempotent consumers.
+
+### ? Expert (? ongoing)
+- Define service decomposition boundaries from business capabilities; avoid distributed monoliths.
+- Establish contract-first, versioning, and backward-compatibility standards across teams.
+- ? Run an event-storming session to derive bounded contexts for a real domain.
+
+---
+
+## 4. Database Expertise
+
+### ? Beginner Refresh (? 1 week)
+- **Transactions** — ACID, isolation levels (read committed, repeatable read, serializable), Spring `@Transactional` propagation & rollback rules, lost updates, dirty/phantom reads.
+
+### ? Intermediate (? 3–4 weeks)
+- **SQL Optimization & Query Tuning** — `EXPLAIN`/`EXPLAIN ANALYZE`, avoiding full scans, join strategies, covering indexes.
+- **Indexing** — B-tree vs hash vs GIN/GiST, composite index column order, selectivity, index-only scans, when indexes hurt writes.
+- **PostgreSQL** — MVCC, VACUUM, connection pooling (PgBouncer/HikariCP), JSONB.
+- **Redis Caching** — cache-aside, write-through, TTL/eviction policies, cache stampede prevention.
+- ? Take a slow endpoint, analyze the query plan, add the right index, and prove the latency drop.
+
+### ? Advanced (? 4–6 weeks)
+- **Partitioning** — range/list/hash partitioning, sharding strategies, partition pruning.
+- **Oracle** — hints, AWR reports, sequences vs identity, PL/SQL basics for legacy systems.
+- **MongoDB** — document modeling, embedding vs referencing, aggregation pipeline, indexes, replica sets, sharding.
+- Distributed caching topologies, cache invalidation strategies, consistency vs freshness.
+- ? Design a schema for a high-write system with partitioning + a Redis caching layer; load-test it.
+
+### ? Expert (? ongoing)
+- Polyglot persistence decisions (SQL vs document vs KV vs search) per bounded context.
+- Data lifecycle, archival, and multi-region replication strategy.
+
+---
+
+## 5. API Development
+
+### ? Intermediate (? 2–3 weeks)
+- **REST API Best Practices** — resource modeling, correct HTTP verbs/status codes, HATEOAS awareness, idempotency, pagination, filtering, error contract (RFC 7807 Problem Details).
+- **OpenAPI / Swagger** — spec-first vs code-first (springdoc), documentation as a contract.
+- **API Versioning** — URI vs header vs media-type versioning, deprecation policy.
+- ? Publish an OpenAPI-documented API with consistent error responses and pagination.
+
+### ? Advanced (? 3–4 weeks)
+- **Authentication & Authorization** — session vs token, RBAC vs ABAC.
+- **OAuth2 & OIDC** — authorization code + PKCE, client credentials, scopes, resource server config.
+- **JWT** — structure, signing (HS256 vs RS256), validation, refresh tokens, revocation strategies.
+- **API Security** — input validation, output encoding, mass-assignment protection, TLS.
+- **Rate Limiting** — token bucket / leaky bucket, per-client quotas, gateway-level enforcement.
+- ? Secure a service as an OAuth2 resource server with JWT + gateway rate limiting.
+
+---
+
+## 6. Messaging & Integration
+
+### ? Intermediate (? 3–4 weeks)
+- **Kafka** — topics, partitions, offsets, consumer groups, keys & ordering, delivery semantics (at-least/at-most/exactly-once), producer acks, idempotent producer.
+- **RabbitMQ** — exchanges (direct/topic/fanout/headers), queues, bindings, ack/nack, DLQ.
+- **ActiveMQ** — JMS model, queues vs topics (legacy/enterprise integration).
+- ? Build an async order processor with Kafka; handle retries and a dead-letter topic.
+
+### ? Advanced (? 4–5 weeks)
+- **Event Streaming** — Kafka Streams / stateful processing, windowing, exactly-once processing, schema registry (Avro/Protobuf), compatibility rules.
+- **Async Processing** — backpressure, poison-message handling, consumer lag monitoring.
+- **Enterprise Integration Patterns (EIP)** — message router, aggregator, splitter, content enricher, claim check; Spring Integration / Apache Camel.
+- ? Implement a streaming aggregation with Kafka Streams + schema registry and evolve a schema safely.
+
+---
+
+## 7. Cloud & DevOps
+
+### ? Intermediate (? 4–5 weeks)
+- **Docker** — multi-stage builds, layer caching, distroless/JRE base images, image size & security, `docker-compose` for local stacks.
+- **Jenkins / GitHub Actions** — CI pipelines, build/test/scan/deploy stages, secrets management, matrix builds, caching.
+- ? Containerize a Spring Boot app with a multi-stage build and a full GitHub Actions CI pipeline.
+
+### ? Advanced (? 6–8 weeks)
+- **Kubernetes** — pods, deployments, services, ingress, ConfigMaps/Secrets, probes, HPA, resource requests/limits, rolling vs blue-green vs canary.
+- **Helm** — charts, templating, values, releases, chart repositories.
+- **Terraform (IaC)** — providers, state management, modules, plan/apply, remote backends, drift.
+- **Azure & AWS** — compute (AKS/EKS, App Service/ECS), managed DBs, IAM, secrets (Key Vault / Secrets Manager), messaging (Event Hubs/SQS/SNS).
+- ? Deploy a service to Kubernetes via Helm, provisioned by Terraform, with autoscaling and health probes.
+
+### ? Expert (? ongoing)
+- Cost/reliability trade-offs, multi-region DR, GitOps (ArgoCD/Flux), progressive delivery standards.
+
+---
+
+## 8. System Design
+
+> This section most directly determines whether you're seen as a Tech Lead / Architect.
+
+### ? Advanced (? 8–10 weeks, continuous)
+- **HLD** — component decomposition, service boundaries, data flow, API contracts, technology choices with justification.
+- **LLD** — class diagrams, sequence diagrams, design patterns, SOLID, clean interfaces.
+- **Scalability** — vertical vs horizontal, stateless services, sharding, read replicas.
+- **Availability** — redundancy, failover, health checks, SLAs/SLOs, the "nines".
+- **Fault Tolerance** — retries with backoff+jitter, timeouts, bulkheads, graceful degradation.
+- **CAP Theorem** — CP vs AP trade-offs, PACELC, choosing consistency models.
+- **Load Balancing** — L4 vs L7, algorithms (round robin, least connections, consistent hashing), sticky sessions.
+- **Caching Strategies** — client/CDN/gateway/app/DB layers, invalidation, cache-aside vs read-through vs write-behind.
+- ? Design 3 systems end-to-end (URL shortener, rate limiter, notification system); write ADRs for each decision.
+
+### ? Expert (? ongoing)
+- Lead design reviews; produce **Architecture Decision Records (ADRs)** and reference architectures.
+- Capacity planning and back-of-the-envelope estimation as a habit.
+- ? Design a system to 10M+ users: newsfeed, ride-sharing dispatch, or payment ledger.
+
+---
+
+## 9. Testing
+
+### ? Beginner Refresh (? 1 week)
+- **JUnit 5** — lifecycle, assertions, parameterized/nested tests, extensions, tags.
+- **Mockito** — mocks vs spies, stubbing, argument captors, `@InjectMocks`, verifying interactions, avoiding over-mocking.
+
+### ? Intermediate (? 2–3 weeks)
+- **Integration Testing** — `@SpringBootTest`, slices (`@WebMvcTest`, `@DataJpaTest`), `MockMvc`/`WebTestClient`.
+- **TestContainers** — real Postgres/Kafka/Redis in tests; reusable containers.
+- ? Convert brittle mocked DB tests to TestContainers-based integration tests.
+
+### ? Advanced (? 3–4 weeks)
+- **Contract Testing** — Spring Cloud Contract / Pact, consumer-driven contracts in CI.
+- **Performance Testing** — JMeter / Gatling / k6, defining SLIs, load vs stress vs soak tests.
+- Test pyramid strategy, flaky-test elimination, mutation testing (PIT).
+- ? Add consumer-driven contract tests between two services and a Gatling load test to CI.
+
+---
+
+## 10. Security
+
+### ? Intermediate (? 2–3 weeks)
+- **OWASP Top 10** — injection, broken auth, XSS, SSRF, insecure deserialization, security misconfiguration; concrete Spring mitigations.
+- **Secure Coding Practices** — input validation, output encoding, least privilege, safe defaults, dependency scanning (OWASP Dependency-Check, Snyk).
+- ? Run a dependency + SAST scan on a service and remediate the top findings.
+
+### ? Advanced (? 3–4 weeks)
+- **Authentication Mechanisms** — OIDC, mTLS, API keys, MFA concepts.
+- **Encryption** — symmetric vs asymmetric, TLS handshake, at-rest encryption, key management (KMS/Key Vault), password hashing (bcrypt/argon2), secrets rotation.
+- **Security Auditing** — audit logging, tamper evidence, compliance (PCI-DSS/GDPR awareness), threat modeling (STRIDE).
+- ? Threat-model one of your services with STRIDE and produce a mitigation backlog.
+
+---
+
+## 11. Observability
+
+### ? Intermediate (? 2–3 weeks)
+- **Logging** — structured/JSON logging, correlation IDs, log levels, MDC, avoiding sensitive-data leakage.
+- **ELK Stack** — Elasticsearch, Logstash/Beats, Kibana; log shipping and dashboards.
+- ? Add structured logging with correlation IDs propagated across services.
+
+### ? Advanced (? 3–4 weeks)
+- **Prometheus & Grafana** — Micrometer metrics, RED/USE method, alerting rules, dashboards.
+- **Distributed Tracing & OpenTelemetry** — spans, context propagation, trace sampling, exporters (Jaeger/Tempo).
+- The three pillars unified: logs + metrics + traces correlated by trace ID.
+- ? Instrument a multi-service flow with OpenTelemetry; build a Grafana dashboard + alert on p99 latency & error rate.
+
+---
+
+## 12. Leadership Skills
+
+> Technical depth gets you to Senior. These skills get you to Lead and Architect.
+
+### ? Intermediate (ongoing)
+- **Code Reviews** — reviewing for design & maintainability (not just syntax), constructive feedback, review SLAs, when to pair instead.
+- **Technical Documentation** — ADRs, design docs, runbooks, READMEs, diagrams (C4 model).
+- **Agile Practices** — refinement, story slicing, definition of done, retrospectives, managing tech debt visibly.
+
+### ? Advanced (ongoing)
+- **Mentoring** — growth plans, pairing, delegation with safety nets, feedback frameworks (SBI).
+- **Estimation** — decomposition, uncertainty ranges, spikes, avoiding false precision, communicating risk.
+- **Stakeholder Management** — translating tech to business value, managing expectations, saying "no" with alternatives, influence without authority.
+- ? Write an ADR for a real decision; run a design review; mentor a junior through a feature end-to-end.
+
+### ? Expert (ongoing)
+- Set technical vision & standards, drive cross-team alignment, build consensus, own hiring/tech-brand.
+
+---
+
+## 13. Real-World Projects
+
+> Build these to consolidate the roadmap. Each is résumé- and interview-grade. Put them on GitHub with READMEs, diagrams, and ADRs.
+
+### Project 1 — E-Commerce Order Platform (Microservices + Saga)
+- **Architecture:** API Gateway ? services (Catalog, Cart, Order, Payment, Inventory, Notification). Async communication via Kafka. Saga orchestrator coordinates Order?Payment?Inventory with compensating transactions. Outbox pattern guarantees event delivery. CQRS on the Order read model.
+- **Tech Stack:** Spring Boot, Spring Cloud Gateway, Kafka, Resilience4j, PostgreSQL, Redis, Docker, Kubernetes, Helm.
+- **Database Design:** Per-service DB (database-per-service). Orders (RDBMS, partitioned by date), Catalog (Postgres + Redis cache), read-optimized order projection.
+- **Deployment:** Kubernetes with Helm, HPA on Order service, canary releases, secrets via Key Vault/Secrets Manager.
+- **Security:** OAuth2/OIDC at gateway, JWT propagation, rate limiting, TLS everywhere, PCI-aware payment isolation.
+
+### Project 2 — Real-Time Analytics / Event Streaming Pipeline
+- **Architecture:** Ingestion API ? Kafka ? Kafka Streams (windowed aggregations) ? materialized views in Postgres/Elasticsearch ? dashboard API. Schema Registry enforces compatibility.
+- **Tech Stack:** Spring Boot, Kafka + Kafka Streams, Avro + Schema Registry, Elasticsearch, WebFlux, Grafana.
+- **Database Design:** Elasticsearch for search/aggregation, Postgres for aggregates, Redis for hot counters.
+- **Deployment:** Kubernetes, StatefulSets for Kafka, autoscaled consumers, consumer-lag alerting.
+- **Security:** SASL/TLS on Kafka, ACLs per topic, PII masking in streams.
+
+### Project 3 — Multi-Tenant SaaS Platform
+- **Architecture:** Tenant-aware services, gateway routing per tenant, config-driven feature flags, per-tenant isolation (schema-per-tenant or row-level security).
+- **Tech Stack:** Spring Boot, Spring Security, Spring Data JPA, Postgres (RLS), Redis, Terraform, AWS/Azure.
+- **Database Design:** Schema-per-tenant vs shared-schema + tenant_id (discuss trade-offs); connection routing.
+- **Deployment:** IaC with Terraform, blue-green deploys, per-tenant observability.
+- **Security:** Strict tenant isolation, RBAC/ABAC, audit logging, encryption at rest, secrets rotation.
+
+### Project 4 — Reactive API Aggregation Gateway (BFF)
+- **Architecture:** Backend-for-Frontend aggregating multiple downstream services non-blockingly with WebFlux + WebClient; circuit breakers, response caching, request coalescing.
+- **Tech Stack:** Spring WebFlux, Reactor, Resilience4j, Redis, OpenTelemetry, Docker.
+- **Database Design:** Redis for response cache; no primary datastore (stateless aggregator).
+- **Deployment:** Kubernetes, HPA on latency/CPU, canary.
+- **Security:** OAuth2 resource server, per-route rate limits, request validation.
+
+### Project 5 — Batch + Reporting System (Spring Batch)
+- **Architecture:** Scheduled Spring Batch jobs (partitioned) ingest large files ? transform ? load to warehouse; failure restartability; reporting API on top.
+- **Tech Stack:** Spring Batch, Spring Boot, Postgres/Oracle, Quartz, Docker, Jenkins/GitHub Actions.
+- **Database Design:** Staging + partitioned fact tables, indexed reporting views, archival strategy.
+- **Deployment:** Kubernetes CronJobs or scheduled pods, resource-limited batch pods.
+- **Security:** Encrypted file transfer, data masking, least-privilege DB accounts, audit trail.
+
+---
+
+## 14. Interview Preparation
+
+> Rather than memorizing answers, master the **themes**. Below are the high-yield topic clusters that generate the "Top N" question banks — study the concept, then drill questions from each cluster.
+
+### Core Java — 100-question coverage map
+1. OOP & language: inheritance vs composition, `equals`/`hashCode` contract, `final`, `static`, immutability, enums.
+2. Collections: `HashMap` internals, fail-fast vs fail-safe, `Comparable` vs `Comparator`, concurrent collections.
+3. Concurrency: thread lifecycle, `synchronized` vs `Lock`, `volatile`, `wait`/`notify`, executors, `CompletableFuture`, deadlock/livelock.
+4. JVM/memory: class loading, GC, memory leaks, `String` pool, stack vs heap.
+5. Java 8–21: streams, `Optional`, records, sealed classes, virtual threads.
+6. Exceptions, generics (type erasure, wildcards), serialization, I/O & NIO.
+7. Design patterns & SOLID applied in Java.
+
+### Spring Boot — 100-question coverage map
+1. IoC/DI, bean scopes & lifecycle, `@Autowired` resolution, circular dependencies.
+2. Auto-configuration, starters, `@Conditional`, profiles, externalized config.
+3. Spring MVC request flow, exception handling, validation, filters vs interceptors.
+4. Spring Data JPA: repositories, N+1, transactions, propagation, isolation, `@Transactional` self-invocation pitfall.
+5. Spring Security: filter chain, OAuth2/JWT, method security.
+6. Actuator, Micrometer, testing slices, `@SpringBootTest`.
+7. AOP, caching, scheduling, async, WebFlux vs MVC.
+
+### Microservices — 50-question coverage map
+1. Decomposition, DDD bounded contexts, service granularity.
+2. Communication: sync vs async, REST vs messaging, service discovery.
+3. Resilience: circuit breaker, retry, bulkhead, timeout, idempotency.
+4. Data: database-per-service, Saga, outbox, CQRS, event sourcing.
+5. Gateway, config, distributed tracing, distributed transactions, consistency.
+6. Deployment, versioning, observability, security.
+
+### System Design — 50-question coverage map
+1. Fundamentals: scalability, availability, CAP/PACELC, consistency models.
+2. Building blocks: load balancers, caching, CDN, message queues, databases (SQL/NoSQL), sharding, replication.
+3. Estimation & capacity planning.
+4. Classic designs: URL shortener, rate limiter, chat/notification, newsfeed, ride-sharing, payment system, distributed cache, search autocomplete.
+5. Trade-off articulation & ADR writing.
+
+**Practice cadence:** 3–5 questions/day per active cluster, spaced repetition, and mock interviews (peer or platform-based) weekly.
+
+---
+
+## 15. 6-Month Learning Plan
+
+> Assumes ~8–10 focused hours/week. Adjust to your baseline — skip refreshers you already own. Each month ends with a **shippable artifact**.
+
+### Month 1 — Core Java & Spring Foundations (Deepen)
+| Week | Milestones |
+|------|-----------|
+| 1 | JVM internals, memory model, GC fundamentals; read GC logs. |
+| 2 | Concurrency: executors, `CompletableFuture`, locks; build producer-consumer pipeline. |
+| 3 | Collections internals + Java 17/21 features (records, sealed, pattern matching, virtual threads). |
+| 4 | Spring Core/Boot/AOP refresh; build secured CRUD service with AOP audit aspect. |
+
+**Goal:** Rock-solid fundamentals. **Artifact:** Concurrency demo + profiled memory-leak write-up.
+
+### Month 2 — Data, APIs & Testing
+| Week | Milestones |
+|------|-----------|
+| 1 | SQL tuning, indexing, `EXPLAIN ANALYZE`; optimize a slow endpoint. |
+| 2 | Spring Data JPA deep dive (N+1, fetch, transactions) + Redis caching. |
+| 3 | REST best practices, OpenAPI, versioning, error contracts. |
+| 4 | JUnit 5, Mockito, TestContainers integration tests. |
+
+**Goal:** Production-grade data & API skills. **Artifact:** Documented, tested, cached REST service.
+
+### Month 3 — Microservices & Messaging
+| Week | Milestones |
+|------|-----------|
+| 1 | Service discovery, gateway, Feign; Resilience4j circuit breakers. |
+| 2 | Kafka fundamentals; async order processor with DLQ. |
+| 3 | Saga + outbox pattern across two services; idempotent consumers. |
+| 4 | DDD & CQRS; event-storm a domain and model bounded contexts. |
+
+**Goal:** Design resilient distributed systems. **Artifact:** Project 1 (E-Commerce Saga) MVP.
+
+### Month 4 — Cloud, DevOps & Observability
+| Week | Milestones |
+|------|-----------|
+| 1 | Docker multi-stage builds + GitHub Actions CI pipeline. |
+| 2 | Kubernetes core objects + Helm chart; deploy a service. |
+| 3 | Terraform IaC to provision cluster + managed DB. |
+| 4 | Prometheus/Grafana + OpenTelemetry tracing across services. |
+
+**Goal:** Ship & operate services. **Artifact:** Fully deployed, observable service via Helm + Terraform.
+
+### Month 5 — System Design & Security
+| Week | Milestones |
+|------|-----------|
+| 1 | System design fundamentals; design URL shortener + rate limiter with ADRs. |
+| 2 | Design newsfeed/notification system; capacity estimation practice. |
+| 3 | OWASP Top 10, OAuth2/OIDC/JWT hardening; secure a resource server. |
+| 4 | Threat modeling (STRIDE), encryption & secrets management, dependency scanning. |
+
+**Goal:** Think like an architect; secure by design. **Artifact:** 3 system-design docs + hardened, threat-modeled service.
+
+### Month 6 — Leadership, Advanced Topics & Interview Prep
+| Week | Milestones |
+|------|-----------|
+| 1 | Spring WebFlux/reactive + BFF aggregation (Project 4). |
+| 2 | Spring Batch reporting system (Project 5); performance/contract testing. |
+| 3 | Leadership: run a design review, write ADRs, mentor a peer, practice estimation. |
+| 4 | Interview drills: Core Java, Spring, Microservices, System Design; mock interviews. |
+
+**Goal:** Lead technically & interview at target level. **Artifact:** 2 more portfolio projects + interview-ready across all clusters.
+
+### Recommended Certifications
+- **Cloud:** AWS Certified Solutions Architect – Associate **or** Microsoft Certified: Azure Solutions Architect Expert (AZ-305).
+- **Kubernetes:** CKA (Certified Kubernetes Administrator) or CKAD (Developer).
+- **Spring:** VMware Spring Professional / Spring Certified Professional.
+- **Java:** Oracle Certified Professional (OCP) Java SE 17/21 — optional if you already have deep experience.
+- **Terraform:** HashiCorp Certified: Terraform Associate.
+- **Security (optional):** CompTIA Security+ for foundational security literacy.
+
+> **Priority order for Architect track:** 1 Cloud architect cert ? CKA/CKAD ? Terraform Associate ? Spring Professional.
+
+---
+
+## Final Advice
+
+1. **Depth beats breadth for seniority** — pick one area (e.g., distributed systems + Kafka) and go truly deep; be "the person" for it.
+2. **Build in public** — GitHub, blog posts, internal tech talks. Visibility compounds.
+3. **Write ADRs habitually** — articulating trade-offs is the core skill of an architect.
+4. **Read production incidents & post-mortems** — real systems teach fault tolerance better than tutorials.
+5. **Grow people, not just code** — Tech Lead and Architect roles are measured by team leverage, not lines written.
+
+*Track progress by ticking off levels per topic. Revisit this roadmap monthly and adjust based on your target role and company's tech stack.*
