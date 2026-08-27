@@ -1,0 +1,2768 @@
+Worked for 13s
+
+Module 1.9 — Integrated Java Fundamentals Exercises
+
+Complete Deep-Mastery Question Bank
+
+Yes. For 1.9, the same pattern is especially useful because this module is an integration/practical module: it takes Modules 1.1–1.8 and converts the concepts into implementation, debugging, performance and production skills. The source explicitly describes 1.9 as converting the earlier concepts into implementation skill. 
+
+For every exercise, we will follow:
+
+> Basic → Intermediate → Advanced → Traps → Design → Debugging Challenges → Production
+
+
+
+
+---
+
+1.9.1 Build an Immutable Value Object
+
+The source's suggested domain is Money, containing amount and currency, with requirements around immutability, validation, equality, hashing and defensive copying. 
+
+Basic
+
+1. What is an immutable object?
+
+
+2. What characteristics make a Java object immutable?
+
+
+3. Why should mutable state normally be private?
+
+
+4. Why are fields generally final in an immutable class?
+
+
+5. Why should setters be avoided?
+
+
+6. Why should state be initialized through the constructor?
+
+
+7. Build:
+
+
+
+Money
+ ├── amount
+ └── currency
+
+8. Validate constructor arguments.
+
+
+9. Implement getters.
+
+
+10. Implement toString().
+
+
+
+Intermediate
+
+11. Why should the class usually be final?
+
+
+12. What happens if an immutable class contains a mutable field?
+
+
+13. What is defensive copying?
+
+
+14. Why isn't a final reference automatically immutable?
+
+
+15. Implement equals().
+
+
+16. Implement hashCode().
+
+
+17. Handle null correctly.
+
+
+18. Make Money safe as a HashMap key.
+
+
+19. Make Money safe in a HashSet.
+
+
+
+Advanced
+
+20. Add a mutable Date, List or Map field and protect it.
+
+
+21. Explain exactly how external mutation could break immutability.
+
+
+22. Implement immutable arithmetic:
+
+
+
+Money total = price.add(tax);
+
+23. Why is returning a new object preferable to mutating the existing object?
+
+
+24. Convert Money into a record.
+
+
+25. Compare the record against the traditional immutable class.
+
+
+26. Explain record equality/hashCode semantics.
+
+
+
+The source explicitly asks for these advanced record, defensive-copying and immutable-arithmetic exercises. 
+
+Traps
+
+27. Does final make an object immutable?
+
+
+28. Does an unmodifiable collection necessarily mean deep immutability?
+
+
+29. Can an immutable object contain mutable objects?
+
+
+30. Is a record automatically deeply immutable?
+
+
+31. Can an immutable class have lazy internal state?
+
+
+32. Why can exposing a mutable collection break immutability?
+
+
+33. Why can returning an internal mutable object be dangerous?
+
+
+
+Design
+
+34. Design an immutable Employee.
+
+
+35. Design an immutable Money.
+
+
+36. Design an immutable OrderId.
+
+
+37. Decide which fields participate in equality.
+
+
+38. Decide whether the class should be final or a record.
+
+
+39. Design the object for safe concurrent sharing.
+
+
+
+Debugging Challenges
+
+40. Find the mutable state leak.
+
+
+41. Find a broken equals().
+
+
+42. Find a broken hashCode().
+
+
+43. Find a setter that violates immutability.
+
+
+44. Diagnose a defensive-copy failure.
+
+
+45. Diagnose a HashMap failure caused by mutable equality state.
+
+
+
+Production
+
+46. Design an immutable value object for a concurrent service.
+
+
+47. Explain allocation implications.
+
+
+48. Explain garbage-collection implications.
+
+
+49. Explain sharing benefits.
+
+
+50. Explain defensive-copy costs.
+
+
+51. Explain when a record is appropriate.
+
+
+52. Perform a production code review of the value object.
+
+
+
+The source specifically requires explaining production benefits and the allocation, sharing, GC and defensive-copy trade-offs. 
+
+
+---
+
+1.9.2 Inheritance & Runtime Polymorphism
+
+The exercise requires a genuine hierarchy, overridden methods, runtime dispatch, overloading, field hiding, static method hiding and debugging unexpected dispatch. 
+
+Basic
+
+53. What is inheritance?
+
+
+54. What is runtime polymorphism?
+
+
+55. What is method overriding?
+
+
+56. What is dynamic method dispatch?
+
+
+57. Create a parent/child hierarchy.
+
+
+58. Override a method.
+
+
+59. Invoke the method through a parent reference.
+
+
+
+Intermediate
+
+60. What is compile-time polymorphism?
+
+
+61. What is method overloading?
+
+
+62. Overloading vs overriding?
+
+
+63. Demonstrate both in code.
+
+
+64. What happens when the reference type differs from the object type?
+
+
+65. Demonstrate field hiding.
+
+
+66. Demonstrate static method hiding.
+
+
+
+Advanced
+
+67. Explain exactly why overridden methods are selected at runtime.
+
+
+68. Explain why overloaded methods are selected at compile time.
+
+
+69. Explain why fields are not dynamically dispatched like methods.
+
+
+70. Explain static method hiding.
+
+
+71. Trace a complex parent/child dispatch example.
+
+
+72. Predict the output before execution.
+
+
+73. Inspect the relevant bytecode.
+
+
+
+Traps
+
+74. Does a parent reference mean a parent object exists?
+
+
+75. Are fields polymorphic?
+
+
+76. Are static methods overridden?
+
+
+77. Does overloading use runtime type?
+
+
+78. Does overriding use compile-time type?
+
+
+79. Does private method overriding exist?
+
+
+80. Can constructors be overridden?
+
+
+
+Design
+
+81. Design:
+
+
+
+PaymentProcessor
+ ├── CardPayment
+ ├── UpiPayment
+ └── BankTransferPayment
+
+82. Demonstrate runtime polymorphism.
+
+
+83. Decide whether inheritance is appropriate.
+
+
+84. Refactor a poor hierarchy into composition.
+
+
+
+Debugging Challenges
+
+85. Debug unexpected method dispatch.
+
+
+86. Debug field hiding.
+
+
+87. Debug static method hiding.
+
+
+88. Debug an incorrect overload selection.
+
+
+89. Predict the result before running.
+
+
+90. Use runtime type information to explain the result.
+
+
+
+Production
+
+91. Design a pluggable payment system.
+
+
+92. Decide interface vs abstract class vs composition.
+
+
+93. Explain polymorphism's production benefits.
+
+
+94. Explain potential allocation/performance implications.
+
+
+95. Explain when inheritance should be avoided.
+
+
+
+The source's performance exercises explicitly compare interface calls, virtual calls, final methods and static methods. 
+
+
+---
+
+1.9.3 Constructor Chaining
+
+The source requires constructor overloading, this(), super(), initialization order, static/instance blocks and bytecode investigation. 
+
+Basic
+
+96. What is constructor overloading?
+
+
+97. What is this()?
+
+
+98. What is super()?
+
+
+99. Why is constructor chaining useful?
+
+
+100. Create overloaded constructors.
+
+
+101. Chain constructors using this().
+
+
+
+Intermediate
+
+102. Chain to a parent constructor using super().
+
+
+103. Why must constructor invocation occur first?
+
+
+104. What happens when super() is omitted?
+
+
+105. How does constructor chaining prevent duplicate initialization?
+
+
+106. Predict constructor execution order.
+
+
+
+Advanced
+
+107. Explain:
+
+
+
+super()
+ ↓
+instance initialization
+ ↓
+constructor
+
+108. Explain parent-to-child initialization.
+
+
+109. Add static initialization.
+
+
+110. Add instance initialization blocks.
+
+
+111. Predict exact output.
+
+
+112. Inspect the generated bytecode.
+
+
+113. Explain constructor invocation at runtime.
+
+
+
+Traps
+
+114. Can this() and super() both appear explicitly in the same constructor?
+
+
+115. Can constructor calls occur after ordinary statements?
+
+
+116. Can constructors be inherited?
+
+
+117. Can constructors be overridden?
+
+
+118. Can a constructor be static?
+
+
+119. What happens if a superclass constructor calls an overridable method?
+
+
+
+Design
+
+120. Design constructor overloads without duplication.
+
+
+121. Centralize initialization.
+
+
+122. Decide which constructor should be the canonical constructor.
+
+
+123. Design immutable object construction.
+
+
+
+Debugging Challenges
+
+124. Diagnose constructor recursion.
+
+
+125. Diagnose incorrect initialization order.
+
+
+126. Diagnose parent constructor behavior.
+
+
+127. Diagnose virtual dispatch during construction.
+
+
+128. Debug unexpected output from static/instance blocks.
+
+
+
+Production
+
+129. Design safe constructors for domain objects.
+
+
+130. Prevent partially initialized objects.
+
+
+131. Avoid overridable method calls from constructors.
+
+
+132. Explain initialization order during a production bug investigation.
+
+
+
+
+---
+
+1.9.4 SOLID Implementation
+
+The source breaks this exercise into SRP, OCP, LSP, ISP, DIP and cross-principle trade-offs. 
+
+
+---
+
+A. SRP
+
+Basic
+
+133. What is SRP?
+
+
+134. Identify multiple responsibilities.
+
+
+135. Identify a God class.
+
+
+
+Intermediate
+
+136. Refactor a God class.
+
+
+137. Separate responsibilities.
+
+
+138. Explain each new class.
+
+
+
+Advanced
+
+139. Identify independent reasons to change.
+
+
+140. Determine meaningful class boundaries.
+
+
+141. Preserve cohesion after refactoring.
+
+
+
+Traps
+
+142. Does SRP mean one method per class?
+
+
+143. Does every large class violate SRP?
+
+
+144. Can excessive decomposition make the design worse?
+
+
+
+Design
+
+145. Refactor:
+
+
+
+OrderManager
+
+containing:
+
+validation
+pricing
+persistence
+email
+payment
+reporting
+
+Debugging Challenges
+
+146. Find the responsibility causing unrelated changes.
+
+
+147. Find duplicated logic introduced during refactoring.
+
+
+148. Verify behavior after extraction.
+
+
+
+Production
+
+149. Refactor a production God class without breaking clients.
+
+
+150. Explain why the final design is more cohesive.
+
+
+
+
+---
+
+1.9.5 OCP
+
+The source's exercise starts with a payment processor using conditionals and requires Strategy + Factory + Dependency Injection as the advanced implementation. 
+
+Basic
+
+151. What is OCP?
+
+
+152. Identify an extension problem.
+
+
+153. Why is repeated modification dangerous?
+
+
+
+Intermediate
+
+154. Build:
+
+
+
+PaymentProcessor
+ ├── Card
+ ├── UPI
+ └── Wallet
+
+155. Replace conditional branching with polymorphism.
+
+
+156. Add a new payment type.
+
+
+
+Advanced
+
+157. Implement Strategy.
+
+
+158. Implement Factory.
+
+
+159. Add Dependency Injection.
+
+
+160. Explain exactly which component supports OCP.
+
+
+161. Explain why the core processor doesn't need modification.
+
+
+
+Traps
+
+162. Does OCP mean never modifying existing code?
+
+
+163. Should every switch become a Strategy?
+
+
+164. Does every variation require an abstraction?
+
+
+165. Can OCP conflict with YAGNI?
+
+
+
+Design
+
+166. Design an extensible payment-provider architecture.
+
+
+167. Decide where the extension boundary belongs.
+
+
+168. Keep the business logic independent of provider-specific details.
+
+
+
+Debugging Challenges
+
+169. Find the code still violating OCP.
+
+
+170. Find hidden conditional branching.
+
+
+171. Verify adding a provider doesn't change core processing.
+
+
+
+Production
+
+172. Add a new provider without modifying the core processor.
+
+
+173. Explain the trade-off between OCP and architectural complexity.
+
+
+174. Explain when you would deliberately not introduce the abstraction.
+
+
+
+
+---
+
+1.9.6 LSP
+
+The source uses a deliberately broken Bird/Penguin hierarchy and then refactors it using FlyingBird or focused interfaces. 
+
+Basic
+
+175. What is LSP?
+
+
+176. What is behavioral substitutability?
+
+
+177. Create a parent/child relationship.
+
+
+
+Intermediate
+
+178. Why is this broken?
+
+
+
+class Penguin extends Bird {
+    @Override
+    void fly() {
+        throw new UnsupportedOperationException();
+    }
+}
+
+179. Identify the contract violation.
+
+
+180. Refactor the hierarchy.
+
+
+
+Advanced
+
+181. Explain preconditions.
+
+
+182. Explain postconditions.
+
+
+183. Explain invariants.
+
+
+184. Explain behavioral subtyping.
+
+
+185. Create contract tests for subtypes.
+
+
+
+Traps
+
+186. Does extends automatically establish valid substitutability?
+
+
+187. Is throwing UnsupportedOperationException always an LSP violation?
+
+
+188. Can composition solve the problem?
+
+
+
+Design
+
+189. Design:
+
+
+
+Bird
+ ├── FlyingBird
+ │    ├── Eagle
+ │    └── Sparrow
+ └── Penguin
+
+190. Or design focused interfaces.
+
+
+191. Explain why each subtype satisfies the contract.
+
+
+
+Debugging Challenges
+
+192. Find a subtype violating the parent contract.
+
+
+193. Find a strengthened precondition.
+
+
+194. Find a weakened guarantee.
+
+
+195. Repair the hierarchy.
+
+
+
+Production
+
+196. Review a real inheritance hierarchy for LSP.
+
+
+197. Explain the consequences of violating substitutability.
+
+
+198. Decide inheritance vs composition.
+
+
+
+
+---
+
+1.9.7 ISP
+
+The source uses the Machine fat-interface example and then asks for focused interfaces and client-specific payment interfaces. 
+
+Basic
+
+199. What is ISP?
+
+
+200. What is a fat interface?
+
+
+201. Why is the following problematic?
+
+
+
+interface Machine {
+    void print();
+    void scan();
+    void fax();
+}
+
+Intermediate
+
+202. Split it into:
+
+
+
+Printer
+Scanner
+Fax
+
+203. Implement a simple printer.
+
+
+204. Implement a multifunction machine.
+
+
+205. Make clients depend only on required capabilities.
+
+
+
+Advanced
+
+206. Design:
+
+
+
+PaymentProvider
+PaymentRefundProvider
+PaymentStatusProvider
+
+207. Determine whether splitting actually improves clients.
+
+
+208. Explain client-specific interfaces.
+
+
+
+Traps
+
+209. Does ISP mean every interface should contain one method?
+
+
+210. Is every large interface automatically bad?
+
+
+211. Can too many interfaces hurt readability?
+
+
+
+Design
+
+212. Design focused interfaces for a payment system.
+
+
+213. Design interfaces around client needs rather than implementation hierarchy.
+
+
+
+Debugging Challenges
+
+214. Find unnecessary dependencies.
+
+
+215. Identify methods clients don't need.
+
+
+216. Refactor without breaking consumers.
+
+
+
+Production
+
+217. Refactor a widely used fat interface.
+
+
+218. Maintain backward compatibility.
+
+
+219. Decide when not to split an interface.
+
+
+
+
+---
+
+1.9.8 DIP
+
+The source specifically requires replacing direct infrastructure dependencies with abstractions, constructor injection, and understanding that DIP and DI are not the same. 
+
+Basic
+
+220. What is DIP?
+
+
+221. What is dependency inversion?
+
+
+222. Why is this problematic?
+
+
+
+new MySqlOrderRepository()
+
+inside OrderService.
+
+Intermediate
+
+223. Create:
+
+
+
+interface OrderRepository {
+    void save(Order order);
+}
+
+224. Inject it through the constructor.
+
+
+225. Implement MySQL and in-memory versions.
+
+
+226. Unit-test using the in-memory implementation.
+
+
+
+Advanced
+
+227. DIP vs Dependency Injection?
+
+
+228. Can DIP exist without Spring?
+
+
+229. Why shouldn't every class automatically get an interface?
+
+
+230. What should the abstraction represent?
+
+
+
+Traps
+
+231. Does constructor injection automatically mean DIP?
+
+
+232. Does Spring automatically create good architecture?
+
+
+233. Does every dependency need an interface?
+
+
+
+Design
+
+234. Design infrastructure-independent business logic.
+
+
+235. Decide where repository abstractions belong.
+
+
+236. Design the dependency direction.
+
+
+
+Debugging Challenges
+
+237. Find concrete infrastructure dependencies.
+
+
+238. Diagnose a service that cannot be unit tested.
+
+
+239. Refactor to dependency inversion.
+
+
+
+Production
+
+240. Design the repository boundary for a Spring Boot application.
+
+
+241. Explain how DIP enables infrastructure replacement.
+
+
+242. Explain when adding an interface would be unnecessary.
+
+
+
+
+---
+
+1.9.9 Composition Over Inheritance
+
+The source's exercise uses Vehicle/ElectricCar and then introduces interchangeable Engine, Transmission, Navigation and Payment behaviors. 
+
+Basic
+
+243. What is composition?
+
+
+244. What is inheritance?
+
+
+245. IS-A vs HAS-A?
+
+
+246. Why might composition be preferred?
+
+
+
+Intermediate
+
+247. Identify independently varying behavior.
+
+
+248. Extract interfaces where justified.
+
+
+249. Inject implementations.
+
+
+250. Replace inheritance with composition.
+
+
+
+Advanced
+
+251. Implement Strategy using composition.
+
+
+252. Explain how composition supports OCP.
+
+
+253. Explain how it supports DIP.
+
+
+254. Explain testability benefits.
+
+
+
+Traps
+
+255. Is inheritance always bad?
+
+
+256. Is composition always better?
+
+
+257. Can composition create excessive delegation?
+
+
+
+Design
+
+258. Design:
+
+
+
+Car
+ ├── Engine
+ ├── Navigation
+ └── Transmission
+
+259. Make each behavior independently replaceable.
+
+
+260. Explain why composition is appropriate.
+
+
+
+Debugging Challenges
+
+261. Identify behavior incorrectly locked into inheritance.
+
+
+262. Refactor the hierarchy.
+
+
+263. Verify no behavior was lost.
+
+
+
+Production
+
+264. Review a deep production inheritance hierarchy.
+
+
+265. Decide which parts should become composition.
+
+
+266. Explain the trade-offs.
+
+
+
+
+---
+
+1.9.10 Coupling & Cohesion
+
+The source deliberately provides an ApplicationManager with unrelated responsibilities and asks you to identify low cohesion, high coupling and a possible God class. 
+
+Basic
+
+267. What is coupling?
+
+
+268. What is cohesion?
+
+
+269. What is high cohesion?
+
+
+270. What is low coupling?
+
+
+271. Why do we care about both?
+
+
+
+Intermediate
+
+272. Analyze:
+
+
+
+class ApplicationManager {
+    void processPayment() {}
+    void sendEmail() {}
+    void generateReport() {}
+    void connectDatabase() {}
+    void resizeImage() {}
+}
+
+273. Identify low cohesion.
+
+
+274. Identify high coupling.
+
+
+275. Identify multiple responsibilities.
+
+
+276. Identify the God-class smell.
+
+
+
+Advanced
+
+277. Refactor into cohesive components.
+
+
+278. Build a dependency graph.
+
+
+279. Determine change propagation.
+
+
+280. Explain how dependency direction affects coupling.
+
+
+
+Traps
+
+281. Is zero coupling possible?
+
+
+282. Is lower coupling always better?
+
+
+283. Does splitting every method improve cohesion?
+
+
+284. Can excessive decomposition reduce cohesion?
+
+
+
+Design
+
+285. Design cohesive components for the application.
+
+
+286. Minimize unnecessary dependencies.
+
+
+287. Explain the boundaries.
+
+
+
+Debugging Challenges
+
+288. A change in component C breaks A and B. Trace the dependency graph.
+
+
+289. Identify the coupling responsible.
+
+
+290. Refactor the dependency.
+
+
+
+Production
+
+291. Compare before/after architecture.
+
+
+292. Explain how the new design reduces blast radius.
+
+
+293. Evaluate whether the refactoring was actually worthwhile.
+
+
+
+
+---
+
+1.9.11 DRY Without Over-Abstraction
+
+The source explicitly asks you to distinguish duplicated code from duplicated business knowledge. 
+
+Basic
+
+294. What does DRY mean?
+
+
+295. What is code duplication?
+
+
+296. What is duplicated business knowledge?
+
+
+
+Intermediate
+
+297. Two validations look identical. Should they be extracted?
+
+
+298. Determine whether they represent the same business rule.
+
+
+299. Extract genuine shared knowledge.
+
+
+
+Advanced
+
+300. Explain accidental vs semantic duplication.
+
+
+301. Explain premature abstraction.
+
+
+302. Explain why DRY can increase coupling.
+
+
+303. Compare readability before and after.
+
+
+
+Traps
+
+304. Is every repeated line a DRY violation?
+
+
+305. Should similar code always be merged?
+
+
+306. Can DRY create a giant utility class?
+
+
+307. Can DRY create the wrong abstraction?
+
+
+
+Design
+
+308. Identify true shared business rules.
+
+
+309. Extract a meaningful abstraction.
+
+
+310. Keep unrelated rules independent.
+
+
+
+Debugging Challenges
+
+311. Find duplicated logic that has diverged.
+
+
+312. Identify inconsistent business behavior.
+
+
+313. Refactor and verify all callers.
+
+
+
+Production
+
+314. When should duplication intentionally remain?
+
+
+315. How do you balance DRY against KISS?
+
+
+316. How do you balance DRY against YAGNI?
+
+
+
+
+---
+
+1.9.12 KISS & YAGNI
+
+The source gives a CSV-export scenario where the system has been unnecessarily designed for CSV/XML/JSON/PDF/Excel despite requiring only CSV. 
+
+Basic
+
+317. What is KISS?
+
+
+318. What is YAGNI?
+
+
+319. What is overengineering?
+
+
+320. What is speculative abstraction?
+
+
+
+Intermediate
+
+321. Identify the unnecessary abstractions in:
+
+
+
+ExportFactory
+ ↓
+ExportStrategy
+ ↓
+ExportProvider
+ ↓
+FormatRegistry
+ ↓
+CSV/XML/JSON/PDF/Excel
+
+322. Implement the simplest valid CSV solution.
+
+
+323. Identify unnecessary future-proofing.
+
+
+
+Advanced
+
+324. Where could OCP still be useful?
+
+
+325. Why doesn't YAGNI mean poor architecture?
+
+
+326. How do you distinguish legitimate extensibility from speculative extensibility?
+
+
+327. When should future requirements influence architecture?
+
+
+
+Traps
+
+328. Does YAGNI mean never planning for change?
+
+
+329. Does KISS mean no design patterns?
+
+
+330. Does simple mean fewer lines of code?
+
+
+331. Can YAGNI produce underengineering?
+
+
+
+Design
+
+332. Design the simplest valid CSV export system.
+
+
+333. Identify the first point where a new format would justify abstraction.
+
+
+334. Explain how you would evolve the design when that requirement actually arrives.
+
+
+
+Debugging Challenges
+
+335. Remove unnecessary abstractions.
+
+
+336. Verify no required functionality was removed.
+
+
+337. Identify complexity that doesn't provide business value.
+
+
+
+Production
+
+338. Defend the simpler architecture in an architecture review.
+
+
+339. Explain when you would introduce Strategy/Factory.
+
+
+340. Balance OCP with YAGNI.
+
+
+
+
+---
+
+1.9.13 Law of Demeter
+
+The source specifically requires distinguishing harmful object-graph navigation from legitimate method chaining. 
+
+Basic
+
+341. What is the Law of Demeter?
+
+
+342. What is object-graph navigation?
+
+
+343. Why can deep navigation create coupling?
+
+
+
+Intermediate
+
+344. Analyze:
+
+
+
+order.getCustomer()
+     .getAddress()
+     .getCountry()
+     .getCode();
+
+345. Identify the structural coupling.
+
+
+346. Move behavior to the appropriate abstraction.
+
+
+
+Advanced
+
+347. Design:
+
+
+
+order.getShippingCountryCode();
+
+348. Explain why the behavior belongs in Order—if it genuinely does.
+
+
+349. Compare object navigation with fluent APIs.
+
+
+350. Explain why method chaining itself isn't the problem.
+
+
+
+Traps
+
+351. Is every method chain a Law of Demeter violation?
+
+
+352. Is:
+
+
+
+stream.map(...).filter(...).toList();
+
+equivalent to deep domain navigation? 353. Should all getters be removed?
+
+Design
+
+354. Refactor excessive domain navigation.
+
+
+355. Create meaningful behavior APIs.
+
+
+356. Preserve legitimate fluent APIs.
+
+
+
+Debugging Challenges
+
+357. Identify structural coupling.
+
+
+358. Find the object that knows too much about another object's internals.
+
+
+359. Refactor without moving behavior to the wrong object.
+
+
+
+Production
+
+360. Review chained access in a production codebase.
+
+
+361. Distinguish harmful navigation from legitimate fluent APIs.
+
+
+362. Explain when violating the principle is reasonable.
+
+
+
+
+---
+
+1.9.14 Tell, Don't Ask
+
+The source uses Account.withdraw(amount) as the central refactoring exercise and requires the object to own validation, balance checks, invariants and state updates. 
+
+Basic
+
+363. What is Tell Don't Ask?
+
+
+364. Why should an object own behavior related to its state?
+
+
+365. What is encapsulation's role?
+
+
+
+Intermediate
+
+366. Identify the problem:
+
+
+
+if (account.getBalance().compareTo(amount) >= 0) {
+    account.setBalance(
+        account.getBalance().subtract(amount)
+    );
+}
+
+367. Refactor it to:
+
+
+
+account.withdraw(amount);
+
+368. Move validation into Account.
+
+
+369. Move invariant enforcement into Account.
+
+
+
+Advanced
+
+370. Design:
+
+
+
+Order
+Payment
+Account
+InventoryItem
+
+371. Decide which object owns each behavior.
+
+
+372. Explain why the service shouldn't manipulate every object's internals.
+
+
+373. Explain the relationship between Tell Don't Ask and SRP.
+
+
+
+Traps
+
+374. Does Tell Don't Ask mean getters are forbidden?
+
+
+375. Are DTOs violating Tell Don't Ask?
+
+
+376. Should every piece of logic live inside domain objects?
+
+
+377. Can application services still contain business orchestration?
+
+
+
+Design
+
+378. Design a domain-rich Account.
+
+
+379. Design Order.cancel().
+
+
+380. Design InventoryItem.reserve().
+
+
+381. Design Payment.refund().
+
+
+
+Debugging Challenges
+
+382. Find business logic scattered across services.
+
+
+383. Identify broken invariants.
+
+
+384. Move behavior to the correct abstraction.
+
+
+385. Verify state transitions.
+
+
+
+Production
+
+386. Decide domain model vs service-layer responsibility.
+
+
+387. Explain when Tell Don't Ask should not be applied dogmatically.
+
+
+388. Design domain behavior for a real order-processing system.
+
+
+
+
+---
+
+1.9.15 Pass-by-Value Debugging
+
+The source explicitly requires four experiments: primitive reassignment, object mutation, reference reassignment, and mutation + reassignment. 
+
+Basic
+
+389. Is Java pass-by-value?
+
+
+390. What is copied when a primitive is passed?
+
+
+391. What is copied when an object reference is passed?
+
+
+
+Intermediate
+
+392. Predict Example A:
+
+
+
+static void change(int value) {
+    value = 100;
+}
+
+393. Predict Example B:
+
+
+
+static void change(User user) {
+    user.name = "Bob";
+}
+
+394. Predict Example C:
+
+
+
+static void change(User user) {
+    user = new User("Bob");
+}
+
+Advanced
+
+395. Explain mutation vs reassignment.
+
+
+396. Draw the reference/value model.
+
+
+397. Explain why caller-visible mutation occurs.
+
+
+398. Explain why caller reference reassignment doesn't occur.
+
+
+399. Repeat the experiment with arrays.
+
+
+400. Repeat with lists.
+
+
+401. Repeat with maps.
+
+
+402. Repeat with Strings.
+
+
+403. Repeat with records.
+
+
+404. Repeat with final references.
+
+
+
+Traps
+
+405. "Java passes objects by reference." Explain the mistake.
+
+
+406. Does user = new User(...) replace the caller's object?
+
+
+407. Does user.name = ... affect the caller?
+
+
+408. Does final User user make the object immutable?
+
+
+
+Design
+
+409. Design APIs minimizing accidental mutation.
+
+
+410. Decide when to return a new object.
+
+
+411. Decide when defensive copying is required.
+
+
+412. Decide when immutable state is preferable.
+
+
+
+Debugging Challenges
+
+413. Debug primitive reassignment.
+
+
+414. Debug object mutation.
+
+
+415. Debug reference reassignment.
+
+
+416. Debug aliasing.
+
+
+417. Draw the caller/parameter/object diagram.
+
+
+
+Production
+
+418. Identify mutation hazards in an API.
+
+
+419. Decide where defensive copying is justified.
+
+
+420. Refactor mutable state to immutable state where appropriate.
+
+
+421. Explain the production trade-off between copying and sharing.
+
+
+
+
+---
+
+1.9.16 Combined Production-Style Order Domain
+
+The source combines immutable value objects, OOP, initialization, SOLID, composition, equality and intentional bugs into one Order domain. 
+
+Basic
+
+422. Create:
+
+
+
+Order
+├── OrderId
+├── Customer
+├── OrderItem
+├── OrderStatus
+└── Money
+
+423. Implement basic encapsulation.
+
+
+424. Implement constructors.
+
+
+425. Implement enum OrderStatus.
+
+
+
+Intermediate
+
+426. Make OrderId immutable.
+
+
+427. Make Money immutable.
+
+
+428. Implement equals()/hashCode().
+
+
+429. Implement:
+
+
+
+PaymentProcessor
+ ├── CardPayment
+ ├── UpiPayment
+ └── BankTransferPayment
+
+430. Demonstrate runtime polymorphism.
+
+
+431. Add constructor chaining.
+
+
+
+Advanced
+
+432. Apply SRP.
+
+
+433. Apply OCP.
+
+
+434. Apply LSP.
+
+
+435. Apply ISP.
+
+
+436. Apply DIP.
+
+
+437. Apply composition.
+
+
+438. Verify HashMap behavior.
+
+
+439. Verify HashSet behavior.
+
+
+440. Explain identity vs equality.
+
+
+
+Traps
+
+441. Introduce mutable equality state.
+
+
+442. Introduce incorrect hashCode().
+
+
+443. Introduce a constructor-order bug.
+
+
+444. Introduce a polymorphism bug.
+
+
+445. Introduce a pass-by-value misconception.
+
+
+446. Introduce a null-handling bug.
+
+
+
+Design
+
+447. Add:
+
+
+
+PricingPolicy
+PaymentProcessor
+NotificationService
+
+as composed dependencies. 448. Decide where each abstraction belongs. 449. Explain every abstraction. 450. Decide which abstractions are unnecessary.
+
+Debugging Challenges
+
+451. Debug incorrect equality.
+
+
+452. Debug HashMap failure.
+
+
+453. Debug constructor initialization.
+
+
+454. Debug runtime dispatch.
+
+
+455. Debug reference aliasing.
+
+
+456. Debug null handling.
+
+
+
+Production
+
+457. Complete the full Order Domain.
+
+
+458. Write unit tests.
+
+
+459. Handle edge cases.
+
+
+460. Explain performance.
+
+
+461. Explain design trade-offs.
+
+
+462. Perform a self-code review.
+
+
+463. Defend the architecture as a senior engineer.
+
+
+
+
+---
+
+1.9.17 Integrated Debugging Challenges
+
+The source explicitly includes equality, mutable-key, polymorphism, constructor-dispatch and initialization-order bugs. 
+
+Challenge 1 — Equality Bug
+
+464. Remove hashCode() from a class that overrides equals().
+
+
+465. Put instances in HashSet.
+
+
+466. Predict behavior.
+
+
+467. Explain why.
+
+
+468. Repair it.
+
+
+
+Challenge 2 — Mutable HashMap Key
+
+469. Use a mutable field in hashCode().
+
+
+470. Insert object into HashMap.
+
+
+471. Mutate the field.
+
+
+472. Perform lookup.
+
+
+473. Explain why lookup can fail.
+
+
+474. Repair the design.
+
+
+
+Challenge 3 — Polymorphism
+
+475. Create an overload and override with similar signatures.
+
+
+476. Determine compile-time selection.
+
+
+477. Determine runtime selection.
+
+
+478. Explain why they differ.
+
+
+
+Challenge 4 — Constructor Dispatch
+
+479. Call an overridable method from a superclass constructor.
+
+
+480. Observe subclass state before initialization.
+
+
+481. Explain why this is dangerous.
+
+
+482. Refactor the constructor.
+
+
+
+Challenge 5 — Initialization Order
+
+483. Create:
+
+
+
+static field
+static block
+instance field
+instance block
+constructor
+
+484. Place them across parent/child classes.
+
+
+485. Predict exact output.
+
+
+486. Run it.
+
+
+487. Explain the difference between prediction and result.
+
+
+
+
+---
+
+1.9.18 Performance Exercises
+
+The source explicitly requires comparing mutable/immutable objects, benchmarking varargs vs arrays, and investigating interface/virtual/final/static calls using appropriate tooling. 
+
+Basic
+
+488. What does allocation mean?
+
+
+489. What is garbage collection?
+
+
+490. How can immutability affect allocation?
+
+
+491. How can sharing affect allocation?
+
+
+492. Why does defensive copying have a cost?
+
+
+
+Intermediate
+
+493. Compare mutable vs immutable objects.
+
+
+494. Compare allocation rates.
+
+
+495. Compare GC pressure.
+
+
+496. Compare thread-safety implications.
+
+
+497. Compare sharing behavior.
+
+
+
+Advanced
+
+498. Benchmark:
+
+
+
+sum(int... values)
+
+against:
+
+sum(int[] values)
+
+499. Explain why varargs can allocate.
+
+
+500. Compare interface calls.
+
+
+501. Compare virtual method calls.
+
+
+502. Compare final methods.
+
+
+503. Compare static methods.
+
+
+504. Investigate using JMH or a profiler.
+
+
+
+Traps
+
+505. Is varargs always slower?
+
+
+506. Is final automatically faster?
+
+
+507. Is static automatically faster?
+
+
+508. Does one System.nanoTime() run prove anything?
+
+
+509. Does allocation always mean a performance problem?
+
+
+
+Design
+
+510. Decide when performance justifies avoiding varargs.
+
+
+511. Decide when immutability's benefits outweigh allocations.
+
+
+512. Decide when defensive copying is worth the cost.
+
+
+
+Debugging Challenges
+
+513. Diagnose excessive allocation.
+
+
+514. Diagnose unexpected GC pressure.
+
+
+515. Identify a misleading microbenchmark.
+
+
+516. Investigate a suspected polymorphism performance issue.
+
+
+
+Production
+
+517. Use JMH appropriately.
+
+
+518. Use a profiler where appropriate.
+
+
+519. Explain escape analysis and inlining at the appropriate level.
+
+
+520. Avoid making performance claims without measurement.
+
+
+
+The source explicitly warns not to infer production performance from a naïve System.nanoTime() microbenchmark. 
+
+
+---
+
+1.9.19 Senior / Production Challenge
+
+Basic
+
+521. What makes a class immutable?
+
+
+522. What is runtime polymorphism?
+
+
+523. What is constructor chaining?
+
+
+524. What is SRP?
+
+
+525. What is pass-by-value?
+
+
+
+Intermediate
+
+526. Why does object mutation survive a method call?
+
+
+527. Why doesn't reference reassignment affect the caller?
+
+
+528. Why should equals() and hashCode() be implemented together?
+
+
+529. Composition vs inheritance?
+
+
+530. What is OCP?
+
+
+
+Advanced
+
+531. Explain dynamic dispatch.
+
+
+532. Explain constructor initialization order.
+
+
+533. Explain LSP using a production example.
+
+
+534. Explain DIP vs DI.
+
+
+535. Why are immutable objects useful for concurrency?
+
+
+536. How can mutable keys break HashMap?
+
+
+537. Why are overloads resolved differently from overrides?
+
+
+
+Traps
+
+538. Should every class be immutable?
+
+
+539. Should every dependency have an interface?
+
+
+540. Should every duplicate piece of code be extracted?
+
+
+541. Should every inheritance hierarchy be replaced?
+
+
+542. Should every future requirement get an abstraction?
+
+
+543. Should every performance concern be optimized?
+
+
+
+Design
+
+544. Design a production payment abstraction.
+
+
+545. Design immutable domain objects.
+
+
+546. Design a cohesive order domain.
+
+
+547. Design extension points without overengineering.
+
+
+548. Decide where composition belongs.
+
+
+
+Debugging Challenges
+
+549. Diagnose incorrect equality.
+
+
+550. Diagnose a HashMap production failure.
+
+
+551. Diagnose unexpected polymorphic dispatch.
+
+
+552. Diagnose constructor-order behavior.
+
+
+553. Diagnose reference/aliasing problems.
+
+
+
+Production
+
+554. Refactor a God class using SOLID without overengineering.
+
+
+555. Design a payment abstraction supporting new providers.
+
+
+556. Explain when not to use inheritance.
+
+
+557. Explain when DRY should not be applied.
+
+
+558. Balance OCP against YAGNI.
+
+
+559. Diagnose a production equality bug.
+
+
+560. Explain object references and memory retention.
+
+
+561. Design immutable domain objects for concurrent services.
+
+
+
+These are explicitly part of the source's senior/production challenge set. 
+
+
+---
+
+🏆 1.9.20 Final Mastery Gate
+
+Do not mark Module 1.9 complete merely because all exercises compile.
+
+The source's final gate requires implementation, explanation, testing, debugging, performance analysis, design trade-offs, production review and senior-level reasoning. 
+
+Immutable Value Object
+
+[ ] Implement one from scratch.
+
+[ ] Explain immutability.
+
+[ ] Implement equals()/hashCode().
+
+[ ] Protect mutable state.
+
+[ ] Explain production benefits.
+
+
+OOP
+
+[ ] Implement inheritance.
+
+[ ] Implement interfaces.
+
+[ ] Demonstrate runtime polymorphism.
+
+[ ] Explain dynamic dispatch.
+
+[ ] Distinguish overloading from overriding.
+
+[ ] Debug field/static-method hiding.
+
+
+Initialization
+
+[ ] Implement constructor overloading.
+
+[ ] Implement this().
+
+[ ] Implement super().
+
+[ ] Predict initialization order.
+
+[ ] Explain parent-to-child initialization.
+
+[ ] Debug constructor dispatch.
+
+
+SOLID
+
+[ ] Implement SRP.
+
+[ ] Implement OCP.
+
+[ ] Implement LSP.
+
+[ ] Implement ISP.
+
+[ ] Implement DIP.
+
+[ ] Explain when each should and should not be applied.
+
+
+Design Principles
+
+[ ] Apply composition over inheritance.
+
+[ ] Identify coupling.
+
+[ ] Improve cohesion.
+
+[ ] Apply DRY appropriately.
+
+[ ] Apply KISS.
+
+[ ] Apply YAGNI.
+
+[ ] Apply Law of Demeter.
+
+[ ] Apply Tell Don't Ask.
+
+
+Pass-by-Value
+
+[ ] Explain primitive pass-by-value.
+
+[ ] Explain reference-value copying.
+
+[ ] Demonstrate object mutation.
+
+[ ] Demonstrate reference reassignment.
+
+[ ] Explain arrays and collections.
+
+[ ] Explain why Java does not pass objects by reference.
+
+
+Debugging
+
+[ ] Debug equality errors.
+
+[ ] Debug hash-based collection errors.
+
+[ ] Debug constructor-order problems.
+
+[ ] Debug polymorphism issues.
+
+[ ] Debug reference/aliasing problems.
+
+
+Production
+
+[ ] Complete the Order Domain project.
+
+[ ] Write unit tests.
+
+[ ] Handle edge cases.
+
+[ ] Explain performance implications.
+
+[ ] Explain design trade-offs.
+
+[ ] Perform a code review of your own solution.
+
+[ ] Answer senior-level interview questions.
+
+
+These completion criteria come directly from the module's final mastery gate. 
+
+
+---
+
+🔥 1.9 — Final Integrated Challenge
+
+After all individual exercises, build one complete production-style Order Processing System:
+
+Order System
+                              │
+        ┌─────────────────────┼─────────────────────┐
+        ↓                     ↓                     ↓
+     Order                 Customer              Money
+        │
+        ├── OrderId
+        ├── OrderItem
+        └── OrderStatus
+                  │
+                  ↓
+          PaymentProcessor
+          ├── Card
+          ├── UPI
+          └── Bank Transfer
+
+It should demonstrate:
+
+Core Java
+
+constructors
+
+this()
+
+super()
+
+initialization order
+
+access modifiers
+
+final
+
+static
+
+
+OOP
+
+inheritance
+
+interfaces
+
+abstraction
+
+overloading
+
+overriding
+
+runtime polymorphism
+
+dynamic dispatch
+
+
+Object Model
+
+Object
+
+equals()
+
+hashCode()
+
+toString()
+
+identity
+
+mutable-key behavior
+
+
+Design
+
+SRP
+
+OCP
+
+LSP
+
+ISP
+
+DIP
+
+composition
+
+coupling
+
+cohesion
+
+DRY
+
+KISS
+
+YAGNI
+
+Law of Demeter
+
+Tell Don't Ask
+
+
+Debugging
+
+Intentionally introduce:
+
+❌ broken equals()
+❌ missing hashCode()
+❌ mutable HashMap key
+❌ wrong constructor order
+❌ polymorphism bug
+❌ pass-by-value misconception
+❌ aliasing bug
+❌ null handling bug
+
+Then diagnose and fix every one.
+
+Performance
+
+Measure rather than guess:
+
+Mutable vs immutable
+Varargs vs array
+Interface dispatch
+Virtual dispatch
+Final method
+Static method
+Allocation
+GC
+
+Use JMH/profiling where appropriate rather than relying on naïve microbenchmarks. 
+
+
+---
+
+⭐ Module 1.9 Mastery Progression
+
+The most important thing about 1.9 is that it should not feel like another theory module.
+
+Your progression should be:
+
+1. Understand
+      ↓
+2. Design
+      ↓
+3. Implement
+      ↓
+4. Test
+      ↓
+5. Break intentionally
+      ↓
+6. Debug
+      ↓
+7. Inspect internals
+      ↓
+8. Measure performance
+      ↓
+9. Refactor
+      ↓
+10. Defend design decisions
+      ↓
+11. Apply in production
+
+That is consistent with the source's mastery cycle: understand → design → implement → test → explain → understand runtime behavior → analyze performance → refactor → debug → discuss production trade-offs → answer interview questions. 
+
+The 20 highest-value 1.9 questions
+
+1. Build a genuinely immutable Money.
+
+
+2. Explain why final doesn't equal immutability.
+
+
+3. Implement correct equals()/hashCode().
+
+
+4. Make the object safe as a HashMap key.
+
+
+5. Demonstrate runtime polymorphism.
+
+
+6. Explain overloading vs overriding.
+
+
+7. Explain field hiding vs method overriding.
+
+
+8. Predict constructor/initialization order.
+
+
+9. Refactor a God class using SRP.
+
+
+10. Design an extensible payment processor using OCP.
+
+
+11. Repair the Bird/Penguin LSP violation.
+
+
+12. Refactor a fat interface using ISP.
+
+
+13. Apply DIP without blindly creating interfaces everywhere.
+
+
+14. Replace inappropriate inheritance with composition.
+
+
+15. Distinguish coupling from cohesion.
+
+
+16. Apply DRY without creating the wrong abstraction.
+
+
+17. Balance KISS/YAGNI against OCP.
+
+
+18. Prove Java is pass-by-value using mutation vs reassignment.
+
+
+19. Diagnose a mutable-key HashMap failure.
+
+
+20. Build and defend the complete production-style Order Domain.
+
+
+
+That makes 1.9 the practical capstone of Modules 1.1–1.8 rather than just another list of exercises—the source explicitly defines it as converting those earlier concepts into implementation skill. 
