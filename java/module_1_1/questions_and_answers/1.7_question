@@ -1,0 +1,2795 @@
+Module 1.7 — Java Keywords & Modifiers
+
+Complete Mastery Question Bank
+
+Yes — for 1.7 I’ll follow exactly the pattern you specified for 1.4 and 1.6:
+
+> Basic → Intermediate → Advanced → Traps → Design → Debugging Challenges → Production
+
+
+
+And I’ll apply that structure to every modifier/subtopic, rather than grouping all interview questions separately.
+
+Your Module 1.7 covers access control, final, static, abstract, default, synchronized, volatile, transient, native, strictfp, sealed types, modifier interactions, JMM implications and production decisions. 
+
+
+---
+
+1.7.1 Modifier Classification
+
+Before individual modifiers, understand the categories.
+
+Basic
+
+1. What is a Java modifier?
+
+
+2. Why does Java have modifiers?
+
+
+3. Which modifiers control access?
+
+
+4. Which modifiers affect class/member design?
+
+
+5. Which modifiers affect concurrency?
+
+
+6. Which modifiers affect serialization?
+
+
+7. Which modifiers interact with native code?
+
+
+8. Which modifier affects floating-point semantics?
+
+
+
+Intermediate
+
+9. Classify:
+
+
+
+public
+protected
+private
+final
+static
+abstract
+synchronized
+volatile
+transient
+native
+strictfp
+sealed
+non-sealed
+
+10. Which modifiers apply to classes?
+
+
+11. Which apply to methods?
+
+
+12. Which apply to fields?
+
+
+13. Which combinations are legal?
+
+
+14. Which combinations are impossible by definition?
+
+
+
+Advanced
+
+15. How do modifiers communicate design intent?
+
+
+16. How do modifiers affect compiler checks?
+
+
+17. Which modifiers affect JVM/runtime behavior?
+
+
+18. Which modifiers have JMM implications?
+
+
+19. Which modifiers primarily affect API design?
+
+
+20. Which modifiers affect inheritance boundaries?
+
+
+
+Traps
+
+21. Is every modifier a keyword?
+
+
+22. Is package-private a keyword?
+
+
+23. Is default always a modifier?
+
+
+24. Is volatile equivalent to atomicity?
+
+
+25. Is final equivalent to immutability?
+
+
+26. Is public equivalent to globally accessible?
+
+
+
+Design
+
+27. Design a modifier strategy for a public Java library.
+
+
+28. Decide which members should be public/private.
+
+
+29. Decide which classes should be final/sealed/abstract.
+
+
+30. Decide which state should be static/final/volatile.
+
+
+
+Debugging Challenges
+
+31. Given a class with 15 modifiers, identify unnecessary or illegal combinations.
+
+
+32. Identify why a member is inaccessible.
+
+
+33. Identify why inheritance is unexpectedly prevented.
+
+
+34. Identify why a concurrent field behaves incorrectly.
+
+
+
+Production
+
+35. How should modifiers communicate API intent?
+
+
+36. How should modifiers communicate concurrency intent?
+
+
+37. How can overexposure become a security/maintenance problem?
+
+
+38. How can modifier misuse create production bugs?
+
+
+
+
+---
+
+1.7.2 public
+
+Basic
+
+39. What does public mean?
+
+
+40. Where can public be used?
+
+
+41. What is a public class?
+
+
+42. What is a public method?
+
+
+43. What is a public field?
+
+
+
+Intermediate
+
+44. Can another package access a public class?
+
+
+45. Can another package access a public method?
+
+
+46. Can a public member belong to a private/inaccessible enclosing type?
+
+
+47. What is the relationship between public and package boundaries?
+
+
+48. What is the relationship between public and JPMS modules?
+
+
+
+Advanced
+
+49. Does public automatically mean globally accessible?
+
+
+50. How does module readability affect public accessibility?
+
+
+51. How do module exports affect public types?
+
+
+52. How does reflection interact with access control?
+
+
+53. How does public API design affect binary compatibility?
+
+
+
+Traps
+
+54. Should every service method be public?
+
+
+55. Should every field be public?
+
+
+56. Does public mean anyone can access it under JPMS?
+
+
+57. Does a public class automatically expose all its implementation details?
+
+
+
+Design
+
+58. Design a public API with minimal exposure.
+
+
+59. Decide which methods should remain private.
+
+
+60. Design a library API using interfaces and public types.
+
+
+61. Hide implementation details.
+
+
+
+Debugging Challenges
+
+62. A class is public but cannot be accessed from another module. Diagnose it.
+
+
+63. A public method cannot be called. Find the enclosing-type/access problem.
+
+
+64. Diagnose a JPMS export issue.
+
+
+
+Production
+
+65. Why should public members be treated as API commitments?
+
+
+66. How can excessive public APIs make refactoring harder?
+
+
+67. How should public APIs be versioned?
+
+
+68. Why should implementation details generally not be public?
+
+
+
+The source explicitly covers JPMS readability/exports and warns against making implementation details public. 
+
+
+---
+
+1.7.3 protected
+
+Basic
+
+69. What does protected mean?
+
+
+70. Why does Java have protected?
+
+
+71. Where can protected members be accessed?
+
+
+72. How does protected differ from public?
+
+
+73. How does protected differ from package-private?
+
+
+
+Intermediate
+
+74. Can the same package access protected members?
+
+
+75. Can a subclass in another package access a protected member?
+
+
+76. Can an unrelated class in another package access it?
+
+
+77. How does protected behave through inheritance?
+
+
+
+Advanced
+
+78. Explain protected access across package boundaries.
+
+
+79. Why is cross-package protected access more subtle than package access?
+
+
+80. How does the qualifying reference matter?
+
+
+81. How can protected create coupling between a base class and subclasses?
+
+
+
+Traps
+
+82. Does protected mean "accessible everywhere to subclasses"?
+
+
+83. Can any class in another package access protected members?
+
+
+84. Can a subclass expose a protected member as public?
+
+
+85. Does protected always improve extensibility?
+
+
+
+Design
+
+86. When should protected methods exist?
+
+
+87. When is protected state a bad design?
+
+
+88. Should frameworks expose protected extension hooks?
+
+
+89. Would a composition-based design be safer?
+
+
+
+Debugging Challenges
+
+90. Diagnose a protected-access compilation error across packages.
+
+
+91. Diagnose incorrect assumptions about subclass access.
+
+
+92. Refactor protected state into safer APIs.
+
+
+
+Production
+
+93. Why can protected fields make inheritance fragile?
+
+
+94. Why are protected methods sometimes useful extension points?
+
+
+95. When should protected be replaced with package-private or private methods?
+
+
+96. How does protected affect API evolution?
+
+
+
+The module explicitly requires testing protected behavior across package boundaries. 
+
+
+---
+
+1.7.4 Package-Private / Default Access
+
+Basic
+
+97. What is package-private access?
+
+
+98. Is package-private a keyword?
+
+
+99. What happens when no access modifier is specified?
+
+
+100. Where can package-private members be accessed?
+
+
+
+Intermediate
+
+101. How does package-private differ from protected?
+
+
+102. How does package-private differ from private?
+
+
+103. How does package-private help package-level encapsulation?
+
+
+104. Can another package access package-private members?
+
+
+
+Advanced
+
+105. How can package-private support modular design?
+
+
+106. How can it hide implementation details while allowing collaboration between related classes?
+
+
+107. How does package-private interact with JPMS?
+
+
+108. How can package-private reduce API surface?
+
+
+
+Traps
+
+109. Is package-private the same as default interface methods?
+
+
+110. Is package-private accessible to subclasses in another package?
+
+
+111. Does package-private mean "default keyword"?
+
+
+
+Design
+
+112. Design a package with public API + package-private implementation.
+
+
+113. Decide which classes should remain internal.
+
+
+114. Build a package-level implementation boundary.
+
+
+
+Debugging Challenges
+
+115. Diagnose cross-package access failure.
+
+
+116. Identify accidental API exposure.
+
+
+117. Move implementation classes to package-private visibility.
+
+
+
+Production
+
+118. Why is package-private valuable for internal architecture?
+
+
+119. How can it reduce accidental API commitments?
+
+
+120. How does package-private support maintainability?
+
+
+
+
+---
+
+1.7.5 private
+
+Basic
+
+121. What does private mean?
+
+
+122. Where can private members be accessed?
+
+
+123. Can subclasses access private fields directly?
+
+
+124. Can another class access private fields?
+
+
+
+Intermediate
+
+125. Why is private the strongest ordinary member-level encapsulation?
+
+
+126. How does private support information hiding?
+
+
+127. How can private fields be exposed safely through methods?
+
+
+128. Can nested classes access private members of their enclosing class?
+
+
+
+Advanced
+
+129. How does Java compiler/runtime representation support private access?
+
+
+130. How does reflection interact with private members?
+
+
+131. How does private affect inheritance?
+
+
+132. Why can't a subclass directly override a private method?
+
+
+
+Traps
+
+133. Is a private method inherited?
+
+
+134. Can a subclass override a private method?
+
+
+135. Does a private method participate in runtime polymorphism?
+
+
+136. Can reflection access private members?
+
+
+
+Design
+
+137. Which fields should normally be private?
+
+
+138. When should private methods be extracted?
+
+
+139. How does private state support invariants?
+
+
+140. How does private help immutable design?
+
+
+
+Debugging Challenges
+
+141. Diagnose an attempt to access private state.
+
+
+142. Diagnose apparent overriding of a private method.
+
+
+143. Find accidental state exposure.
+
+
+
+Production
+
+144. Why should mutable state generally be private?
+
+
+145. How does private reduce coupling?
+
+
+146. How does private support API stability?
+
+
+
+
+---
+
+1.7.6 final
+
+Basic
+
+147. What does final mean?
+
+
+148. What does final mean for a variable?
+
+
+149. What does final mean for a field?
+
+
+150. What does final mean for a method?
+
+
+151. What does final mean for a class?
+
+
+
+Intermediate
+
+152. Can a final variable be reassigned?
+
+
+153. Can a final reference point to a mutable object?
+
+
+154. Can a final object itself be mutated?
+
+
+155. What is a blank final field?
+
+
+156. What is effectively final?
+
+
+157. How are final fields initialized?
+
+
+
+Advanced
+
+158. Explain final-field semantics.
+
+
+159. How can final support immutable objects?
+
+
+160. How does final interact with inheritance?
+
+
+161. Why can't a final method be overridden?
+
+
+162. Why can't a final class be extended?
+
+
+163. How does final interact with JMM guarantees?
+
+
+
+Traps
+
+164. Does final mean immutable?
+
+
+165. Does:
+
+
+
+final List<String> list
+
+make the list immutable? 166. Does final prevent mutation of referenced objects? 167. Is an effectively-final variable actually declared final? 168. Can a final field be assigned in a constructor?
+
+Design
+
+169. Which fields should be final?
+
+
+170. When should a class be final?
+
+
+171. When should a method be final?
+
+
+172. Design an immutable value object using final fields.
+
+
+173. Decide whether final improves an inheritance boundary.
+
+
+
+Debugging Challenges
+
+174. Find illegal reassignment.
+
+
+175. Find false assumptions about final references.
+
+
+176. Diagnose an incorrectly designed immutable class.
+
+
+177. Diagnose a final-field initialization problem.
+
+
+
+Production
+
+178. How does final improve thread-safety reasoning?
+
+
+179. How does final support immutable configuration?
+
+
+180. When should production classes be final?
+
+
+181. When can final unnecessarily restrict extensibility?
+
+
+
+The source specifically requires distinguishing final references from immutable objects and understanding final-field semantics at the JMM level. 
+
+
+---
+
+1.7.7 static
+
+Basic
+
+182. What does static mean?
+
+
+183. What is static state?
+
+
+184. What is a static method?
+
+
+185. What is a static field?
+
+
+186. Static vs instance member?
+
+
+
+Intermediate
+
+187. How many copies of a static field exist conceptually?
+
+
+188. Can a static method access instance fields directly?
+
+
+189. Why doesn't a static method have this?
+
+
+190. What is static initialization?
+
+
+191. Can static methods be overridden?
+
+
+
+Advanced
+
+192. What is static method hiding?
+
+
+193. Static hiding vs method overriding?
+
+
+194. How does static dispatch differ from dynamic dispatch?
+
+
+195. How does static initialization relate to class initialization?
+
+
+196. What is a static nested class?
+
+
+197. How can mutable static state create global-state problems?
+
+
+
+Traps
+
+198. Are static methods polymorphic?
+
+
+199. Can static methods be overridden?
+
+
+200. Does static mean one instance for the entire JVM in every circumstance?
+
+
+201. Does a static field automatically mean thread-safe?
+
+
+202. Does static final mean immutable?
+
+
+
+Design
+
+203. When should state be static?
+
+
+204. When should behavior be static?
+
+
+205. When should static state be avoided?
+
+
+206. Design a safe utility class.
+
+
+207. Design an alternative to global mutable state.
+
+
+
+Debugging Challenges
+
+208. Diagnose static-state leakage between tests.
+
+
+209. Diagnose unexpected static initialization.
+
+
+210. Diagnose static method hiding.
+
+
+211. Find a global-state bug.
+
+
+
+Production
+
+212. Why can mutable static state create test pollution?
+
+
+213. Why can static state create concurrency problems?
+
+
+214. How can dependency injection replace global state?
+
+
+215. When is static appropriate in production?
+
+
+
+The module specifically includes static hiding, static initialization, static nested classes, mutable static state and test pollution. 
+
+
+---
+
+1.7.8 abstract
+
+Basic
+
+216. What is an abstract class?
+
+
+217. What is an abstract method?
+
+
+218. Can you instantiate an abstract class?
+
+
+219. Why use abstract classes?
+
+
+220. Can an abstract class contain concrete methods?
+
+
+221. Can an abstract class contain fields?
+
+
+
+Intermediate
+
+222. Can an abstract class have constructors?
+
+
+223. Can an abstract class have static methods?
+
+
+224. Can an abstract class have final methods?
+
+
+225. Can an abstract class implement interfaces?
+
+
+226. What happens when a subclass doesn't implement all abstract methods?
+
+
+
+Advanced
+
+227. Abstract class vs interface?
+
+
+228. How does abstraction affect coupling?
+
+
+229. How does an abstract class define a partial implementation?
+
+
+230. When does an abstract class make sense?
+
+
+231. When is composition better?
+
+
+
+Traps
+
+232. Can an abstract class have zero abstract methods?
+
+
+233. Can an abstract method have a body?
+
+
+234. Can an abstract method be private?
+
+
+235. Can an abstract method be final?
+
+
+236. Can an abstract class be final?
+
+
+
+Design
+
+237. Design an abstract payment processor.
+
+
+238. Decide whether interface or abstract class is better.
+
+
+239. Design a polymorphic contract.
+
+
+
+Debugging Challenges
+
+240. Diagnose an abstract method compilation error.
+
+
+241. Diagnose illegal modifier combinations.
+
+
+242. Find an inappropriate abstraction.
+
+
+
+Production
+
+243. When should abstract classes be used?
+
+
+244. How can abstract base classes create fragile inheritance?
+
+
+245. When should an interface replace an abstract class?
+
+
+
+
+---
+
+1.7.9 default Interface Methods
+
+Basic
+
+246. What is a default interface method?
+
+
+247. Why were default methods introduced?
+
+
+248. Can an interface provide implementation?
+
+
+249. How does a class inherit a default method?
+
+
+
+Intermediate
+
+250. What happens when two interfaces provide the same default method?
+
+
+251. How can a class resolve a default-method conflict?
+
+
+252. Can a class override a default method?
+
+
+253. Can an interface extend another interface and override its default method?
+
+
+
+Advanced
+
+254. Explain default-method conflict resolution.
+
+
+255. What happens when a superclass and interface both define a method?
+
+
+256. Why are default methods useful for API evolution?
+
+
+257. How can default methods create surprising behavior?
+
+
+
+Traps
+
+258. Is a default method the same as package-private?
+
+
+259. Can a default method be static?
+
+
+260. Can an abstract class inherit a default method?
+
+
+261. Can an interface have private helper methods?
+
+
+
+Design
+
+262. Design a backward-compatible interface evolution.
+
+
+263. Add behavior using a default method.
+
+
+264. Decide when default methods are appropriate.
+
+
+265. Decide when a separate abstraction is cleaner.
+
+
+
+Debugging Challenges
+
+266. Diagnose conflicting default methods.
+
+
+267. Determine which implementation wins.
+
+
+268. Refactor a complicated default-method hierarchy.
+
+
+
+Production
+
+269. When should default methods be used in public APIs?
+
+
+270. How can excessive default behavior make interfaces harder to understand?
+
+
+271. How do default methods affect binary/source compatibility?
+
+
+
+The source explicitly includes default-method conflicts and deciding interface vs abstract class. 
+
+
+---
+
+1.7.10 synchronized
+
+Basic
+
+272. What does synchronized do?
+
+
+273. What is a monitor?
+
+
+274. What is mutual exclusion?
+
+
+275. What is a synchronized instance method?
+
+
+276. What is a synchronized static method?
+
+
+277. What is a synchronized block?
+
+
+
+Intermediate
+
+278. What object is locked by:
+
+
+
+synchronized void update() {}
+
+279. What object is locked by:
+
+
+
+static synchronized void update() {}
+
+280. What object is locked by:
+
+
+
+synchronized(lock) {}
+
+281. What is monitor ownership?
+
+
+282. Can two synchronized instance methods execute concurrently on the same object?
+
+
+283. Can they execute concurrently on different objects?
+
+
+
+Advanced
+
+284. What happens when a thread enters a synchronized block?
+
+
+285. What happens when it exits?
+
+
+286. What happens if an exception occurs inside synchronized code?
+
+
+287. How does synchronized create happens-before relationships?
+
+
+288. What memory visibility does synchronized provide?
+
+
+289. What is reentrant synchronization?
+
+
+290. What is lock contention?
+
+
+
+Traps
+
+291. Is synchronized only about preventing two threads from entering simultaneously?
+
+
+292. Does synchronized automatically prevent all race conditions?
+
+
+293. Is:
+
+
+
+static synchronized
+
+the same as instance synchronized? 294. Can synchronized code deadlock? 295. Does synchronized guarantee good performance?
+
+Design
+
+296. Choose the correct lock for a shared resource.
+
+
+297. Design thread-safe access to shared state.
+
+
+298. Decide between synchronized method and synchronized block.
+
+
+299. Design consistent lock ordering.
+
+
+
+Debugging Challenges
+
+300. Diagnose a race condition.
+
+
+301. Diagnose a deadlock.
+
+
+302. Identify lock-order inversion.
+
+
+303. Identify excessive lock contention.
+
+
+304. Determine which monitor a thread is waiting for.
+
+
+
+Production
+
+305. When is synchronized appropriate?
+
+
+306. When should Lock, Atomic*, concurrent collections or higher-level utilities be preferred?
+
+
+307. How does excessive synchronization affect throughput?
+
+
+308. How would you investigate a production deadlock?
+
+
+309. How would you reduce lock contention?
+
+
+
+The source specifically covers monitors, synchronized method locking, monitor ownership, happens-before, deadlock diagnosis and choosing higher-level concurrency utilities. 
+
+
+---
+
+1.7.11 volatile
+
+Basic
+
+310. What does volatile mean?
+
+
+311. What is visibility?
+
+
+312. What is memory ordering?
+
+
+313. Why does Java have volatile?
+
+
+314. Give a simple volatile example.
+
+
+
+Intermediate
+
+315. Does volatile provide visibility?
+
+
+316. Does volatile provide atomicity?
+
+
+317. What happens with:
+
+
+
+volatile boolean running;
+
+318. Why is volatile useful for flags?
+
+
+319. What happens with:
+
+
+
+volatile int count;
+count++;
+
+Advanced
+
+320. Why isn't count++ atomic?
+
+
+321. Explain:
+
+
+
+read → modify → write
+
+322. What happens-before relationship does volatile provide?
+
+
+323. How does volatile differ from synchronized?
+
+
+324. How does volatile differ from AtomicInteger?
+
+
+325. When is volatile appropriate?
+
+
+
+Traps
+
+326. Does volatile make compound operations atomic?
+
+
+327. Does volatile replace locks?
+
+
+328. Is a volatile reference equivalent to an immutable object?
+
+
+329. Does volatile make the referenced object's internal state thread-safe?
+
+
+
+Design
+
+330. Design a volatile shutdown flag.
+
+
+331. Decide whether a shared counter should use volatile or atomic operations.
+
+
+332. Design a visibility-only synchronization mechanism.
+
+
+333. Explain why volatile is sufficient in your design.
+
+
+
+Debugging Challenges
+
+334. Diagnose a visibility bug.
+
+
+335. Diagnose a lost-update bug caused by volatile count++.
+
+
+336. Replace an incorrect volatile design with AtomicInteger or synchronization.
+
+
+337. Diagnose unsafe publication.
+
+
+
+Production
+
+338. When should volatile be used for production flags?
+
+
+339. When should it not be used?
+
+
+340. How can incorrect volatile usage create intermittent bugs?
+
+
+341. How do you decide between volatile, atomic classes and locks?
+
+
+
+The module explicitly states that volatile provides visibility/order but does not make count++ atomic. 
+
+
+---
+
+1.7.12 transient
+
+Basic
+
+342. What does transient mean?
+
+
+343. Why is transient used?
+
+
+344. Which fields can be transient?
+
+
+345. What happens to transient fields during Java serialization?
+
+
+
+Intermediate
+
+346. Why would passwords/tokens potentially be transient?
+
+
+347. What happens to a transient field after deserialization?
+
+
+348. How should transient state be reconstructed?
+
+
+349. How does transient interact with Serializable?
+
+
+
+Advanced
+
+350. What is serialized object state?
+
+
+351. Why isn't transient equivalent to encryption?
+
+
+352. Why isn't transient a general-purpose security mechanism?
+
+
+353. How can transient fields affect object invariants?
+
+
+354. How should transient caches be reconstructed?
+
+
+
+Traps
+
+355. Does transient prevent the field from existing in memory?
+
+
+356. Does transient encrypt the field?
+
+
+357. Does transient prevent all forms of persistence?
+
+
+358. Does transient work without serialization?
+
+
+
+Design
+
+359. Design a serializable object with:
+
+
+
+persistent state
++
+derived cache
++
+sensitive runtime state
+
+360. Decide what should be transient.
+
+
+361. Define reconstruction logic.
+
+
+
+Debugging Challenges
+
+362. Diagnose a null field after deserialization.
+
+
+363. Diagnose broken invariants caused by transient state.
+
+
+364. Diagnose unexpected serialized state.
+
+
+
+Production
+
+365. When is Java serialization used in legacy systems?
+
+
+366. Why should sensitive information not rely solely on transient?
+
+
+367. How should modern applications handle serialization boundaries?
+
+
+368. What migration concerns exist for legacy serialized classes?
+
+
+
+
+---
+
+1.7.13 native
+
+Basic
+
+369. What does native mean?
+
+
+370. Why does Java support native methods?
+
+
+371. What is JNI?
+
+
+372. Why would Java call native code?
+
+
+
+Intermediate
+
+373. How is a native method declared?
+
+
+374. What happens when Java invokes a native method?
+
+
+375. What does the JVM do at the Java/native boundary?
+
+
+376. What kinds of systems use native methods?
+
+
+
+Advanced
+
+377. How does JNI interact with JVM memory?
+
+
+378. What is the cost of crossing the native boundary?
+
+
+379. What safety guarantees can be lost?
+
+
+380. How can native code crash the JVM?
+
+
+381. What are ABI/platform compatibility concerns?
+
+
+
+Traps
+
+382. Does native mean "implemented faster"?
+
+
+383. Is native code automatically more performant?
+
+
+384. Is JNI platform-independent?
+
+
+385. Can native code violate Java memory-safety assumptions?
+
+
+
+Design
+
+386. When should native integration be justified?
+
+
+387. What should the Java/native boundary expose?
+
+
+388. How should native failures be handled?
+
+
+
+Debugging Challenges
+
+389. Diagnose UnsatisfiedLinkError.
+
+
+390. Diagnose a JVM crash caused by native code.
+
+
+391. Diagnose library loading problems.
+
+
+392. Diagnose platform-specific behavior.
+
+
+
+Production
+
+393. How do you deploy native dependencies?
+
+
+394. How do you handle Linux/Windows/macOS architecture differences?
+
+
+395. How do you test native integrations?
+
+
+396. When should you avoid JNI?
+
+
+
+
+---
+
+1.7.14 strictfp
+
+Basic
+
+397. What was strictfp?
+
+
+398. Why did Java introduce it?
+
+
+399. What problem did it address?
+
+
+400. How did it relate to floating-point calculations?
+
+
+
+Intermediate
+
+401. What does strict floating-point evaluation mean?
+
+
+402. Why could floating-point behavior vary historically?
+
+
+403. Where could strictfp be applied?
+
+
+404. How did it affect numerical reproducibility?
+
+
+
+Advanced
+
+405. What changed with modern Java floating-point semantics?
+
+
+406. Why is strictfp largely unnecessary in modern Java?
+
+
+407. What historical compatibility concerns exist?
+
+
+408. What does this teach about language evolution?
+
+
+
+Traps
+
+409. Is strictfp needed for all modern Java floating-point code?
+
+
+410. Does strictfp make floating-point mathematically exact?
+
+
+411. Does it eliminate all floating-point rounding issues?
+
+
+
+Design
+
+412. When does numerical reproducibility matter?
+
+
+413. How should financial/scientific applications handle floating-point concerns?
+
+
+414. When should BigDecimal be considered instead?
+
+
+
+Debugging Challenges
+
+415. Diagnose cross-platform numerical differences.
+
+
+416. Determine whether floating-point semantics are responsible.
+
+
+417. Identify inappropriate assumptions about floating-point precision.
+
+
+
+Production
+
+418. How should modern Java applications approach floating-point reproducibility?
+
+
+419. When should strict numerical requirements be documented and tested?
+
+
+420. How should legacy strictfp code be maintained?
+
+
+
+
+---
+
+1.7.15 sealed
+
+Basic
+
+421. What is a sealed class?
+
+
+422. Why does Java provide sealed types?
+
+
+423. How does sealed differ from final?
+
+
+424. How does sealed differ from abstract?
+
+
+
+Intermediate
+
+425. What does permits mean?
+
+
+426. What types can extend a sealed class?
+
+
+427. Can a permitted subclass itself be sealed?
+
+
+428. Can it be final?
+
+
+429. Can it be non-sealed?
+
+
+
+Advanced
+
+430. How do sealed hierarchies restrict extension?
+
+
+431. How does sealed support exhaustive reasoning?
+
+
+432. How does sealed work with pattern matching?
+
+
+433. How does sealed design differ from an open inheritance hierarchy?
+
+
+434. When does sealed improve maintainability?
+
+
+
+Traps
+
+435. Does sealed mean no subclassing?
+
+
+436. Does sealed mean immutable?
+
+
+437. Does sealed automatically mean all subclasses are final?
+
+
+438. Can a permitted subclass reopen the hierarchy?
+
+
+
+Design
+
+439. Design:
+
+
+
+Payment
+ ├── CardPayment
+ ├── UPIPayment
+ └── CashPayment
+
+using sealed types.
+
+440. Decide which subclasses are final/sealed/non-sealed.
+
+
+441. Explain why.
+
+
+
+Debugging Challenges
+
+442. Diagnose an unpermitted subclass compilation error.
+
+
+443. Diagnose incorrect sealed hierarchy declarations.
+
+
+444. Determine why a subclass cannot extend a type.
+
+
+
+Production
+
+445. When should domain hierarchies be sealed?
+
+
+446. When is an open hierarchy preferable?
+
+
+447. How can sealed types improve exhaustive business logic?
+
+
+448. What are the compatibility implications of restricting future subclasses?
+
+
+
+
+---
+
+1.7.16 non-sealed
+
+Basic
+
+449. What is non-sealed?
+
+
+450. Why does it exist?
+
+
+451. How does it interact with sealed classes?
+
+
+
+Intermediate
+
+452. What happens when a permitted subclass is declared non-sealed?
+
+
+453. Can classes extend a non-sealed subclass?
+
+
+454. How does this reopen part of a hierarchy?
+
+
+
+Advanced
+
+455. Why might only part of a hierarchy be extensible?
+
+
+456. How does non-sealed balance controlled and open extension?
+
+
+457. How does it affect exhaustive reasoning?
+
+
+
+Traps
+
+458. Does non-sealed mean abstract?
+
+
+459. Does non-sealed mean public?
+
+
+460. Does non-sealed mean unrestricted at every level?
+
+
+
+Design
+
+461. Design a sealed hierarchy with one controlled extension point.
+
+
+462. Decide where non-sealed belongs.
+
+
+463. Explain the trade-off.
+
+
+
+Debugging Challenges
+
+464. Diagnose an illegal subclass.
+
+
+465. Trace which level reopens extension.
+
+
+
+Production
+
+466. When is non-sealed appropriate?
+
+
+467. When does it defeat the value of sealing?
+
+
+468. How should extension points be documented?
+
+
+
+
+---
+
+1.7.17 permits
+
+Basic
+
+469. What does permits mean?
+
+
+470. Why is it used?
+
+
+471. How does it relate to sealed classes?
+
+
+
+Intermediate
+
+472. Which types may be listed in permits?
+
+
+473. What happens if an unlisted class tries to extend the sealed type?
+
+
+474. When can the permits clause be omitted?
+
+
+
+Advanced
+
+475. How does the compiler enforce the permitted hierarchy?
+
+
+476. How does permits improve domain modeling?
+
+
+477. How does it interact with sealed/non-sealed/final subclasses?
+
+
+
+Traps
+
+478. Does permits itself make a class sealed?
+
+
+479. Can permits be used without sealed?
+
+
+480. Does permits control interface implementation as well?
+
+
+
+Design
+
+481. Design a closed domain hierarchy.
+
+
+482. Decide whether every permitted type should be final, sealed or non-sealed.
+
+
+
+Debugging Challenges
+
+483. Diagnose an invalid permits declaration.
+
+
+484. Diagnose an unexpected permitted-type error.
+
+
+
+Production
+
+485. How does a permits list communicate domain constraints?
+
+
+486. What happens when the business domain needs a new subtype?
+
+
+487. How should sealed hierarchies evolve?
+
+
+
+
+---
+
+1.7.18 Modifier Interactions
+
+This is a high-value trap section.
+
+Basic
+
+488. Which modifiers can be combined?
+
+
+489. Which combinations are illegal?
+
+
+490. Why do modifier combinations matter?
+
+
+
+Intermediate
+
+491. Why can't an abstract class be final?
+
+
+492. Why can't an abstract method be final?
+
+
+493. Why can't an abstract method be private?
+
+
+494. Can a class be abstract and sealed?
+
+
+495. Can a subclass be final under a sealed hierarchy?
+
+
+
+Advanced
+
+496. Why can't a static method be abstract?
+
+
+497. Why can't a constructor be final?
+
+
+498. Why can't an interface method be synchronized in the same sense as a class method?
+
+
+499. Why does static synchronized differ from instance synchronized?
+
+
+500. Why does volatile not replace synchronized?
+
+
+
+Traps
+
+501. abstract + final — why illegal?
+
+
+502. abstract + private — why illegal?
+
+
+503. abstract + static — why illegal?
+
+
+504. abstract + synchronized — what does the combination imply?
+
+
+505. final + synchronized — legal?
+
+
+506. static + final — legal?
+
+
+507. volatile + final — what combinations are meaningful?
+
+
+508. transient + static — what does serialization actually do with it?
+
+
+
+Design
+
+509. Design a class with:
+
+
+
+private final
+static final
+public
+synchronized
+
+and explain every modifier.
+
+510. Design a sealed hierarchy using final/sealed/non-sealed appropriately.
+
+
+511. Design a thread-safe immutable configuration class.
+
+
+
+Debugging Challenges
+
+512. Given a compilation error involving modifiers, identify the illegal combination.
+
+
+513. Given confusing behavior, determine whether a method is hidden or overridden.
+
+
+514. Determine which lock a synchronized static/instance method uses.
+
+
+515. Determine whether a field is actually mutable.
+
+
+
+Production
+
+516. How should modifier combinations communicate intent?
+
+
+517. How can modifier misuse cause API bugs?
+
+
+518. How can incorrect concurrency modifiers cause data races?
+
+
+519. How can overusing final/sealed restrict legitimate extension?
+
+
+
+The source explicitly calls out illegal combinations and asks why abstract/final, abstract method/final and abstract method/private are invalid, along with static synchronized and volatile semantics. 
+
+
+---
+
+1.7.19 JMM Implications
+
+Basic
+
+520. What is the Java Memory Model?
+
+
+521. Why does the JMM matter?
+
+
+522. What is visibility?
+
+
+523. What is atomicity?
+
+
+524. What is ordering?
+
+
+525. What is happens-before?
+
+
+
+Intermediate
+
+526. How does synchronized establish happens-before?
+
+
+527. How does volatile establish happens-before?
+
+
+528. What does final-field semantics provide?
+
+
+529. Why is visibility different from atomicity?
+
+
+530. Why can compiler/CPU reordering matter?
+
+
+
+Advanced
+
+531. Explain:
+
+
+
+Visibility
+    ≠
+Atomicity
+    ≠
+Ordering
+
+532. Compare:
+
+
+
+synchronized
+volatile
+AtomicInteger
+final
+
+533. Explain why:
+
+
+
+volatile int count;
+count++;
+
+is unsafe. 534. Explain safe publication. 535. Explain unsafe publication. 536. Explain double-checked locking and why volatile matters.
+
+Traps
+
+537. Does volatile make an operation atomic?
+
+
+538. Does synchronized make every field globally safe?
+
+
+539. Does final make an object immutable?
+
+
+540. Does final automatically solve safe publication of every mutable object graph?
+
+
+541. Does volatile make referenced mutable state thread-safe?
+
+
+
+Design
+
+542. Design a thread-safe shutdown mechanism.
+
+
+543. Design a safely published immutable configuration.
+
+
+544. Design a concurrent counter.
+
+
+545. Choose between synchronized, volatile and atomic operations.
+
+
+
+Debugging Challenges
+
+546. Diagnose a visibility bug.
+
+
+547. Diagnose a lost update.
+
+
+548. Diagnose unsafe publication.
+
+
+549. Diagnose double-checked locking.
+
+
+550. Diagnose a race condition.
+
+
+
+Production
+
+551. How would you investigate a concurrency bug that happens once per week?
+
+
+552. How do you decide which synchronization mechanism to use?
+
+
+553. How do you avoid unnecessary synchronization?
+
+
+554. How do you test concurrency behavior?
+
+
+
+The module explicitly requires understanding JMM implications, happens-before, visibility and atomicity rather than treating modifiers as syntax only. 
+
+
+---
+
+1.7.20 Production Modifier Decisions
+
+Basic
+
+555. Why should fields normally be private?
+
+
+556. Why are final fields valuable?
+
+
+557. Why is mutable static state risky?
+
+
+558. Why should concurrency modifiers be chosen deliberately?
+
+
+
+Intermediate
+
+559. Design a production configuration class.
+
+
+560. Decide which fields are:
+
+
+
+private
+final
+static
+volatile
+transient
+
+561. Explain every decision.
+
+
+562. Decide whether the class should be final/sealed.
+
+
+
+Advanced
+
+563. Design a public Java library API.
+
+
+564. Minimize public surface.
+
+
+565. Use package-private implementation details.
+
+
+566. Use final to protect invariants.
+
+
+567. Use sealed types for closed domain models.
+
+
+568. Use concurrency modifiers based on actual synchronization requirements.
+
+
+
+Traps
+
+569. "Make everything public for convenience."
+
+
+570. "Make everything final."
+
+
+571. "Use volatile for thread safety."
+
+
+572. "Use synchronized everywhere."
+
+
+573. "Make every class sealed."
+
+
+574. "Use static for shared state."
+
+
+
+Explain why each approach is dangerous.
+
+Design
+
+575. Design a production Order model.
+
+
+576. Design a thread-safe OrderProcessor.
+
+
+577. Design a public API with internal implementation classes.
+
+
+578. Design a sealed order-state hierarchy.
+
+
+579. Design immutable configuration.
+
+
+
+Debugging Challenges
+
+580. A production service has a race condition. Determine whether volatile or synchronization is required.
+
+
+581. A test suite passes individually but fails collectively. Investigate static state.
+
+
+582. A library user cannot extend a class. Investigate final/sealed.
+
+
+583. A module cannot access a public class. Investigate JPMS/export/access.
+
+
+
+Production
+
+584. How do modifiers communicate architectural intent?
+
+
+585. How do modifiers communicate concurrency guarantees?
+
+
+586. How do modifiers protect invariants?
+
+
+587. How do modifiers affect backward compatibility?
+
+
+588. How do modifiers affect framework integration?
+
+
+589. How do modifiers affect performance?
+
+
+590. How do you review modifier choices in a production pull request?
+
+
+
+
+---
+
+1.7.21 Integrated Modifier Challenge
+
+Build:
+
+OrderSystem
+│
+├── Order
+├── OrderRepository
+├── OrderProcessor
+├── OrderState
+│    ├── Created
+│    ├── Paid
+│    ├── Shipped
+│    └── Cancelled
+└── Configuration
+
+Apply:
+
+private
+final
+static
+sealed
+permits
+non-sealed
+synchronized
+volatile
+transient
+
+Basic
+
+591. Add appropriate modifiers.
+
+
+592. Explain what each modifier does.
+
+
+
+Intermediate
+
+593. Make Order immutable where appropriate.
+
+
+594. Make configuration safely published.
+
+
+595. Protect shared processing state.
+
+
+
+Advanced
+
+596. Make OrderState a sealed hierarchy.
+
+
+597. Decide which subclasses are final/non-sealed.
+
+
+598. Design the concurrency mechanism.
+
+
+
+Traps
+
+599. Introduce volatile count++.
+
+
+600. Introduce mutable static state.
+
+
+601. Make the entire class public.
+
+
+602. Add an illegal modifier combination.
+
+
+603. Introduce an incorrect sealed hierarchy.
+
+
+
+Design
+
+604. Review every modifier.
+
+
+605. Remove unnecessary modifiers.
+
+
+606. Explain why each remaining modifier exists.
+
+
+
+Debugging Challenges
+
+607. Diagnose the intentionally introduced race.
+
+
+608. Diagnose the static-state test pollution.
+
+
+609. Diagnose the sealed hierarchy error.
+
+
+610. Diagnose the access-control error.
+
+
+
+Production
+
+611. Perform a final API review.
+
+
+612. Perform a concurrency review.
+
+
+613. Perform an extensibility review.
+
+
+614. Perform a serialization review.
+
+
+615. Explain which modifiers create long-term API commitments.
+
+
+
+
+---
+
+🔥 1.7.22 Final Mastery Test
+
+Round 1 — Access Control
+
+Without notes, explain:
+
+public
+protected
+package-private
+private
+
+Then answer:
+
+> What can a class in the same package access? What can a subclass in another package access? What can an unrelated class access?
+
+
+
+
+---
+
+Round 2 — final
+
+You should be able to distinguish:
+
+final variable
+final reference
+final field
+final method
+final class
+effectively final
+immutable object
+
+Especially:
+
+> final reference ≠ immutable object
+
+
+
+
+---
+
+Round 3 — static
+
+Explain:
+
+static field
+static method
+static initialization
+static method hiding
+static nested class
+mutable static state
+
+Then answer:
+
+> Why is static method hiding not runtime polymorphism?
+
+
+
+
+---
+
+Round 4 — Abstraction
+
+Compare:
+
+abstract class
+abstract method
+interface
+default method
+final class
+sealed class
+non-sealed class
+
+You should be able to decide which one belongs in a production design and why.
+
+
+---
+
+Round 5 — Concurrency
+
+Explain:
+
+synchronized
+      ↓
+mutual exclusion + visibility
+
+volatile
+      ↓
+visibility + ordering
+      ↓
+NOT general atomicity
+
+Then explain why:
+
+volatile int count;
+count++;
+
+is still unsafe.
+
+
+---
+
+Round 6 — Sealed Types
+
+Design:
+
+Payment
+├── Card
+├── UPI
+├── Wallet
+└── Cash
+
+using:
+
+sealed
+permits
+final
+non-sealed
+
+and explain why you selected each modifier.
+
+
+---
+
+Round 7 — Modifier Traps
+
+Explain why these are problematic/illegal where applicable:
+
+abstract + final
+abstract method + final
+abstract method + private
+static + abstract
+volatile + incorrect compound operations
+public + unnecessary API exposure
+final reference + mutable object
+static + mutable global state
+
+
+---
+
+🏆 Module 1.7 Completion Standard
+
+The source's overall mastery definition is:
+
+> Explain → Implement → Explain compiler/JVM behavior → Handle edge cases → Discuss trade-offs → Debug it → Use it in production. 
+
+
+
+For 1.7 specifically, don't consider yourself done until you can:
+
+[ ] Explain all four access levels.
+
+[ ] Test access across packages.
+
+[ ] Explain protected cross-package behavior.
+
+[ ] Explain public under JPMS.
+
+[ ] Design deliberate API exposure.
+
+[ ] Explain final for fields, methods and classes.
+
+[ ] Distinguish final references from immutable objects.
+
+[ ] Explain blank final fields.
+
+[ ] Explain effectively final.
+
+[ ] Explain final-field JMM semantics.
+
+[ ] Explain static state and behavior.
+
+[ ] Explain static method hiding.
+
+[ ] Explain static initialization.
+
+[ ] Diagnose mutable static-state problems.
+
+[ ] Explain abstract classes/methods.
+
+[ ] Explain default interface methods.
+
+[ ] Resolve default-method conflicts.
+
+[ ] Explain synchronized and monitors.
+
+[ ] Explain synchronized happens-before.
+
+[ ] Diagnose deadlocks.
+
+[ ] Explain volatile visibility and ordering.
+
+[ ] Explain why volatile doesn't provide general atomicity.
+
+[ ] Diagnose visibility bugs.
+
+[ ] Explain transient.
+
+[ ] Understand the native/JNI boundary.
+
+[ ] Understand the modern relevance of strictfp.
+
+[ ] Design sealed hierarchies.
+
+[ ] Understand non-sealed.
+
+[ ] Understand permits.
+
+[ ] Identify illegal modifier combinations.
+
+[ ] Understand modifier/JMM interactions.
+
+[ ] Make production modifier decisions.
+
+[ ] Debug modifier-related failures.
+
+[ ] Defend modifier choices in a senior-level review.
+
+
+The master syllabus itself lists exactly these 1.7 areas: access modifiers, final, static, abstract/default, synchronized, volatile, transient, native, strictfp, sealed types, modifier interactions, JMM implications and production decisions. 
+
+⭐ The highest-value 1.7 questions
+
+If you want the questions that separate syntax knowledge from real Java mastery, prioritize these:
+
+1. protected across package boundaries — exactly what is accessible?
+
+
+2. Why doesn't final make an object immutable?
+
+
+3. Static method hiding vs runtime overriding?
+
+
+4. Why can't abstract and final coexist?
+
+
+5. Default-method conflict resolution?
+
+
+6. What exactly does synchronized lock?
+
+
+7. Instance synchronized vs static synchronized?
+
+
+8. What does synchronized provide beyond mutual exclusion?
+
+
+9. Why doesn't volatile count++ work safely?
+
+
+10. Volatile vs synchronized vs AtomicInteger?
+
+
+11. What does transient actually guarantee?
+
+
+12. Why is JNI dangerous at the production boundary?
+
+
+13. Why is strictfp largely historical in modern Java?
+
+
+14. Sealed vs final vs non-sealed?
+
+
+15. When should a production class be public, package-private, final, abstract or sealed?
+
+
+
+That is the 1.7 pattern we should continue using for 1.8 and 1.9: every individual subtopic gets the complete Basic → Intermediate → Advanced → Traps → Design → Debugging → Production progression, with the source's actual topics preserved rather than collapsing them into a generic interview question bank.
