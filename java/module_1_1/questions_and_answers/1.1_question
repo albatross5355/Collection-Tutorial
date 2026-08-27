@@ -1,1 +1,470 @@
 
+1.1.1 JDK — Java Development Kit
+Your syllabus covers JDK components, javac, java, jar, javadoc, diagnostic tools, JAVA_HOME, PATH, multiple JDK versions, distributions, OpenJDK and jlink. �
+Module_1_1_Java_Platform_Fundamentals_Deep_Mastery.md
+Basic
+What is the JDK?
+Why is the JDK required for Java development?
+What are the major components of a JDK?
+What is javac?
+What is the java launcher?
+What is jar?
+What is javadoc?
+What is jdb?
+What is jcmd?
+What is jstack?
+What is jmap?
+What is jps?
+What is jstat?
+What is JFR?
+What is jlink?
+What is jpackage?
+What is JAVA_HOME?
+What is the purpose of PATH?
+Intermediate
+What is the difference between JDK, JRE and JVM?
+Does the JDK contain a JVM?
+Which JDK component actually compiles source code?
+Which JDK tools are useful for diagnosing a running JVM?
+When would you use jstack instead of jmap?
+When would you use jcmd?
+What problem does JFR solve?
+Why might you need multiple JDK versions on one machine?
+How does JAVA_HOME affect Maven or Gradle?
+What happens if JAVA_HOME points to the wrong JDK?
+Why can java -version and javac -version report different versions?
+Why is a JDK distribution different from the Java language itself?
+Advanced
+What happens internally when javac compiles a Java source file?
+How does the compiler transform Java source into bytecode?
+Which parts of the JDK are required only during development?
+Why can a production container potentially use a smaller runtime image?
+What is a custom runtime image?
+How does jlink create a custom runtime?
+What are the advantages and disadvantages of using a minimal runtime image?
+What is the relationship between OpenJDK and commercial JDK distributions?
+Can two JDK vendors behave differently while remaining Java-compatible?
+What factors would you consider when selecting a JDK distribution for production?
+Conceptual
+If the JVM executes bytecode, why does the JDK need javac?
+Can you run an already compiled Java application without installing development tools?
+Why isn't "JDK = JVM + compiler" a complete description?
+If two servers use different JDK vendors, what compatibility assumptions can you safely make?
+Why shouldn't developers blindly assume that every JDK tool is appropriate to run continuously in production?
+Implementation
+Install two JDK versions and switch between them.
+Compile a Java program using javac.
+Run it using the java launcher.
+Package it into a JAR.
+Generate Javadocs.
+Use jps to identify a Java process.
+Use jstack to obtain a thread dump.
+Use jcmd against a running JVM.
+Capture a JFR recording.
+Create a custom runtime using jlink.
+Major Traps
+JDK ≠ JVM.
+JRE is not the same thing as JDK.
+JAVA_HOME and PATH can point to different Java installations.
+javac version and runtime version compatibility matters.
+JDK distribution ≠ Java specification.
+A JDK is not required merely to execute an already compiled application.
+Modern Java distributions no longer revolve around the old standalone JRE installation model. �
+Module_1_1_Java_Platform_Fundamentals_Deep_Mastery.md
+Production / Design
+Your Spring Boot service runs in Kubernetes. Would you install a full JDK in the production container? Why or why not?
+Your company has Java 17 and Java 21 applications. How would you manage both?
+A production JVM is consuming excessive memory. Which JDK diagnostic tools would you consider?
+How would you standardize JDK versions across development, CI and production?
+What risks arise when developers and production use different JDK vendors or versions?
+1.1.2 JRE — Java Runtime Environment
+Your syllabus treats JRE historically and focuses on the modern runtime model and containerized/minimal runtimes. �
+Module_1_1_Java_Platform_Fundamentals_Deep_Mastery.md
+Basic
+What is the JRE?
+What was the purpose of the JRE?
+What does a JRE provide?
+What is the relationship between JRE and JVM?
+Why doesn't the JRE normally contain development tools?
+Intermediate
+JDK vs JRE?
+JRE vs JVM?
+Can a JRE compile Java source code?
+Can a JVM execute Java bytecode without a traditional JRE distribution?
+Why has the traditional standalone JRE model become less central?
+What does a runtime environment need to execute Java applications?
+What is a minimal Java runtime?
+Advanced
+How can jlink be used to produce a runtime tailored to an application?
+What is the relationship between modules and runtime images?
+Why can a custom runtime reduce deployment size?
+What risks arise from creating an overly minimal runtime?
+How would you diagnose a missing module in a custom runtime?
+Conceptual
+If the JRE contains the JVM, why isn't JRE simply another name for JVM?
+Why is "install JRE on every production machine" no longer a universal Java deployment strategy?
+What is the difference between a conceptual JRE and a particular vendor's runtime distribution?
+Production
+Design a container image for a Java application requiring only a subset of the JDK modules.
+When would you deliberately ship a full JDK instead of a minimal runtime?
+What should CI use versus what production needs?
+Trap
+Trap: "JRE is a completely separate thing from the JDK in all modern Java versions."
+Be able to explain the historical model versus modern distribution model.
+1.1.3 JVM — Java Virtual Machine
+This is one of the most important topics in the entire Java roadmap.
+Basic
+What is the JVM?
+Why does Java use a virtual machine?
+What is bytecode?
+What does the JVM execute?
+Is JVM platform independent?
+Is Java source code platform independent?
+What is a JVM implementation?
+Name major JVM implementations.
+Intermediate
+Explain:
+Java source
+   ↓
+javac
+   ↓
+bytecode
+   ↓
+JVM
+   ↓
+execution
+What is the interpreter?
+What is JIT compilation?
+Why does the JVM need both interpretation and JIT compilation?
+What is garbage collection?
+What are JVM runtime data areas?
+What is the Java heap?
+What is a thread stack?
+What is Metaspace?
+What is a class loader?
+What happens when a class is loaded?
+What happens when a class is initialized?
+Advanced
+How does the JVM execute bytecode?
+What causes a method to become a JIT compilation candidate?
+What is profiling information?
+How can the JIT optimize frequently executed code?
+What is deoptimization?
+What is escape analysis?
+How can escape analysis affect object allocation?
+What are safepoints?
+What is a stop-the-world pause?
+What factors affect JVM garbage-collection behavior?
+What is class metadata?
+How does class unloading work conceptually?
+Conceptual
+Why isn't the JVM itself platform independent?
+If Java is compiled, why is it called interpreted?
+If Java is interpreted, why can Java applications achieve high performance?
+Why can't we simply say "objects live on the heap and variables live on the stack"?
+Does every new necessarily mean a physical heap allocation that remains visible to the programmer?
+Why can the same Java program behave differently under different JVM configurations?
+Implementation / Investigation
+Run a Java application and inspect its process.
+Capture a thread dump.
+Capture JFR data.
+Inspect JVM flags.
+Inspect heap information.
+Use javap to connect Java source with bytecode.
+Compare execution with different JVM options.
+Production
+How would you investigate high CPU usage in a Java service?
+How would you investigate excessive GC?
+How would you investigate thread contention?
+How would you investigate an OutOfMemoryError?
+How would you decide which GC-related metrics to monitor?
+What JVM configuration should be standardized across production services?
+1.1.4 Java Source Code Compilation
+Basic
+What is a .java file?
+What does compilation mean in Java?
+Which tool compiles Java?
+What file does compilation normally produce?
+What is bytecode?
+Intermediate
+What happens during javac MyApp.java?
+What errors are detected at compile time?
+What is type checking?
+What happens if compilation fails?
+Can Java source code contain syntax errors and still produce valid bytecode?
+How does the compiler resolve referenced types?
+How do packages affect compilation?
+How do classpaths affect compilation?
+Advanced
+How does the compiler resolve method overloads?
+How does generic type information affect compilation?
+What happens to certain generic type information after compilation?
+What is compiler-generated bytecode?
+What are synthetic members?
+What is the difference between source compatibility and binary compatibility?
+How do Maven and Gradle invoke Java compilation?
+How do compiler flags affect generated bytecode?
+Conceptual
+Why doesn't javac normally produce machine code directly?
+Why is bytecode useful for portability?
+Can the same .class file execute on different operating systems?
+What happens if the bytecode requires a newer JVM version?
+Production
+How would you ensure CI and production use compatible Java versions?
+What does --release solve?
+Why can compilation succeed but runtime execution fail?
+How can build configuration accidentally produce incompatible bytecode?
+1.1.5 javac
+Basic
+What is javac?
+What does javac MyApp.java do?
+What is the basic syntax of javac?
+What is -d used for?
+What is -cp / --class-path?
+What is --release?
+What is -source?
+What is -target?
+Intermediate
+How do you compile multiple source files?
+How do you specify an output directory?
+How do you provide external dependencies during compilation?
+What is the difference between source and target compatibility?
+Why is --release generally safer than independently specifying -source and -target for cross-release compilation?
+How does javac resolve imported classes?
+Advanced
+What bytecode version is generated for a particular Java release?
+Why can compiling with one JDK and running with an older JVM produce UnsupportedClassVersionError?
+What compiler information can be inspected using javac options?
+How does annotation processing interact with javac?
+How does Maven/Gradle configure javac?
+Trap
+-source 17
+-target 8
+Is this automatically equivalent to compiling against the Java 8 API?
+Why does --release address more than syntax level?
+Implementation
+Compile a package hierarchy manually.
+Compile multiple dependent classes.
+Compile against an external JAR.
+Generate class files into a separate directory.
+Produce Java 17-compatible bytecode from a newer JDK where supported.
+1.1.6 Bytecode
+Your syllabus specifically expects understanding bytecode's role in interpretation/JIT and using bytecode inspection to understand runtime behavior. �
+Module_1_1_Java_Platform_Fundamentals_Deep_Mastery.md
+Basic
+What is Java bytecode?
+Where is bytecode stored?
+What extension normally contains bytecode?
+Who generates bytecode?
+Who executes bytecode?
+Intermediate
+Why does Java use bytecode?
+What are bytecode instructions?
+What is a bytecode operand stack?
+What are local variables in JVM bytecode?
+What is a method descriptor?
+What does invokestatic mean?
+What does invokevirtual mean?
+What does invokespecial mean?
+What does getfield do?
+What does putfield do?
+Advanced
+How does bytecode differ from native machine code?
+How does the JVM verify bytecode?
+How does bytecode feed the interpreter?
+How does JIT compilation transform frequently executed bytecode?
+How can bytecode inspection explain overloaded versus overridden methods?
+How can bytecode reveal compiler-generated constructs?
+How can bytecode help debug an unexpected Java-language behavior?
+Implementation
+Compile:
+class Test {
+    int add(int a, int b) {
+        return a + b;
+    }
+}
+Then inspect it using:
+javap -c -p Test
+Identify the instructions for:
+local variable loading
+arithmetic
+method invocation
+return
+Compare bytecode generated for:
+static method
+instance method
+constructor
+Major Trap
+Bytecode is not "machine code for the JVM".
+Be able to explain why JVM bytecode is an intermediate instruction set executed by a JVM implementation.
+1.1.7 .class Files
+Your syllabus includes class-file structure, magic number, constant pool and version compatibility. �
+Module_1_1_Java_Platform_Fundamentals_Deep_Mastery.md
+Basic
+What is a .class file?
+What is contained in a .class file?
+What is the class-file magic number?
+What is the constant pool?
+What is a class-file version?
+What are fields and methods in a class file?
+Intermediate
+Why does a class file contain metadata?
+What does the constant pool contain?
+How are method references represented?
+How are field references represented?
+Why does a .class file contain access flags?
+How does the JVM determine whether it can execute a class file?
+Advanced
+What happens when a newer class file is executed on an older JVM?
+Why does UnsupportedClassVersionError occur?
+What information can javap -v reveal?
+What is the relationship between class-file version and Java release?
+What is the difference between symbolic references and resolved runtime references?
+Practical
+Use:
+javap -v MyClass
+and identify:
+magic number
+major version
+constant pool
+access flags
+fields
+methods
+attributes
+Production
+A service works locally but fails in production with UnsupportedClassVersionError. How do you diagnose it?
+How would you detect inconsistent Java versions across CI/CD stages?
+1.1.8 JVM Execution Lifecycle
+This deserves very heavy output and sequence questions.
+Basic
+What happens when you execute:
+java MyApp
+What is JVM startup?
+What is class loading?
+What is linking?
+What is class initialization?
+When is main() invoked?
+Intermediate
+Explain:
+java command
+ ↓
+JVM startup
+ ↓
+class loading
+ ↓
+linking
+ ↓
+initialization
+ ↓
+main()
+ ↓
+application execution
+ ↓
+shutdown
+What happens during class loading?
+What is verification?
+What is preparation?
+What is resolution?
+What is initialization?
+When does static initialization happen?
+What is a shutdown hook?
+Advanced
+Class loading vs linking vs initialization?
+Is loading immediately followed by initialization?
+What triggers class initialization?
+Does merely referencing a class always initialize it?
+What happens when class initialization fails?
+What happens if multiple threads attempt to initialize the same class?
+How does JVM startup interact with application arguments?
+How does the JVM locate the main class?
+What happens when a required class cannot be found?
+Output Prediction
+Given:
+class A {
+    static {
+        System.out.println("A static");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("main");
+        new A();
+    }
+}
+Predict the output.
+At what point does A initialize?
+Does loading A necessarily mean its static initializer immediately executes?
+Production
+Your application fails during startup with an ExceptionInInitializerError. What do you investigate?
+How would you diagnose slow JVM startup?
+How can excessive static initialization increase startup time?
+What are the risks of putting external I/O inside static initialization?
+1.1.9 Classpath
+Basic
+What is the classpath?
+Why does Java have a classpath?
+What can appear on the classpath?
+What is a JAR?
+What does -cp do?
+Intermediate
+How does the JVM search for classes?
+What happens when a class isn't found?
+What is the difference between compile-time and runtime classpaths?
+Why can an application compile successfully but fail at runtime?
+What is ClassNotFoundException?
+What is NoClassDefFoundError?
+Advanced
+What happens when the same class exists in multiple JARs?
+How can JAR ordering change behavior?
+How can dependency conflicts cause production bugs?
+What is classpath shadowing?
+How do Maven/Gradle dependency resolution mechanisms reduce classpath problems?
+How does class-loader delegation affect class resolution?
+Major Trap
+lib-a.jar → com.example.User
+lib-b.jar → com.example.User
+Which User gets loaded?
+What determines the result?
+Why is duplicate-class presence dangerous?
+Production
+A production application throws NoClassDefFoundError, but the class exists inside a JAR. How would you investigate?
+How would you diagnose dependency conflicts?
+How can a "works on my machine" dependency problem happen?
+Your syllabus explicitly calls out duplicate classes and JAR ordering as classpath problems. �
+Module_1_1_Java_Platform_Fundamentals_Deep_Mastery.md
+1.1.10 Module Path / JPMS
+Basic
+What is JPMS?
+Why was the Java Platform Module System introduced?
+What is the module path?
+Classpath vs module path?
+What is a module descriptor?
+What is module-info.java?
+What is exports?
+What is requires?
+Intermediate
+What is a named module?
+What is the unnamed module?
+What is an automatic module?
+What is module readability?
+How does exports differ from requires?
+Why doesn't public automatically mean accessible across modules?
+How does JPMS improve encapsulation?
+Advanced
+What is strong encapsulation?
+What happens when a module does not export a package?
+What happens when module A requires module B but B doesn't export the required package?
+What is the relationship between classpath and unnamed module?
+What are automatic modules?
+What problems can arise when migrating a classpath application to modules?
+How does JPMS affect reflection?
+Conceptual
+Why wasn't Java's package system alone sufficient for strong modularity?
+Why can a public class still be inaccessible from another module?
+Why can putting everything on the classpath bypass some of the architectural boundaries modules were designed to enforce?
+Production
+Would you modularize a large Spring Boot application?
+What trade-offs does JPMS introduce?
+When is JPMS worth adopting?
+How can JPMS help prevent accidental API exposure?
