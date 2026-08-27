@@ -1,0 +1,2219 @@
+Module 1.5 — Object Class
+
+Complete Question Bank
+
+I’ve kept the same structure and depth as 1.4. This is based directly on your Module 1.5 Deep Mastery Guide. The module focuses on java.lang.Object, object identity, equals(), hashCode(), toString(), getClass(), clone(), and the history/deprecation/removal of finalize(). 
+
+
+---
+
+1.5.1 java.lang.Object
+
+A. Basic
+
+1. What is java.lang.Object?
+
+
+2. Why is Object called the root class?
+
+
+3. What happens when a class does not explicitly extend another class?
+
+
+4. Which important methods are defined in Object?
+
+
+5. What is the relationship between Object and every ordinary Java class?
+
+
+6. Can a class extend two classes?
+
+
+7. Why does Java need a common root class?
+
+
+8. What operations does Object provide?
+
+
+
+B. Intermediate
+
+9. Explain the role of Object in Java's class hierarchy.
+
+
+10. Which methods are inherited from Object?
+
+
+11. Which Object methods are commonly overridden?
+
+
+12. Which methods are primarily related to concurrency?
+
+
+13. Why should wait(), notify(), and notifyAll() be studied separately?
+
+
+14. What is object identity?
+
+
+15. What is runtime type information?
+
+
+
+C. Advanced
+
+16. How does Object relate to reference types?
+
+
+17. Why can an Object reference hold a String, User, or other object?
+
+
+18. How does method dispatch work for inherited Object methods?
+
+
+19. How does runtime class metadata relate to an object?
+
+
+20. Which Object behavior is implemented with JVM/runtime support rather than being ordinary Java code?
+
+
+
+D. Major Traps
+
+21. Is every Java type a subclass of Object?
+
+
+22. Are primitive types subclasses of Object?
+
+
+23. Are arrays objects?
+
+
+24. Are interfaces subclasses of Object?
+
+
+25. Is Object itself an interface?
+
+
+26. Does every Object method behave identically for every class?
+
+
+
+E. Production
+
+27. Why does understanding Object matter when debugging collections?
+
+
+28. Why does Object matter for logging?
+
+
+29. Why does it matter for reflection?
+
+
+30. Why does it matter for equality and hashing?
+
+
+31. Why should legacy methods such as finalize() not be used in new code?
+
+
+
+
+---
+
+1.5.2 equals()
+
+A. Basic
+
+32. What is equals()?
+
+
+33. What does Object.equals() do by default?
+
+
+34. What is logical equality?
+
+
+35. What is the difference between identity and logical equality?
+
+
+36. Why might two different objects be logically equal?
+
+
+37. What is the correct signature of equals()?
+
+
+38. Why must the parameter type be Object?
+
+
+
+B. Intermediate
+
+39. What is the equals() contract?
+
+
+40. What does reflexive mean?
+
+
+41. What does symmetric mean?
+
+
+42. What does transitive mean?
+
+
+43. What does consistent mean?
+
+
+44. What does the non-null requirement mean?
+
+
+45. Why should:
+
+
+
+x.equals(null)
+
+return false?
+
+C. Implementation
+
+46. What is the purpose of:
+
+
+
+if (this == obj)
+    return true;
+
+47. Why check the type of the other object?
+
+
+48. When should instanceof be used?
+
+
+49. When should getClass() be used?
+
+
+50. Why is Objects.equals() useful?
+
+
+51. How should nullable fields be compared?
+
+
+52. How do you correctly implement equals() for an immutable value object?
+
+
+
+D. Advanced
+
+53. Why can inheritance break equals()?
+
+
+54. What is the instanceof equality approach?
+
+
+55. What is the getClass() equality approach?
+
+
+56. How can equality violate symmetry?
+
+
+57. How can equality violate transitivity?
+
+
+58. What is the canEqual() pattern?
+
+
+59. Why does composition sometimes produce a better equality model than inheritance?
+
+
+60. Why are immutable value objects easier to reason about?
+
+
+
+E. Major Traps
+
+61. Why is this usually wrong?
+
+
+
+if (this.id == other.id)
+
+62. What happens when comparing Strings with ==?
+
+
+63. What happens when equals() is overridden but hashCode() isn't?
+
+
+64. Why are mutable equality fields dangerous?
+
+
+65. What happens when a subclass adds equality-significant state?
+
+
+66. Can two different objects have equals() return true?
+
+
+67. Can the same object have equals() return false against itself?
+
+
+
+F. Debugging
+
+68. Find the violation in a broken equals() implementation.
+
+
+69. Diagnose asymmetric equality.
+
+
+70. Diagnose transitivity failure.
+
+
+71. Diagnose equality failure caused by mutable fields.
+
+
+72. Diagnose equality failure involving inheritance.
+
+
+73. Diagnose equality failure involving framework proxies.
+
+
+
+G. Production
+
+74. How would you design equality for a domain value object?
+
+
+75. How would you design equality for a persistence entity?
+
+
+76. Should entity IDs or business fields determine equality?
+
+
+77. Why should equality generally rely on stable state?
+
+
+78. How can incorrect equality break collections?
+
+
+79. How can expensive equality affect application performance?
+
+
+
+The module specifically identifies inheritance, instanceof, getClass(), canEqual(), composition, value objects and records as important equality topics. 
+
+
+---
+
+1.5.3 hashCode()
+
+A. Basic
+
+80. What is hashCode()?
+
+
+81. Why does Java need hashCode()?
+
+
+82. Which collections depend heavily on hash codes?
+
+
+83. What is a hash bucket?
+
+
+84. What is a hash collision?
+
+
+
+B. Intermediate
+
+85. Explain:
+
+
+
+hashCode()
+    ↓
+bucket
+    ↓
+equals()
+
+86. Why is hashCode() called before equals() in a hash-based lookup?
+
+
+87. What is the relationship between equals() and hashCode()?
+
+
+88. If two objects are equal, must their hash codes be equal?
+
+
+89. If two objects have the same hash code, must they be equal?
+
+
+90. Why are collisions valid?
+
+
+
+C. Advanced
+
+91. Explain hash-based lookup internally.
+
+
+92. What happens when multiple objects map to the same bucket?
+
+
+93. How does poor hash distribution affect performance?
+
+
+94. What is hash spreading?
+
+
+95. How does resizing affect hash-based collections?
+
+
+96. What makes a good hash function for a domain object?
+
+
+
+D. Major Trap — Mutable Keys
+
+97. Why is this dangerous?
+
+
+
+Map<User, String> map = new HashMap<>();
+
+when User's equality state can change?
+
+98. Predict what happens when a key's hash-relevant field changes after insertion.
+
+
+99. Why can map.get(user) fail after the key is mutated?
+
+
+100. Can the entry still exist even though lookup fails?
+
+
+101. Why are immutable keys preferred?
+
+
+
+E. Debugging
+
+102. Diagnose a HashMap lookup failure.
+
+
+103. Diagnose a HashSet containing unexpected duplicates.
+
+
+104. Find an incorrect hashCode().
+
+
+105. Find a mismatch between equals() and hashCode().
+
+
+106. Diagnose poor hash distribution.
+
+
+
+F. Production
+
+107. How can bad hashing affect latency?
+
+
+108. How can hash collisions affect throughput?
+
+
+109. When might caching a hash code make sense?
+
+
+110. What makes an object a good HashMap key?
+
+
+111. Why should equality-significant fields normally be stable?
+
+
+
+The module explicitly emphasizes the rule equal objects must have equal hash codes, while equal hashes do not imply equality, and highlights mutable keys and hash distribution as major concerns. 
+
+
+---
+
+1.5.4 toString()
+
+A. Basic
+
+112. What is toString()?
+
+
+113. Why does every ordinary object have toString()?
+
+
+114. What does the default Object.toString() represent?
+
+
+115. Why should application classes often override it?
+
+
+116. What happens when you write:
+
+
+
+System.out.println(user);
+
+B. Intermediate
+
+117. How does println() convert an object to text?
+
+
+118. What information should a good toString() contain?
+
+
+119. Why is toString() useful for debugging?
+
+
+120. Why is it useful for logging?
+
+
+121. Why should its exact format not normally be treated as a stable API?
+
+
+
+C. Advanced
+
+122. How can toString() accidentally allocate heavily?
+
+
+123. Why can traversing a large object graph be expensive?
+
+
+124. Why can lazy-loaded relationships be problematic?
+
+
+125. How can circular references cause problems?
+
+
+126. Why should toString() never perform database access?
+
+
+127. Why should it never perform network access?
+
+
+
+D. Security Traps
+
+128. Why should passwords never appear in toString()?
+
+
+129. Why should access tokens be excluded?
+
+
+130. Why should API keys/secrets be excluded?
+
+
+131. Why can logging sensitive information become a security incident?
+
+
+132. Why shouldn't toString() be treated as serialization?
+
+
+
+E. Debugging
+
+133. Diagnose excessive logging overhead caused by toString().
+
+
+134. Diagnose a stack overflow caused by circular object references.
+
+
+135. Diagnose huge log messages.
+
+
+136. Identify sensitive information accidentally exposed by toString().
+
+
+
+F. Production
+
+137. How would you design a safe production toString()?
+
+
+138. What fields should be included?
+
+
+139. What fields should be excluded?
+
+
+140. How should large collections be handled?
+
+
+141. How should lazy-loaded relationships be handled?
+
+
+
+The module specifically requires toString() to remain useful, small, safe, non-sensitive and side-effect-free. 
+
+
+---
+
+1.5.5 getClass()
+
+A. Basic
+
+142. What does getClass() return?
+
+
+143. What is Class<?>?
+
+
+144. What is runtime type?
+
+
+145. What is compile-time type?
+
+
+146. What is the difference between:
+
+
+
+user.getClass()
+
+and:
+
+User.class
+
+B. Intermediate
+
+147. What happens here?
+
+
+
+Object value = "Hello";
+value.getClass();
+
+148. What class is returned here?
+
+
+
+Animal animal = new Dog();
+animal.getClass();
+
+149. Why is the result Dog rather than Animal?
+
+
+150. How does getClass() support reflection?
+
+
+151. How does it help runtime diagnostics?
+
+
+
+C. Advanced
+
+152. How is runtime class metadata associated with an object?
+
+
+153. What is a Class<?> object?
+
+
+154. How do class loaders relate to Class<?>?
+
+
+155. How can dynamic proxies affect getClass()?
+
+
+156. Why can framework proxies complicate exact class checks?
+
+
+
+D. Major Traps
+
+157. getClass() vs instanceof?
+
+
+158. When should instanceof be preferred?
+
+
+159. Why can this be fragile?
+
+
+
+if (obj.getClass() == User.class)
+
+160. Why can proxy-based frameworks make exact class checks dangerous?
+
+
+161. Does getClass() return the compile-time type?
+
+
+
+E. Production
+
+162. How is getClass() used in Spring/ORM environments?
+
+
+163. Why should runtime type checks not replace good polymorphic design?
+
+
+164. When is reflection justified?
+
+
+165. What performance cost can reflection introduce?
+
+
+
+The module explicitly calls out runtime-vs-compile-time type and framework proxies as important getClass() edge cases. 
+
+
+---
+
+1.5.6 clone()
+
+A. Basic
+
+166. What is clone()?
+
+
+167. Why does Java have clone()?
+
+
+168. What is Cloneable?
+
+
+169. What does Object.clone() do?
+
+
+170. Is cloning shallow or deep by default?
+
+
+171. What exception can cloning produce?
+
+
+
+B. Intermediate
+
+172. What is shallow copying?
+
+
+173. What is deep copying?
+
+
+174. What happens to primitive fields during cloning?
+
+
+175. What happens to reference fields?
+
+
+176. Why does a cloned object potentially share nested objects with the original?
+
+
+
+C. Advanced
+
+177. Explain field-by-field copying.
+
+
+178. Why is Cloneable considered problematic?
+
+
+179. Why is Cloneable a marker interface?
+
+
+180. Why does implementing Cloneable not itself define a convenient public clone() API?
+
+
+181. Why does Object.clone() have protected visibility?
+
+
+182. What does super.clone() do?
+
+
+183. What is CloneNotSupportedException?
+
+
+
+D. Major Traps
+
+184. Does:
+
+
+
+User clone = user.clone();
+
+create a completely independent object graph? 185. What happens if the object contains a mutable Address? 186. What happens when the original modifies the nested Address? 187. Is clone() automatically a deep copy? 188. Can every Java object be cloned?
+
+E. Arrays
+
+189. How does array cloning work?
+
+
+190. What happens when cloning:
+
+
+
+int[] a = {1, 2, 3};
+int[] b = a.clone();
+
+191. What happens with:
+
+
+
+Address[] addresses;
+
+192. What is the difference between primitive and reference arrays?
+
+
+193. When should Arrays.copyOf() or similar APIs be considered?
+
+
+
+F. Design
+
+194. Why might a copy constructor be better than clone()?
+
+
+195. Why might a static copyOf() factory be better?
+
+
+196. When should explicit copy methods be preferred?
+
+
+197. How would you safely deep-copy a complex object graph?
+
+
+
+G. Debugging
+
+198. Diagnose accidental aliasing after cloning.
+
+
+199. Find a shallow-copy bug.
+
+
+200. Find a deep-copy implementation bug.
+
+
+201. Diagnose CloneNotSupportedException.
+
+
+202. Compare clone vs copy constructor behavior.
+
+
+
+The module explicitly recommends copy constructors, static factories, explicit copy methods and builders over relying on legacy cloning mechanisms. 
+
+
+---
+
+1.5.7 finalize() — History, Deprecation & Removal
+
+A. Basic
+
+203. What was finalize()?
+
+
+204. Why did Java originally have finalization?
+
+
+205. When was finalization deprecated for removal?
+
+
+206. Why should new code not use finalize()?
+
+
+
+B. Intermediate
+
+207. What was the historical finalization lifecycle?
+
+
+208. Why was finalization nondeterministic?
+
+
+209. Why was it unsuitable for resource management?
+
+
+210. What performance overhead could finalization introduce?
+
+
+211. What is object resurrection?
+
+
+
+C. Advanced
+
+212. How could a finalizer resurrect an object?
+
+
+213. Why does resurrection complicate object lifetime?
+
+
+214. Why can delayed finalization exhaust scarce resources?
+
+
+215. Why is GC not a resource-management mechanism?
+
+
+216. What is JEP 421?
+
+
+217. What changes did JEP 421 introduce?
+
+
+
+D. Major Traps
+
+218. Why is this bad?
+
+
+
+@Override
+protected void finalize() {
+    closeDatabaseConnection();
+}
+
+219. Can you rely on finalize() running promptly?
+
+
+220. Can you rely on it running at all in the way your resource-management logic requires?
+
+
+221. Why is Cleaner not equivalent to deterministic cleanup?
+
+
+
+E. Alternatives
+
+222. What is AutoCloseable?
+
+
+223. What is try-with-resources?
+
+
+224. Why is explicit close() better?
+
+
+225. What is Cleaner?
+
+
+226. When might Cleaner be justified?
+
+
+227. Why is Cleaner only a specialized fallback rather than a replacement for deterministic cleanup?
+
+
+
+F. Migration
+
+228. How would you migrate a legacy finalizer?
+
+
+229. How would you identify resource ownership?
+
+
+230. How would you introduce AutoCloseable?
+
+
+231. How would you verify deterministic cleanup?
+
+
+232. How would you test the migration?
+
+
+
+The module covers finalization's historical lifecycle, its problems, JEP 421, and the preferred alternatives of AutoCloseable, try-with-resources and explicit lifecycle management. 
+
+
+---
+
+1.5.8 equals() + hashCode() + Collections
+
+This is one of the highest-priority sections of 1.5.
+
+Basic
+
+233. Why do HashMap and HashSet need hashCode()?
+
+
+234. Why do they also need equals()?
+
+
+235. What happens when two objects have the same logical value?
+
+
+236. Why does a HashSet remove logical duplicates?
+
+
+
+Intermediate
+
+237. Trace:
+
+
+
+object
+ ↓
+hashCode()
+ ↓
+bucket
+ ↓
+equals()
+ ↓
+match
+
+238. What happens if equals() is correct but hashCode() is wrong?
+
+
+239. What happens if hashCode() is correct but the key is mutable?
+
+
+240. Why can duplicate objects appear in a HashSet?
+
+
+
+Advanced
+
+241. Implement Employee.equals().
+
+
+242. Implement Employee.hashCode().
+
+
+243. Add employees to a HashSet.
+
+
+244. Explain why duplicates are detected.
+
+
+245. Explain exactly which methods participate.
+
+
+
+Debugging
+
+246. Diagnose a HashSet that contains two apparently equal employees.
+
+
+247. Diagnose a HashMap that cannot find an existing key.
+
+
+248. Determine whether equality or hashing is responsible.
+
+
+
+The module explicitly combines equals(), hashCode() and hash-based collections as a critical practical area. 
+
+
+---
+
+1.5.9 Mutable Key Failure Experiment
+
+Given:
+
+Map<User, String> map = new HashMap<>();
+
+User user = new User("A");
+
+map.put(user, "value");
+
+user.setId("B");
+
+System.out.println(map.get(user));
+
+Questions
+
+249. What hash was used during insertion?
+
+
+250. What hash is used during lookup?
+
+
+251. Why can lookup fail?
+
+
+252. Does the entry necessarily disappear?
+
+
+253. Why is this behavior so confusing?
+
+
+254. What property of keys should normally remain stable?
+
+
+255. How would you fix the design?
+
+
+256. Would making the entire User immutable solve the problem?
+
+
+257. Should mutable business entities generally be used as hash keys?
+
+
+
+The module explicitly requires this experiment and asks you to understand why mutable keys are dangerous. 
+
+
+---
+
+1.5.10 Equality + Inheritance Experiment
+
+Build:
+
+Money
+   ↓
+Voucher
+
+Round 1
+
+258. Implement equality using instanceof.
+
+
+259. Test parent against child.
+
+
+260. Test child against parent.
+
+
+261. Test two child objects.
+
+
+262. Check symmetry.
+
+
+263. Check transitivity.
+
+
+
+Round 2
+
+264. Implement equality using getClass().
+
+
+265. Repeat the tests.
+
+
+266. Compare the behavior.
+
+
+
+Round 3
+
+267. Explain substitutability.
+
+
+268. Explain value semantics.
+
+
+269. Explain why inheritance complicates equality.
+
+
+270. Explain canEqual().
+
+
+271. Consider composition instead.
+
+
+
+This experiment is explicitly included in Module 1.5. 
+
+
+---
+
+1.5.11 toString() Production Challenge
+
+Create:
+
+User
+ ├── id
+ ├── name
+ ├── password
+ ├── token
+ └── huge collection
+
+Questions
+
+272. Which fields should be printed?
+
+
+273. Which fields must never be printed?
+
+
+274. How should a huge collection be represented?
+
+
+275. What happens if toString() traverses a huge object graph?
+
+
+276. What happens if a relationship is lazy-loaded?
+
+
+277. Why should toString() be side-effect-free?
+
+
+278. Design the final production-safe implementation.
+
+
+
+The module explicitly requires password/token exclusion and avoiding dumping huge collections. 
+
+
+---
+
+1.5.12 Object Identity vs Equality
+
+Basic
+
+279. What is object identity?
+
+
+280. What does == mean for references?
+
+
+281. What does equals() mean?
+
+
+282. Why are identity and logical equality different concepts?
+
+
+
+Intermediate
+
+283. Explain:
+
+
+
+String a = new String("hello");
+String b = new String("hello");
+
+284. What does:
+
+
+
+a == b
+
+mean? 285. What does:
+
+a.equals(b)
+
+mean? 286. Why can they produce different results?
+
+Advanced
+
+287. When should identity be used?
+
+
+288. When should logical equality be used?
+
+
+289. How does identity relate to object lifecycle?
+
+
+290. How does identity differ from domain value semantics?
+
+
+
+Traps
+
+291. Why is == generally inappropriate for String content?
+
+
+292. Why can reference identity accidentally appear to work with cached objects?
+
+
+293. Why should developers not rely on object identity for domain equality?
+
+
+
+The module explicitly frames == as identity comparison and equals() as domain/logical equality. 
+
+
+---
+
+1.5.13 Records and Object Methods
+
+Basic
+
+294. What is a Java record?
+
+
+295. Which Object methods do records automatically provide?
+
+
+296. How does a record implement equals()?
+
+
+297. How does a record implement hashCode()?
+
+
+298. How does a record implement toString()?
+
+
+
+Intermediate
+
+299. Why are records useful for value-oriented data?
+
+
+300. When should a record be preferred over a traditional class?
+
+
+301. When should a record not be used?
+
+
+
+Advanced
+
+302. How do record components participate in equality?
+
+
+303. How does record equality differ conceptually from identity?
+
+
+304. How does record immutability work?
+
+
+305. Does a record automatically make referenced objects deeply immutable?
+
+
+
+Traps
+
+306. Are records automatically deeply immutable?
+
+
+307. Can records have methods?
+
+
+308. Can records implement interfaces?
+
+
+309. Can records extend arbitrary classes?
+
+
+
+The module specifically includes records' generated equals(), hashCode() and toString() behavior. 
+
+
+---
+
+1.5.14 Arrays and Object Methods
+
+Basic
+
+310. Are arrays objects?
+
+
+311. Does an array inherit from Object?
+
+
+312. Does:
+
+
+
+a.equals(b)
+
+perform element-by-element comparison?
+
+313. How do you compare primitive arrays?
+
+
+314. How do you compare nested arrays?
+
+
+
+Intermediate
+
+315. What does Arrays.equals() do?
+
+
+316. What does Arrays.deepEquals() do?
+
+
+317. What does Arrays.hashCode() do?
+
+
+318. What does Arrays.deepHashCode() do?
+
+
+319. What does Arrays.toString() do?
+
+
+320. What does Arrays.deepToString() do?
+
+
+
+Advanced
+
+321. Why is array equality different from collection equality?
+
+
+322. Why does Object.equals() behavior matter for arrays?
+
+
+323. How do reference arrays behave?
+
+
+324. What happens with nested arrays?
+
+
+
+Traps
+
+325. Predict:
+
+
+
+int[] a = {1, 2};
+int[] b = {1, 2};
+
+System.out.println(a.equals(b));
+
+326. Explain why.
+
+
+327. Show the correct comparison.
+
+
+
+The module explicitly calls out arrays as objects with special equality behavior and the Arrays utility methods for correct comparisons. 
+
+
+---
+
+1.5.15 Production Design Guidelines
+
+equals()
+
+328. When should logical equality be implemented?
+
+
+329. What makes good equality state?
+
+
+330. Why prefer stable state?
+
+
+
+hashCode()
+
+331. Why must it remain consistent with equals()?
+
+
+332. Why are immutable keys preferred?
+
+
+333. What happens if hash-relevant state changes?
+
+
+
+toString()
+
+334. What makes a production-safe toString()?
+
+
+335. Why should it be small?
+
+
+336. Why should it have no side effects?
+
+
+337. Why should it exclude secrets?
+
+
+
+getClass()
+
+338. When is runtime type inspection appropriate?
+
+
+339. Why shouldn't getClass() replace polymorphism?
+
+
+340. When can proxies make exact class checks problematic?
+
+
+
+clone()
+
+341. Why should explicit copy APIs generally be preferred?
+
+
+342. When is a copy constructor appropriate?
+
+
+343. When is a factory appropriate?
+
+
+
+finalize()
+
+344. Why should it never be used in new code?
+
+
+345. What should replace it?
+
+
+346. When might Cleaner be considered?
+
+
+
+The module's production guidelines explicitly recommend stable equality state, immutable keys, safe toString(), explicit copy APIs, and deterministic resource management. 
+
+
+---
+
+1.5.16 Performance Questions
+
+347. What is the cost of equals()?
+
+
+348. What is the cost of hashCode()?
+
+
+349. How does poor hash distribution affect performance?
+
+
+350. How can copying allocate memory?
+
+
+351. How can toString() allocate memory?
+
+
+352. What performance costs can reflection introduce after getClass()?
+
+
+353. How can large object graphs affect equality?
+
+
+354. How can large object graphs affect toString()?
+
+
+355. Why are mutable keys problematic beyond correctness?
+
+
+356. What performance problems did finalization introduce?
+
+
+
+The module's performance checklist explicitly covers all of these areas. 
+
+
+---
+
+1.5.17 Production Debugging
+
+Collection Bug
+
+357. A HashMap cannot find a key. What do you check first?
+
+
+358. How do you verify equals()?
+
+
+359. How do you verify hashCode()?
+
+
+360. How do you check key mutability?
+
+
+361. How do you inspect collection contents?
+
+
+362. How do you investigate hash distribution?
+
+
+
+Logging Bug
+
+363. Logs suddenly become extremely large. What do you inspect?
+
+
+364. Could toString() be responsible?
+
+
+365. Could a huge object graph be traversed?
+
+
+366. Could serialization be involved?
+
+
+367. Could excessive allocation be occurring?
+
+
+
+Resource Cleanup Bug
+
+368. A legacy application leaks resources. What do you inspect?
+
+
+369. How do you search for finalize()?
+
+
+370. How do you identify resource ownership?
+
+
+371. How do you migrate to AutoCloseable?
+
+
+372. How do you verify deterministic cleanup?
+
+
+
+The module provides these debugging workflows explicitly. 
+
+
+---
+
+1.5.18 Coding Challenges
+
+Basic
+
+373. Create a class and inspect inherited Object methods.
+
+
+374. Override toString().
+
+
+375. Compare objects using ==.
+
+
+376. Compare objects using equals().
+
+
+377. Inspect getClass().
+
+
+378. Inspect hash codes.
+
+
+
+Intermediate
+
+379. Implement equals() and hashCode().
+
+
+380. Put custom objects in HashSet.
+
+
+381. Use custom objects as HashMap keys.
+
+
+382. Demonstrate hash collisions.
+
+
+383. Demonstrate mutable-key failure.
+
+
+384. Implement safe toString().
+
+
+
+Advanced
+
+385. Design equality for an inheritance hierarchy.
+
+
+386. Compare instanceof vs getClass() equality.
+
+
+387. Implement shallow copying.
+
+
+388. Implement deep copying.
+
+
+389. Compare clone with copy constructor.
+
+
+390. Analyze array equality.
+
+
+391. Inspect record-generated Object methods.
+
+
+
+Production
+
+Build:
+
+Product Catalog
+      ↓
+Product
+      ↓
+SKU / Price / Category
+      ↓
+HashMap + HashSet
+
+Requirements:
+
+392. Immutable product identity.
+
+
+393. Correct equals().
+
+
+394. Correct hashCode().
+
+
+395. Safe toString().
+
+
+396. Product as a HashMap key.
+
+
+397. Deliberate mutable-key failure experiment.
+
+
+398. Record-based DTO.
+
+
+399. Entity equality vs value-object equality.
+
+
+400. AutoCloseable resource.
+
+
+401. Explicitly explain why finalization is not used.
+
+
+
+These coding levels and the Product Catalog production exercise are directly specified in the module. 
+
+
+---
+
+1.5.19 Master Interview Bank
+
+Basic
+
+402. What is Object?
+
+
+403. What methods does Object provide?
+
+
+404. What is equals()?
+
+
+405. What is hashCode()?
+
+
+406. What is toString()?
+
+
+407. What does getClass() return?
+
+
+408. What is clone()?
+
+
+409. What was finalize()?
+
+
+
+Intermediate
+
+410. == vs equals()?
+
+
+411. What is the equality contract?
+
+
+412. Why must equal objects have equal hash codes?
+
+
+413. Can unequal objects have the same hash code?
+
+
+414. Why are mutable HashMap keys dangerous?
+
+
+415. Shallow vs deep cloning?
+
+
+416. getClass() vs .class?
+
+
+
+Advanced
+
+417. Why can inheritance make equals() difficult?
+
+
+418. instanceof vs getClass()?
+
+
+419. How does HashMap use hashCode() and equals()?
+
+
+420. Why is Cloneable problematic?
+
+
+421. Why was finalize() deprecated?
+
+
+422. What is object resurrection?
+
+
+423. How do records implement Object methods?
+
+
+
+Senior / Production
+
+424. How would you design equality for a persistence entity?
+
+
+425. Why are immutable keys preferred?
+
+
+426. How can poor hash distribution affect production latency?
+
+
+427. How would you diagnose a HashMap lookup failure?
+
+
+428. How would you design a safe toString() for production logs?
+
+
+429. How can framework proxies affect getClass() checks?
+
+
+430. How would you migrate legacy finalization-based cleanup?
+
+
+431. When would you use Cleaner?
+
+
+432. Why is explicit cleanup preferred?
+
+
+433. When should identity be used instead of logical equality?
+
+
+434. How would you model equality across an inheritance hierarchy?
+
+
+
+The complete basic → senior interview progression is part of the source module. 
+
+
+---
+
+1.5.20 Deep-Dive Follow-Ups
+
+JVM / Runtime
+
+435. What is object identity at runtime?
+
+
+436. What information exists in an object header?
+
+
+437. What is runtime class metadata?
+
+
+438. How does method dispatch interact with Object methods?
+
+
+439. How does object copying work?
+
+
+440. What happens during the GC lifecycle?
+
+
+441. How did finalization architecture work historically?
+
+
+
+Collections
+
+442. How does HashMap work internally?
+
+
+443. How does HashSet use HashMap concepts?
+
+
+444. How are hash collisions handled?
+
+
+445. Why are mutable keys dangerous?
+
+
+446. How do tree-based collections differ from hash-based collections?
+
+
+447. How does comparison relate to equality?
+
+
+
+Reflection
+
+448. What is Class<?>?
+
+
+449. How does runtime type inspection work?
+
+
+450. How does reflection use Class?
+
+
+451. What are method handles?
+
+
+452. What are dynamic proxies?
+
+
+453. How can proxies affect equality and type checks?
+
+
+
+Modern Java
+
+454. How do records generate equals()?
+
+
+455. How do records generate hashCode()?
+
+
+456. How do records generate toString()?
+
+
+457. How does pattern matching with instanceof help equality/type checks?
+
+
+458. How do immutable value objects relate to Object methods?
+
+
+459. What is AutoCloseable?
+
+
+460. What is Cleaner?
+
+
+
+Specification
+
+461. Where is Object documented?
+
+
+462. Where is Class documented?
+
+
+463. What is the Cloneable contract?
+
+
+464. What is the AutoCloseable contract?
+
+
+465. What does the JLS specify about equality/reference types?
+
+
+466. What does the JVM specification say about object creation?
+
+
+467. What does it say about method invocation?
+
+
+468. What is JEP 421?
+
+
+469. Where would you inspect OpenJDK implementation details?
+
+
+
+The module explicitly lists these JVM, collections, reflection, modern Java and specification follow-ups. 
+
+
+---
+
+🔥 1.5 Final Mastery Test
+
+Round 1 — Object
+
+You should be able to explain:
+
+why Object exists
+
+its position in the hierarchy
+
+inherited methods
+
+identity
+
+runtime metadata
+
+object references
+
+
+
+---
+
+Round 2 — Equality
+
+Without notes, explain the complete contract:
+
+Reflexive
+Symmetric
+Transitive
+Consistent
+Non-null
+
+Then implement a correct equals().
+
+
+---
+
+Round 3 — Hashing
+
+Given:
+
+User a = new User("1");
+User b = new User("1");
+
+answer:
+
+Are they identical?
+
+Are they logically equal?
+
+Must their hashes match?
+
+Can unequal objects have the same hash?
+
+What happens inside HashMap?
+
+
+
+---
+
+Round 4 — Collection Trap
+
+Given:
+
+Map<User, String> map = new HashMap<>();
+
+User u = new User("A");
+map.put(u, "hello");
+
+u.setId("B");
+
+map.get(u);
+
+You must explain exactly why lookup can fail.
+
+
+---
+
+Round 5 — Equality + Inheritance
+
+Given:
+
+Money
+   ↓
+Voucher
+
+you must analyze:
+
+instanceof
+
+getClass()
+
+symmetry
+
+transitivity
+
+substitutability
+
+canEqual()
+
+composition
+
+records/value objects
+
+
+
+---
+
+Round 6 — toString()
+
+Given a production object containing:
+
+ID
+Name
+Password
+Token
+Huge collection
+Nested objects
+
+design a safe toString().
+
+You must explain:
+
+security
+
+performance
+
+circular references
+
+logging
+
+lazy loading
+
+side effects
+
+
+
+---
+
+Round 7 — Runtime Type
+
+Given:
+
+Animal animal = new Dog();
+
+explain:
+
+animal.getClass()
+Animal.class
+Dog.class
+animal instanceof Animal
+animal instanceof Dog
+
+Then explain how framework proxies can complicate exact class checks.
+
+
+---
+
+Round 8 — Copying
+
+Given:
+
+Person
+ └── Address
+
+explain:
+
+Original
+   ↓
+clone()
+   ↓
+Copy
+
+and determine:
+
+what is copied
+
+what is shared
+
+shallow vs deep copy
+
+aliasing
+
+mutation effects
+
+why copy constructors may be better
+
+
+
+---
+
+Round 9 — Resource Management
+
+Explain why this design is wrong:
+
+finalize() {
+    closeResource();
+}
+
+Then redesign it using:
+
+AutoCloseable
+      +
+try-with-resources
+
+and explain when Cleaner might be appropriate.
+
+
+---
+
+Round 10 — Production Debugging
+
+You receive a production bug:
+
+> "HashMap.get(key) sometimes returns null even though the key was inserted."
+
+
+
+Your investigation should be:
+
+Check equals()
+       ↓
+Check hashCode()
+       ↓
+Check key mutability
+       ↓
+Check object state
+       ↓
+Check hash distribution
+       ↓
+Inspect collection
+       ↓
+Reproduce
+       ↓
+Fix
+
+
+---
+
+🏆 1.5 Completion Standard
+
+Don't mark Module 1.5 complete merely because you know:
+
+> "equals() compares objects."
+
+
+
+You should be able to go from:
+
+Explain → Implement → Test → Debug → Explain internals → Handle edge cases → Analyze collections → Analyze runtime behavior → Discuss performance → Design production-safe objects
+
+The source's final mastery gate specifically requires mastery of Object, equality, hashing, mutable-key failures, toString(), runtime class inspection, cloning, finalization, deterministic resource management, records, arrays, collection debugging, performance and production trade-offs. 
+
+The 12 things I would consider non-negotiable for 1.5
+
+1. Object is the root of the ordinary class hierarchy.
+
+
+2. == and equals() answer different questions.
+
+
+3. Object.equals() is identity-oriented by default.
+
+
+4. Know all five parts of the equals() contract.
+
+
+5. equals() and hashCode() must be designed together.
+
+
+6. Equal objects must have equal hash codes; equal hashes do not imply equality.
+
+
+7. Mutable HashMap/HashSet keys are a major correctness trap.
+
+
+8. toString() is for diagnostics, not serialization—and must not leak secrets.
+
+
+9. getClass() gives runtime type, which matters greatly with polymorphism and proxies.
+
+
+10. clone() is normally shallow and is a legacy mechanism with significant design problems.
+
+
+11. finalize() should not be used; deterministic resource management is preferred.
+
+
+12. Records, arrays, collections, reflection and the JVM all expose deeper consequences of these Object methods.
+
+
+
+That gives you a proper interview + production + JVM-level question bank for 1.5, at the same depth as the 1.4 set.
