@@ -1,0 +1,1913 @@
+Module 1.2 — Language Fundamentals
+
+Complete Mastery Question Bank — Part 2
+
+Continuing exactly from 1.2.16 onward, using the subtopics and terminology in your actual module. The source defines the final portion as static, initialization order, this/super, packages/imports, access modifiers, enums, annotations, varargs, recursion, assertions and the integrated Order Processing CLI.  
+
+
+---
+
+1.2.16 static
+
+Basic — What is it?
+
+1. What does static mean in Java?
+
+
+2. What is a static field?
+
+
+3. What is a static method?
+
+
+4. What is a static initialization block?
+
+
+5. What is class-level state?
+
+
+6. What is a static nested class?
+
+
+7. What is static import?
+
+
+8. Why can static members be accessed without creating an object?
+
+
+
+Intermediate
+
+9. Instance member vs static member?
+
+
+10. How many copies of a static field exist conceptually?
+
+
+11. How is a static field shared between instances?
+
+
+12. Can a static method directly access an instance field?
+
+
+13. Why can't a static method directly use this?
+
+
+14. Can an instance method access static members?
+
+
+15. Can a static method be overloaded?
+
+
+16. Can a static method be overridden?
+
+
+17. What happens when a subclass declares a static field with the same name?
+
+
+18. What happens when a subclass declares a static method with the same signature?
+
+
+
+Advanced
+
+19. When does a class's static initialization occur?
+
+
+20. What triggers class initialization?
+
+
+21. How are static fields initialized?
+
+
+22. What is the relationship between static initialization and <clinit>?
+
+
+23. Why is static initialization performed only once per class initialization?
+
+
+24. How can class initialization failures affect application startup?
+
+
+25. How does a static nested class differ from an inner class?
+
+
+26. Why doesn't a static nested class require an enclosing object?
+
+
+
+Major Trap
+
+class Test {
+    static int x = 10;
+
+    static void print() {
+        System.out.println(x);
+        // System.out.println(this.x);
+    }
+}
+
+27. Why is x legal?
+
+
+28. Why is this.x illegal?
+
+
+
+Static State Trap
+
+class Counter {
+    static int count;
+
+    Counter() {
+        count++;
+    }
+}
+
+new Counter();
+new Counter();
+new Counter();
+
+System.out.println(Counter.count);
+
+29. What is printed?
+
+
+30. Why is there only one shared count?
+
+
+
+Production / Design
+
+31. Why is mutable static state dangerous?
+
+
+32. How can static state create test pollution?
+
+
+33. How can static state create concurrency problems?
+
+
+34. How can a static cache cause memory retention?
+
+
+35. When is static state appropriate?
+
+
+36. When should state instead belong to an object?
+
+
+37. Why are global mutable variables generally undesirable in large applications?
+
+
+38. How would you replace a mutable static dependency with dependency injection?
+
+
+
+The source specifically identifies mutable static state, memory retention, test pollution, concurrency and global state as production risks. 
+
+
+---
+
+1.2.17 Initialization Order
+
+This is a high-priority output-prediction topic.
+
+Your module explicitly gives the initialization sequence and requires exact superclass/subclass ordering. 
+
+Basic
+
+1. What is class initialization?
+
+
+2. What is instance initialization?
+
+
+3. What is a static field initializer?
+
+
+4. What is a static initialization block?
+
+
+5. What is an instance initializer block?
+
+
+6. What is constructor execution?
+
+
+7. What is initialization order?
+
+
+
+Intermediate
+
+8. In what order are static fields and static blocks executed?
+
+
+9. When is a superclass initialized?
+
+
+10. When is a subclass initialized?
+
+
+11. When are instance fields initialized?
+
+
+12. When are instance initializer blocks executed?
+
+
+13. When does the constructor body execute?
+
+
+14. Why does superclass initialization happen before subclass initialization?
+
+
+
+Exact Output Questions
+
+class Parent {
+    static {
+        System.out.println("Parent static");
+    }
+
+    {
+        System.out.println("Parent instance");
+    }
+
+    Parent() {
+        System.out.println("Parent constructor");
+    }
+}
+
+class Child extends Parent {
+    static {
+        System.out.println("Child static");
+    }
+
+    {
+        System.out.println("Child instance");
+    }
+
+    Child() {
+        System.out.println("Child constructor");
+    }
+}
+
+15. What is printed when:
+
+
+
+new Child();
+
+is executed?
+
+16. Which static block executes first?
+
+
+17. Which instance initializer executes first?
+
+
+18. Which constructor executes first?
+
+
+19. Why?
+
+
+
+Advanced
+
+20. What happens if a class is loaded but not initialized?
+
+
+21. What causes class initialization?
+
+
+22. How does inheritance affect initialization?
+
+
+23. What happens if a static initializer throws an exception?
+
+
+24. What is initialization failure?
+
+
+25. What is <clinit>?
+
+
+26. What is <init>?
+
+
+27. Why is class initialization synchronized between threads?
+
+
+28. How can circular initialization create unexpected behavior?
+
+
+
+Major Trap
+
+> "Parent constructor runs first because constructors are always executed before child initialization."
+
+
+
+Is this correct?
+
+No. Static initialization happens before object construction, and parent static initialization precedes child static initialization.
+
+Production
+
+29. Why should static initialization avoid expensive I/O?
+
+
+30. Why can complex static initialization increase startup time?
+
+
+31. How can static initialization failures bring down an application during startup?
+
+
+32. How would you diagnose an ExceptionInInitializerError?
+
+
+33. How would you redesign a class with expensive static initialization?
+
+
+
+
+---
+
+1.2.18 this and super
+
+The module explicitly covers this, this.field, this.method(), this(...), super.field, super.method(), super(...), constructor chaining and parent constructor invocation. 
+
+Basic
+
+1. What is this?
+
+
+2. What does this.field mean?
+
+
+3. What does this.method() mean?
+
+
+4. What is super?
+
+
+5. What does super.field mean?
+
+
+6. What does super.method() mean?
+
+
+7. What does this(...) mean?
+
+
+8. What does super(...) mean?
+
+
+
+Intermediate
+
+9. Why is this useful when a parameter has the same name as a field?
+
+
+
+class User {
+    String name;
+
+    User(String name) {
+        this.name = name;
+    }
+}
+
+10. What does this.name refer to?
+
+
+11. What does name refer to?
+
+
+12. What does this() do?
+
+
+13. What does super() do?
+
+
+14. Why are constructor calls restricted to the beginning of a constructor?
+
+
+15. Can this() and super() both be directly invoked in the same constructor?
+
+
+
+Constructor Chaining
+
+class User {
+    String name;
+    int age;
+
+    User() {
+        this("Unknown");
+    }
+
+    User(String name) {
+        this(name, 0);
+    }
+
+    User(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+16. Trace the constructor chain.
+
+
+17. Which constructor actually performs initialization?
+
+
+18. Why is centralizing initialization useful?
+
+
+
+super
+
+class Parent {
+    int x = 10;
+
+    void print() {
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent {
+    int x = 20;
+
+    void test() {
+        System.out.println(x);
+        System.out.println(this.x);
+        System.out.println(super.x);
+
+        print();
+        this.print();
+        super.print();
+    }
+}
+
+19. What does each expression access?
+
+
+20. Why are fields and methods treated differently with inheritance?
+
+
+
+Advanced
+
+21. Can this be used in a static method?
+
+
+22. Why not?
+
+
+23. Can super be used in a static context?
+
+
+24. What happens when this.method() invokes an overridden method?
+
+
+25. What is the constructor dispatch trap?
+
+
+26. Why can calling overridable methods from constructors be dangerous?
+
+
+27. How does this relate to the receiver object?
+
+
+28. How can leaking this during construction cause problems?
+
+
+
+Production / Design
+
+29. When is constructor chaining preferable?
+
+
+30. How can constructor overloading become difficult to maintain?
+
+
+31. Why should constructors establish object invariants?
+
+
+32. Why should constructors generally avoid calling overridable methods?
+
+
+33. How can builders solve constructors with too many parameters?
+
+
+
+
+---
+
+1.2.19 Packages & Imports
+
+Your module treats packages as both namespace organization and part of access/classpath/module resolution. 
+
+Basic
+
+1. What is a package?
+
+
+2. Why does Java have packages?
+
+
+3. What is a package declaration?
+
+
+4. What is an import?
+
+
+5. What is a fully qualified class name?
+
+
+6. What is a static import?
+
+
+7. What is package-private access?
+
+
+
+Intermediate
+
+8. Why should package names follow conventions?
+
+
+9. Does import copy a class into your source file?
+
+
+10. What does the compiler do with an imported class?
+
+
+11. Can you use a class without an import?
+
+
+12. When would you use a fully qualified class name?
+
+
+13. Can two packages contain classes with the same simple name?
+
+
+14. How can you resolve ambiguous imports?
+
+
+
+Advanced
+
+15. How are packages related to the classpath?
+
+
+16. How are packages related to JPMS modules?
+
+
+17. Does a package itself provide strong encapsulation?
+
+
+18. What is the relationship between package-private access and packages?
+
+
+19. Can a package span multiple JARs?
+
+
+20. What are split packages?
+
+
+21. Why can split packages become problematic with JPMS?
+
+
+
+Trap
+
+import java.util.Date;
+import java.sql.Date;
+
+22. What happens?
+
+
+23. How do you resolve the ambiguity?
+
+
+
+Production / Design
+
+24. How would you organize packages in a Spring Boot application?
+
+
+25. Package by technical layer vs package by feature — what trade-offs exist?
+
+
+26. Why should package structure reflect architectural boundaries?
+
+
+27. How can poor package organization create coupling?
+
+
+28. When should classes remain package-private?
+
+
+
+
+---
+
+1.2.20 Access Modifiers
+
+Your source explicitly lists private, default/package-private, protected and public, with special emphasis on protected across packages. 
+
+Basic
+
+1. What are Java's four access levels?
+
+
+2. What does private mean?
+
+
+3. What does package-private/default mean?
+
+
+4. What does protected mean?
+
+
+5. What does public mean?
+
+
+
+Intermediate
+
+6. Which access level provides the strongest encapsulation?
+
+
+7. Can another class access a private field?
+
+
+8. Can classes in the same package access package-private members?
+
+
+9. Can subclasses access protected members?
+
+
+10. Can unrelated classes everywhere access protected members?
+
+
+11. What does public exposure mean?
+
+
+
+Access Matrix Questions
+
+12. Can a class access its own private member?
+
+
+13. Can another class in the same package access it?
+
+
+14. Can a subclass in another package access a protected member?
+
+
+15. Can an unrelated class in another package access a protected member?
+
+
+16. Can anyone access a public member?
+
+
+
+Advanced — protected Trap
+
+Consider:
+
+package a;
+
+public class Parent {
+    protected int x;
+}
+
+and:
+
+package b;
+
+class Child extends Parent {
+    void test(Parent p, Child c) {
+        System.out.println(x);
+        System.out.println(c.x);
+        // System.out.println(p.x);
+    }
+}
+
+17. Which accesses are legal?
+
+
+18. Why does protected behave specially across packages?
+
+
+19. Why isn't protected simply "public to subclasses"?
+
+
+
+Design
+
+20. When should a member be private?
+
+
+21. When is package-private preferable?
+
+
+22. When is protected appropriate?
+
+
+23. Why should public APIs be kept deliberately small?
+
+
+24. Why can protected APIs create inheritance coupling?
+
+
+25. Why is exposing fields generally weaker encapsulation than exposing behavior?
+
+
+
+Production
+
+26. How would access modifiers help maintain a clean service boundary?
+
+
+27. How can package-private classes help enforce architecture?
+
+
+28. How can excessive public APIs make future refactoring harder?
+
+
+29. How would you design a public library API differently from an internal application?
+
+
+
+
+---
+
+1.2.21 Enums
+
+The module covers declaration, constants, fields, constructors, methods, values(), valueOf(), identity, EnumSet, EnumMap and serialization. 
+
+Basic
+
+1. What is an enum?
+
+
+2. Why use an enum instead of integer constants?
+
+
+3. What is an enum constant?
+
+
+4. Can an enum have fields?
+
+
+5. Can an enum have methods?
+
+
+6. Can an enum have constructors?
+
+
+7. Can enum constructors be public?
+
+
+8. What does values() return?
+
+
+9. What does valueOf() do?
+
+
+
+Intermediate
+
+10. Are enum constants objects?
+
+
+11. Are enum constants unique?
+
+
+12. How should enum constants normally be compared?
+
+
+13. What is enum identity?
+
+
+14. What happens if valueOf() receives an invalid name?
+
+
+15. Can an enum implement an interface?
+
+
+16. Can an enum contain abstract methods?
+
+
+17. Can each enum constant have different behavior?
+
+
+
+Advanced
+
+18. Why is == appropriate for enum identity?
+
+
+19. What does EnumSet provide?
+
+
+20. What does EnumMap provide?
+
+
+21. Why can EnumSet be preferable to a general-purpose Set for enum values?
+
+
+22. Why can EnumMap be efficient for enum keys?
+
+
+23. What is the danger of persisting ordinal()?
+
+
+24. How does enum serialization work conceptually?
+
+
+25. Why should business meaning generally not depend on enum ordinal positions?
+
+
+
+Trap
+
+enum Status {
+    NEW,
+    PROCESSING,
+    COMPLETED
+}
+
+26. Is Status.NEW == Status.NEW true?
+
+
+27. Should you use equals() instead?
+
+
+28. What happens if the enum order changes?
+
+
+
+Production
+
+29. When should an enum represent domain state?
+
+
+30. When should an enum have a stable external code?
+
+
+31. Why might you persist "COMPLETED" or a business code instead of ordinal()?
+
+
+32. How would you safely map external input to an enum?
+
+
+33. How would you handle an unknown enum value received from an API?
+
+
+
+
+---
+
+1.2.22 Annotations
+
+The module intentionally keeps detailed processing for the advanced annotation/reflection module, while this module establishes the language-level foundation. 
+
+Basic
+
+1. What is an annotation?
+
+
+2. Why do annotations exist?
+
+
+3. What is annotation syntax?
+
+
+4. What is @Override?
+
+
+5. What is @Deprecated?
+
+
+6. What is @SuppressWarnings?
+
+
+
+Intermediate
+
+7. Why is @Override useful?
+
+
+8. What problem does @Override catch?
+
+
+9. What does @Deprecated communicate?
+
+
+10. What does @SuppressWarnings do?
+
+
+11. What are annotation targets?
+
+
+12. What is annotation retention?
+
+
+
+Advanced
+
+13. What is source retention?
+
+
+14. What is class retention?
+
+
+15. What is runtime retention?
+
+
+16. Why would an annotation require runtime retention?
+
+
+17. What is the relationship between annotations and reflection?
+
+
+18. What is the difference between compiler-recognized annotations and framework-defined annotations?
+
+
+
+Trap
+
+class Parent {
+    void process() {}
+}
+
+class Child extends Parent {
+    @Override
+    void Process() {}
+}
+
+19. What happens?
+
+
+20. Why is @Override useful here?
+
+
+
+Production
+
+21. When should you create a custom annotation?
+
+
+22. When is an annotation better than a naming convention?
+
+
+23. When can annotations become overused?
+
+
+24. Why should runtime annotations be used deliberately?
+
+
+25. How do frameworks use annotations to define behavior?
+
+
+
+
+---
+
+1.2.23 Varargs
+
+The module explicitly models varargs as essentially array-based syntax, including null arrays and overload ambiguity. 
+
+Basic
+
+1. What is varargs?
+
+
+2. What is the syntax for a varargs parameter?
+
+
+3. Can a method accept zero varargs arguments?
+
+
+4. Can it accept one argument?
+
+
+5. Can it accept multiple arguments?
+
+
+6. What type does a varargs parameter have inside the method?
+
+
+
+Intermediate
+
+void print(String... values) {
+}
+
+7. What is the effective parameter type?
+
+
+8. How does print() work?
+
+
+9. How does print("A") work?
+
+
+10. How does print("A", "B") work?
+
+
+11. Can you explicitly pass an array?
+
+
+
+print(new String[]{"A", "B"});
+
+Advanced / Trap
+
+print((String[]) null);
+
+12. Is this legal?
+
+
+13. What does values contain?
+
+
+14. What happens if the method accesses values.length?
+
+
+15. Why is null different from an empty varargs call?
+
+
+
+Overload Resolution
+
+void test(String... x) {}
+void test(Object... x) {}
+
+16. Which overload is selected for:
+
+
+
+test();
+
+17. Which overload is selected for:
+
+
+
+test("A");
+
+18. Why can overloaded varargs methods create ambiguity?
+
+
+19. Why should APIs avoid excessive varargs overloads?
+
+
+
+Production
+
+20. When is varargs appropriate?
+
+
+21. When can varargs make an API less explicit?
+
+
+22. What allocation/runtime considerations can varargs introduce?
+
+
+23. Why should generic varargs receive special attention?
+
+
+24. When would you prefer a List parameter?
+
+
+
+
+---
+
+1.2.24 Recursion
+
+Your module explicitly covers base cases, recursive cases, stack frames, stack overflow, tail recursion, tree traversal, recursive algorithms and iterative alternatives. 
+
+Basic
+
+1. What is recursion?
+
+
+2. What is a base case?
+
+
+3. What is a recursive case?
+
+
+4. Why must recursion have a termination condition?
+
+
+5. What is a recursive method?
+
+
+6. What is stack overflow?
+
+
+
+Intermediate
+
+static int factorial(int n) {
+    if (n <= 1) {
+        return 1;
+    }
+
+    return n * factorial(n - 1);
+}
+
+7. Trace factorial(4).
+
+
+8. What is the base case?
+
+
+9. What is the recursive case?
+
+
+10. How many calls are made?
+
+
+11. When does each stack frame return?
+
+
+
+Advanced
+
+12. What is a stack frame?
+
+
+13. Why does recursion consume stack space?
+
+
+14. What happens when recursion depth becomes too large?
+
+
+15. What is StackOverflowError?
+
+
+16. What is tail recursion?
+
+
+17. Does Java guarantee tail-call optimization?
+
+
+18. Why can an iterative solution avoid stack growth?
+
+
+19. When is recursion naturally preferable?
+
+
+
+Tree / Graph Questions
+
+20. Why is recursion natural for tree traversal?
+
+
+21. Implement preorder traversal recursively.
+
+
+22. Implement inorder traversal recursively.
+
+
+23. Implement postorder traversal recursively.
+
+
+24. What is the complexity of recursive tree traversal?
+
+
+
+Trap
+
+static void method() {
+    method();
+}
+
+25. What happens?
+
+
+26. Is this an infinite loop?
+
+
+27. Why does it eventually fail differently from an ordinary loop?
+
+
+
+Production
+
+28. Why shouldn't recursion be used blindly with deeply unbounded input?
+
+
+29. When should recursion be replaced with iteration?
+
+
+30. What production risks exist in recursive parsing?
+
+
+31. How would you protect an API from maliciously deep input?
+
+
+32. When does recursion improve clarity enough to justify stack usage?
+
+
+
+The module itself explicitly warns against recursion for deeply unbounded input. 
+
+
+---
+
+1.2.25 Assertions
+
+The module defines assertions, -ea, -da, and explicitly warns that assertions are not mandatory production validation. 
+
+Basic
+
+1. What is an assertion?
+
+
+2. What is the syntax of an assertion?
+
+
+3. What does assert condition; mean?
+
+
+4. What does assert condition : message; mean?
+
+
+5. Why do assertions exist?
+
+
+6. What is -ea?
+
+
+7. What is -da?
+
+
+
+Intermediate
+
+8. Are assertions enabled by default?
+
+
+9. What happens when an enabled assertion fails?
+
+
+10. What exception is generated?
+
+
+11. How do you enable assertions for a Java application?
+
+
+12. How do you disable them?
+
+
+13. Why can behavior differ between development and production if assertions are used incorrectly?
+
+
+
+Major Trap
+
+assert user != null;
+process(user);
+
+14. Is this sufficient as production input validation?
+
+
+15. Why not?
+
+
+
+Advanced / Conceptual
+
+16. What kind of assumptions are assertions intended to check?
+
+
+17. Why shouldn't assertions replace explicit validation?
+
+
+18. What is the difference between an internal invariant and external input validation?
+
+
+19. When would an assertion be appropriate?
+
+
+20. When should an exception or validation mechanism be used instead?
+
+
+
+Production
+
+21. Why can relying on assertions cause security or correctness problems?
+
+
+22. How would you validate user input in a production API?
+
+
+23. How would you use assertions during development without depending on them operationally?
+
+
+24. What should happen if mandatory business validation fails?
+
+
+
+
+---
+
+1.2.26 Integrated Order Processing CLI
+
+Your module requires an Order Processing CLI incorporating classes, constructors, fields, methods, this, super, encapsulation, enums, arrays, loops, conditions, switch, exceptions, static members, final fields, packages, access modifiers, varargs, annotations and input validation. 
+
+Basic Implementation
+
+1. Create the Order class.
+
+
+2. Add:
+
+id
+
+customer
+
+items
+
+status
+
+total
+
+
+
+3. Create constructors.
+
+
+4. Add getters/setters where appropriate.
+
+
+5. Add methods for order operations.
+
+
+6. Create an enum for order status.
+
+
+7. Implement basic input validation.
+
+
+
+Intermediate
+
+8. Add an order-processing service.
+
+
+9. Add status transitions.
+
+
+10. Use switch for status handling.
+
+
+11. Use arrays for order items.
+
+
+12. Add custom exceptions.
+
+
+13. Organize the application into packages.
+
+
+14. Apply access modifiers deliberately.
+
+
+15. Add static members where genuinely appropriate.
+
+
+16. Add final fields for immutable dependencies/state.
+
+
+17. Add basic annotations.
+
+
+
+Advanced
+
+18. Add inheritance.
+
+
+19. Add polymorphism.
+
+
+20. Add interfaces.
+
+
+21. Introduce multiple order-processing strategies.
+
+
+22. Replace inappropriate conditional logic with polymorphism.
+
+
+23. Make domain objects immutable where appropriate.
+
+
+24. Introduce validation boundaries.
+
+
+25. Identify mutable shared state.
+
+
+26. Remove unnecessary static state.
+
+
+
+Debugging Challenges
+
+Introduce deliberate bugs:
+
+27. Null customer.
+
+
+28. Invalid array index.
+
+
+29. Invalid enum conversion.
+
+
+30. Incorrect constructor chaining.
+
+
+31. Incorrect access modifier.
+
+
+32. Static state leaking between executions/tests.
+
+
+33. Incorrect type cast.
+
+
+34. Incorrect switch fall-through.
+
+
+35. Incorrect == comparison.
+
+
+36. Assertion incorrectly used as input validation.
+
+
+37. Varargs called with null.
+
+
+38. Recursive method without a proper base case.
+
+
+
+Production Design Questions
+
+39. Should Order.items be an array in a production application?
+
+
+40. Should Order.total be mutable?
+
+
+41. Should order status be represented by an enum?
+
+
+42. Should order state transitions be controlled by the entity or service?
+
+
+43. Which fields should be final?
+
+
+44. Which classes should be public?
+
+
+45. Which classes can be package-private?
+
+
+46. Should the CLI directly manipulate domain fields?
+
+
+47. How would you separate input parsing from business logic?
+
+
+48. How would you make the application testable?
+
+
+49. How would you replace the CLI later with a REST API without rewriting the domain layer?
+
+
+
+
+---
+
+1.2.27 Advanced Cross-Topic Questions
+
+Your module explicitly identifies JVM, JLS, OpenJDK, performance and concurrency as advanced follow-ups. 
+
+These are excellent senior-level questions because they combine multiple concepts.
+
+Type System + Conversion
+
+1. Explain Java's conversion contexts.
+
+
+2. How does method invocation conversion work?
+
+
+3. How does overload resolution interact with widening, boxing and varargs?
+
+
+4. Which conversion is preferred when several overloaded methods are applicable?
+
+
+
+Methods + JVM
+
+5. How does a method invocation create a stack frame?
+
+
+6. How are local variables represented?
+
+
+7. How does invokestatic differ from invokevirtual conceptually?
+
+
+8. How does runtime dispatch differ from overload resolution?
+
+
+
+Variables + Performance
+
+9. How can boxing create GC pressure?
+
+
+10. What is escape analysis?
+
+
+11. How can method inlining affect performance?
+
+
+12. Why shouldn't developers assume every source-level object necessarily becomes a long-lived heap allocation?
+
+
+
+Concurrency + State
+
+13. Why is mutable static state dangerous in concurrent applications?
+
+
+14. What does safe object publication mean?
+
+
+15. Why are immutable objects easier to share?
+
+
+16. How can static caches become concurrency problems?
+
+
+17. How can shared mutable state produce test-order-dependent failures?
+
+
+
+
+---
+
+1.2.28 Master Interview Bank
+
+The source itself defines Basic → Intermediate → Advanced → Senior/Production interview tiers. 
+
+Basic
+
+1. What are Java primitive types?
+
+
+2. Declaration vs initialization?
+
+
+3. What is a method?
+
+
+4. What is an array?
+
+
+5. What is null?
+
+
+6. What is final?
+
+
+7. What is static?
+
+
+8. What are access modifiers?
+
+
+9. What is an enum?
+
+
+10. What is a package?
+
+
+
+Intermediate
+
+11. Primitive vs wrapper?
+
+
+12. == vs equals()?
+
+
+13. Widening vs narrowing?
+
+
+14. Why does integer overflow happen?
+
+
+15. Why isn't 0.1 + 0.2 exactly 0.3?
+
+
+16. What is autoboxing?
+
+
+17. What is variable shadowing?
+
+
+18. What is method overloading?
+
+
+19. What is constructor chaining?
+
+
+20. this() vs super()?
+
+
+
+Advanced
+
+21. Is Java pass-by-value or pass-by-reference?
+
+
+22. Where are local variables stored?
+
+
+23. Where are objects stored?
+
+
+24. Is final enough to make an object immutable?
+
+
+25. How does overload resolution work?
+
+
+26. What happens during class initialization?
+
+
+27. Why can a final List still be modified?
+
+
+28. Why can't one char represent every Unicode code point?
+
+
+29. How does array covariance work?
+
+
+30. Why can arrays throw ArrayStoreException?
+
+
+
+Senior / Production
+
+31. When should primitives be preferred over wrappers?
+
+
+32. How can boxing create GC pressure?
+
+
+33. Why is mutable static state dangerous?
+
+
+34. How can class initialization cause production startup failures?
+
+
+35. How would you diagnose unexpected object allocation?
+
+
+36. How would you debug a ClassCastException at an API boundary?
+
+
+37. Which language-level behaviors can affect performance?
+
+
+38. When should recursion be replaced with iteration?
+
+
+39. How can initialization order create subtle bugs?
+
+
+40. How would you design a Java API to minimize null-related failures?
+
+
+
+
+---
+
+1.2.29 Coding Assessment
+
+The source defines Basic, Intermediate, Advanced and Production-style coding exercises. 
+
+Level 1 — Basic
+
+1. Calculator using primitives.
+
+
+2. Grade calculator using if and switch.
+
+
+3. Reverse a number.
+
+
+4. Prime-number checker.
+
+
+5. Factorial.
+
+
+6. Fibonacci.
+
+
+7. Array min/max.
+
+
+8. String character counter.
+
+
+
+Level 2 — Intermediate
+
+9. Immutable configuration object.
+
+
+10. Enum-based state machine.
+
+
+11. Overloaded methods.
+
+
+12. Class hierarchy.
+
+
+13. Constructor chaining.
+
+
+14. Basic validation framework.
+
+
+15. Menu-driven CLI.
+
+
+
+Level 3 — Advanced
+
+16. Custom dynamic array.
+
+
+17. Enum-based command processor.
+
+
+18. Recursive tree traversal.
+
+
+19. Type-safe generic utility.
+
+
+20. Array covariance demonstration.
+
+
+21. Boxing/unboxing performance comparison.
+
+
+22. Bytecode investigation of overloaded methods.
+
+
+
+Level 4 — Production
+
+23. Build the Order Processing CLI.
+
+
+24. Add validation.
+
+
+25. Add custom exceptions.
+
+
+26. Add logging.
+
+
+27. Add configuration.
+
+
+28. Separate packages by responsibility.
+
+
+29. Introduce immutable domain objects.
+
+
+30. Add graceful error handling.
+
+
+31. Profile the application.
+
+
+32. Diagnose deliberate null bugs.
+
+
+33. Diagnose deliberate casting bugs.
+
+
+34. Diagnose deliberate initialization bugs.
+
+
+
+
+---
+
+1.2.30 Final Mastery Examination
+
+The source's mastery gate requires understanding primitives, wrappers, conversion, operators, control flow, switch, methods, pass-by-value, scope, arrays, Strings, null, final, static, initialization, this/super, packages, access modifiers, enums, varargs, recursion and assertions, plus debugging, performance, production and implementation. 
+
+I would make the final test approximately:
+
+Part A — Theory
+
+40 questions
+
+Part B — Conceptual
+
+30 questions
+
+Part C — Output Prediction
+
+30 questions
+
+Part D — Code Debugging
+
+20 questions
+
+Part E — Implementation
+
+10 coding problems
+
+Part F — JVM/Internals
+
+20 questions
+
+Part G — Production Design
+
+20 scenarios
+
+Part H — Senior Interview
+
+20 questions
+
+So Module 1.2 becomes far more than memorizing definitions.
+
+
+---
+
+The standard we'll maintain for every remaining module
+
+For example, when we reach OOP, equals()/hashCode(), SOLID, final, inheritance, constructors, annotations, etc., every individual subtopic will have:
+
+Layer	What you'll be tested on
+
+Basic	What is it?
+Intermediate	How is it used?
+Advanced	How does it work internally?
+Conceptual	Why does Java behave this way?
+Theory	Exact rules/contracts
+Implementation	Build it
+Output	Predict it
+Trap	Find the misconception
+Debugging	Find the bug
+Performance	Runtime implications
+Production	Real-world usage
+Design	Choose between alternatives
+Senior	Defend the engineering decision
+
+
+That is exactly the progression your module's completion standard requires: explain → implement → internals → edge cases → trade-offs → debug → production scenario. 
+
+And the final state should be not merely "I studied Java", but:
+
+> I can explain it, code it, predict it, debug it, understand what the JVM is doing, recognize the traps, and make the correct production design decision.
+
+
+
+That is the level we should maintain for Modules 1.3 through 1.9 as well.
