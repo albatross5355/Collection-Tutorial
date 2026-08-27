@@ -1,0 +1,2299 @@
+Module 1.8 — Other Java Language Features
+
+Complete Deep-Mastery Question Bank
+
+Following exactly the same pattern as 1.7:
+
+> Basic → Intermediate → Advanced → Traps → Design → Debugging Challenges → Production
+
+
+
+And importantly, each individual 1.8 subtopic gets this complete progression rather than putting all basic questions together.
+
+The source defines Module 1.8 around nested classes, enums, annotations, varargs, pass-by-value, reference semantics, == vs equals(), equality contracts, identity, memory retention and production design. 
+
+
+---
+
+1.8.1 Nested Classes — Overview
+
+The four major categories are:
+
+Nested Types
+├── Static nested class
+├── Inner member class
+├── Local class
+└── Anonymous class
+
+A key distinction: static nested class is nested, but is not an inner class in Java terminology. 
+
+Basic
+
+1. What is a nested class?
+
+
+2. Why can a class be declared inside another class?
+
+
+3. What are the four major categories of nested classes?
+
+
+4. What is a static nested class?
+
+
+5. What is an inner member class?
+
+
+6. What is a local class?
+
+
+7. What is an anonymous class?
+
+
+8. What is the difference between a nested class and a top-level class?
+
+
+
+Intermediate
+
+9. Static nested class vs inner class?
+
+
+10. Which nested classes require an enclosing instance?
+
+
+11. Which nested classes can access outer instance state?
+
+
+12. What is the scope of a local class?
+
+
+13. What is the lifecycle relationship between an inner class and its outer object?
+
+
+14. Why might nested classes improve encapsulation?
+
+
+
+Advanced
+
+15. Explain the conceptual relationship between outer and inner objects.
+
+
+16. How does an inner class access the enclosing instance?
+
+
+17. What is Outer.this?
+
+
+18. What are the memory implications of retaining an inner class?
+
+
+19. How are nested classes represented after compilation?
+
+
+20. Why can nested classes be useful for implementation details?
+
+
+
+Traps
+
+21. Is every nested class an inner class?
+
+
+22. Does a static nested class require an outer object?
+
+
+23. Does an inner class exist independently of an outer instance?
+
+
+24. Are local and anonymous classes interchangeable?
+
+
+25. Does nesting automatically mean better design?
+
+
+
+Design
+
+26. Decide whether a helper should be top-level or nested.
+
+
+27. Decide between static nested and inner class.
+
+
+28. Design a class with a private nested implementation type.
+
+
+29. Design a builder using a nested class.
+
+
+
+Debugging Challenges
+
+30. Diagnose why Outer.Inner cannot be instantiated directly.
+
+
+31. Diagnose accidental outer-instance retention.
+
+
+32. Identify why a nested helper has unnecessary access to outer state.
+
+
+33. Determine which nested class category is being used.
+
+
+
+Production
+
+34. When should a production helper type be nested?
+
+
+35. When should it be extracted into a top-level class?
+
+
+36. How can nested classes improve API organization?
+
+
+37. How can inner classes create memory-retention problems?
+
+
+
+
+---
+
+1.8.2 Static Nested Classes
+
+A static nested class does not require an Outer instance and does not inherently hold an outer reference. 
+
+Basic
+
+38. What is a static nested class?
+
+
+39. How do you declare one?
+
+
+40. How do you instantiate one?
+
+
+41. Does it require an outer object?
+
+
+42. Can it have static members?
+
+
+43. Can it access private members of the enclosing class?
+
+
+
+Intermediate
+
+44. Static nested class vs top-level class?
+
+
+45. Static nested class vs inner class?
+
+
+46. Why doesn't it need Outer.this?
+
+
+47. How can it access private enclosing-class members?
+
+
+48. Why are static nested classes useful for builders?
+
+
+
+Advanced
+
+49. Explain why a static nested class has no implicit outer-instance relationship.
+
+
+50. What are the memory implications?
+
+
+51. Why can it prevent accidental outer-object retention?
+
+
+52. How does compiler representation differ conceptually from an inner class?
+
+
+53. Why is a static nested class often preferable when outer state isn't required?
+
+
+
+Traps
+
+54. Does static make the nested class globally accessible?
+
+
+55. Is a static nested class a top-level class?
+
+
+56. Does it have access to outer instance fields automatically?
+
+
+57. Does static nested mean singleton?
+
+
+
+Design
+
+58. Implement a Builder using a static nested class.
+
+
+59. Design a nested helper that should not retain the outer object.
+
+
+60. Decide whether a nested DTO/helper should be static.
+
+
+61. Encapsulate an implementation detail using a private static nested class.
+
+
+
+Debugging Challenges
+
+62. Diagnose unnecessary outer-object references.
+
+
+63. Convert an inner class to a static nested class safely.
+
+
+64. Diagnose why outer instance state isn't directly available.
+
+
+
+Production
+
+65. Why are static nested classes often safer for long-lived helpers?
+
+
+66. Where are static nested classes commonly useful?
+
+
+67. How can they help API organization?
+
+
+68. How can they reduce memory-retention risks?
+
+
+
+The source gives the Builder pattern as a classic production use case. 
+
+
+---
+
+1.8.3 Inner Classes
+
+An inner member class is a non-static member class and has an implicit relationship with an enclosing instance. 
+
+Basic
+
+69. What is an inner class?
+
+
+70. How do you declare one?
+
+
+71. How do you instantiate one?
+
+
+72. Why is an outer instance required?
+
+
+73. How can an inner class access outer fields?
+
+
+74. What is Outer.this?
+
+
+
+Intermediate
+
+75. Explain:
+
+
+
+Outer outer = new Outer();
+Outer.Inner inner = outer.new Inner();
+
+76. Can an inner class access private outer members?
+
+
+77. Can an outer class access private inner members?
+
+
+78. Can an inner class have static members?
+
+
+79. Why might an inner class logically belong to an outer object?
+
+
+
+Advanced
+
+80. Explain the implicit outer-instance relationship.
+
+
+81. Explain the memory-retention implications.
+
+
+82. Why can retaining an inner instance retain its outer object?
+
+
+83. How does this affect listeners and callbacks?
+
+
+84. How does this affect executors and threads?
+
+
+85. Explain Outer.this precisely.
+
+
+
+Traps
+
+86. Is an inner class static?
+
+
+87. Can you instantiate it with new Outer.Inner()?
+
+
+88. Does an inner class always create a memory leak?
+
+
+89. Is inner class always worse than static nested class?
+
+
+
+Design
+
+90. Design an inner class that genuinely needs outer state.
+
+
+91. Decide between inner and static nested class.
+
+
+92. Design an event listener tied to a specific outer object.
+
+
+
+Debugging Challenges
+
+93. Diagnose a retained outer object.
+
+
+94. Identify an inner class causing unexpected object lifetime.
+
+
+95. Refactor an unnecessary inner class into a static nested class.
+
+
+
+Production
+
+96. When is an inner class justified?
+
+
+97. When should it be avoided?
+
+
+98. What lifecycle concerns exist with callbacks/listeners?
+
+
+99. How can inner classes contribute to memory retention?
+
+
+
+The source specifically warns about long-lived callbacks, listeners, caches, threads and executors retaining outer objects. 
+
+
+---
+
+1.8.4 Local Classes
+
+Basic
+
+100. What is a local class?
+
+
+101. Where can a local class be declared?
+
+
+102. Can it be declared inside a method?
+
+
+103. What is its scope?
+
+
+104. Can it implement an interface?
+
+
+105. Can it extend a class?
+
+
+
+Intermediate
+
+106. What local variables can a local class capture?
+
+
+107. What does effectively final mean?
+
+
+108. Why can't an ordinary local variable be freely modified after capture?
+
+
+109. Local class vs anonymous class?
+
+
+110. Local class vs lambda?
+
+
+
+Advanced
+
+111. Explain captured local variables.
+
+
+112. Explain why captured locals must be final/effectively final.
+
+
+113. What happens conceptually when local state is captured?
+
+
+114. What are the lifecycle implications of captured state?
+
+
+115. When does a local class provide value over a lambda?
+
+
+
+Traps
+
+116. Can a local class modify an ordinary captured local variable?
+
+
+117. Is a captured local variable shared like a normal mutable field?
+
+
+118. Does local mean no object is created?
+
+
+119. Is a local class always preferable to a lambda?
+
+
+
+Design
+
+120. Implement a narrow algorithmic helper using a local class.
+
+
+121. Decide between local class and lambda.
+
+
+122. Decide between local class and named private class.
+
+
+123. Design a method whose helper should not escape its scope.
+
+
+
+Debugging Challenges
+
+124. Diagnose effectively-final compilation errors.
+
+
+125. Diagnose unexpected captured-state behavior.
+
+
+126. Identify excessive complexity caused by a local class.
+
+
+
+Production
+
+127. When are local classes appropriate?
+
+
+128. When should they be replaced by named classes?
+
+
+129. When should a lambda be preferred?
+
+
+130. How can captured state affect lifecycle and memory?
+
+
+
+The source explicitly includes effectively-final capture and comparing local classes with lambdas/anonymous classes. 
+
+
+---
+
+1.8.5 Anonymous Classes
+
+Basic
+
+131. What is an anonymous class?
+
+
+132. Why does it have no explicit class name?
+
+
+133. How do you instantiate one?
+
+
+134. Can an anonymous class extend a class?
+
+
+135. Can it implement an interface?
+
+
+
+Intermediate
+
+136. Anonymous class vs named class?
+
+
+137. Anonymous class vs local class?
+
+
+138. Anonymous class vs lambda?
+
+
+139. Can an anonymous class access outer state?
+
+
+140. Can it capture local variables?
+
+
+
+Advanced
+
+141. Explain anonymous-class object creation.
+
+
+142. Explain captured state.
+
+
+143. Explain potential outer-reference retention.
+
+
+144. Compare anonymous classes with lambdas at a design level.
+
+
+145. When can anonymous classes express behavior that lambdas cannot?
+
+
+
+Traps
+
+146. Is every anonymous class replaceable with a lambda?
+
+
+147. Does an anonymous class have no runtime class?
+
+
+148. Does anonymous automatically mean short-lived?
+
+
+149. Can anonymous callbacks cause memory-retention problems?
+
+
+
+Design
+
+150. Implement a callback with an anonymous class.
+
+
+151. Refactor an anonymous class into a lambda.
+
+
+152. Refactor an overly complex anonymous class into a named class.
+
+
+153. Decide lambda vs anonymous class vs named class.
+
+
+
+Debugging Challenges
+
+154. Diagnose callback lifecycle problems.
+
+
+155. Diagnose retained outer references.
+
+
+156. Identify an anonymous class whose complexity warrants extraction.
+
+
+
+Production
+
+157. When should modern code prefer lambdas?
+
+
+158. When is an anonymous class still appropriate?
+
+
+159. How should callback lifecycles be managed?
+
+
+160. When does readability favor a named implementation?
+
+
+
+
+---
+
+1.8.6 Enums
+
+Basic
+
+161. What is an enum?
+
+
+162. Why does Java provide enums?
+
+
+163. How do you declare an enum?
+
+
+164. What are enum constants?
+
+
+165. Can an enum have fields?
+
+
+166. Can an enum have methods?
+
+
+167. Can an enum have constructors?
+
+
+
+Intermediate
+
+168. Why are enum constants unique?
+
+
+169. How does enum identity work?
+
+
+170. What are name() and ordinal()?
+
+
+171. Why should ordinal normally not represent business meaning?
+
+
+172. Can an enum implement an interface?
+
+
+173. Can each enum constant have different behavior?
+
+
+
+Advanced
+
+174. Explain enum initialization.
+
+
+175. Explain enum identity.
+
+
+176. Explain how enum constants are represented conceptually.
+
+
+177. Why is ordinal() dangerous for persistence?
+
+
+178. How can an enum implement a state machine?
+
+
+179. Compare EnumSet and EnumMap.
+
+
+180. Design an enum with stable business codes.
+
+
+
+Traps
+
+181. Should database values use ordinal()?
+
+
+182. Does ordinal remain a stable business identifier?
+
+
+183. Can enum constants be instantiated with new?
+
+
+184. Can an enum extend another class?
+
+
+185. Is enum equality normally based on ==?
+
+
+
+Design
+
+186. Design:
+
+
+
+OrderStatus
+CREATED
+PAID
+SHIPPED
+CANCELLED
+
+187. Give each state a stable business code.
+
+
+188. Add behavior to enum constants.
+
+
+189. Build an enum-driven state machine.
+
+
+190. Decide between enum and class hierarchy.
+
+
+
+Debugging Challenges
+
+191. Diagnose persisted ordinal corruption.
+
+
+192. Diagnose incorrect enum comparison.
+
+
+193. Diagnose unstable external representation.
+
+
+194. Diagnose invalid state transitions.
+
+
+
+Production
+
+195. Why should business systems avoid persisting ordinal?
+
+
+196. When should explicit enum codes be used?
+
+
+197. When should EnumSet be preferred?
+
+
+198. When should EnumMap be preferred?
+
+
+199. How should enum evolution be handled?
+
+
+
+The source explicitly recommends explicit stable business codes and warns against using ordinal for business meaning. 
+
+
+---
+
+1.8.7 Annotations
+
+Basic
+
+200. What is an annotation?
+
+
+201. Why are annotations used?
+
+
+202. What are built-in annotations?
+
+
+203. What is @Override?
+
+
+204. What is @Deprecated?
+
+
+205. What is @SuppressWarnings?
+
+
+
+Intermediate
+
+206. What is an annotation target?
+
+
+207. What is annotation retention?
+
+
+208. What are SOURCE, CLASS and RUNTIME retention?
+
+
+209. What does @Target do?
+
+
+210. What is runtime annotation processing?
+
+
+211. How does reflection interact with annotations?
+
+
+
+Advanced
+
+212. Create a custom annotation.
+
+
+213. Create a runtime @Audited.
+
+
+214. Read the annotation through reflection.
+
+
+215. Explain annotation metadata.
+
+
+216. Explain the relationship between annotation declaration, class loading and reflection.
+
+
+217. How do annotation processors differ conceptually from runtime reflection?
+
+
+218. When is runtime metadata worth its complexity?
+
+
+
+Traps
+
+219. Are all annotations available at runtime?
+
+
+220. Does every annotation affect program execution?
+
+
+221. Is SOURCE retention available through reflection?
+
+
+222. Is CLASS retention equivalent to RUNTIME?
+
+
+223. Does @Target determine retention?
+
+
+
+Design
+
+224. Design:
+
+
+
+@Audited
+void createOrder() {}
+
+225. Define appropriate retention.
+
+
+226. Define appropriate targets.
+
+
+227. Build a reflection-based annotation scanner.
+
+
+228. Decide reflection vs compile-time processing.
+
+
+
+Debugging Challenges
+
+229. Annotation is present in source but reflection can't find it. Diagnose.
+
+
+230. Annotation isn't applicable to a target. Diagnose @Target.
+
+
+231. Annotation disappears after compilation. Diagnose retention.
+
+
+232. Framework isn't detecting an annotation. Diagnose scanning/retention/class-loading issues.
+
+
+
+Production
+
+233. When should runtime annotations be used?
+
+
+234. What are the performance/complexity implications?
+
+
+235. How can annotation-driven frameworks become difficult to debug?
+
+
+236. When is compile-time processing preferable?
+
+
+237. How should annotation contracts be documented?
+
+
+
+The source specifically covers targets, retention, reflection and runtime @Audited processing. 
+
+
+---
+
+1.8.8 Varargs
+
+Basic
+
+238. What are varargs?
+
+
+239. What syntax is used?
+
+
+240. Can a method accept zero arguments?
+
+
+241. Can a method accept one argument?
+
+
+242. Can a method accept many arguments?
+
+
+243. How do you access varargs inside the method?
+
+
+
+Intermediate
+
+244. How are varargs represented?
+
+
+245. Is a varargs parameter essentially array-based?
+
+
+246. Can you pass an existing array?
+
+
+247. Why must varargs normally be the final parameter?
+
+
+248. Can overloaded methods create varargs ambiguity?
+
+
+
+Advanced
+
+249. What allocation implications can varargs have?
+
+
+250. How does generic varargs work?
+
+
+251. What is heap pollution?
+
+
+252. Why can generic varargs be dangerous?
+
+
+253. When can @SafeVarargs be appropriate?
+
+
+254. Benchmark varargs against explicit array parameters.
+
+
+
+Traps
+
+255. Is varargs magic runtime behavior?
+
+
+256. Does varargs avoid array creation?
+
+
+257. Can two varargs parameters exist in one method signature?
+
+
+258. Can varargs cause overload ambiguity?
+
+
+259. Is generic varargs always type-safe?
+
+
+
+Design
+
+260. Design a clean varargs API.
+
+
+261. Decide varargs vs List.
+
+
+262. Decide varargs vs array.
+
+
+263. Design a safe generic-varargs method.
+
+
+
+Debugging Challenges
+
+264. Diagnose ambiguous overloaded calls.
+
+
+265. Diagnose generic heap pollution.
+
+
+266. Diagnose unexpected allocation/performance.
+
+
+267. Diagnose invalid varargs placement.
+
+
+
+Production
+
+268. When are varargs appropriate for public APIs?
+
+
+269. When should collections be preferred?
+
+
+270. When does varargs allocation matter?
+
+
+271. What API compatibility considerations exist?
+
+
+
+The source specifically includes varargs representation, allocation implications and generic varargs/heap pollution. 
+
+
+---
+
+1.8.9 Pass-by-Value
+
+Basic
+
+272. Is Java pass-by-value or pass-by-reference?
+
+
+273. Are primitive arguments passed by value?
+
+
+274. Are object references passed by value?
+
+
+275. What does "reference value" mean?
+
+
+276. Give an example of modifying an object inside a method.
+
+
+
+Intermediate
+
+277. What happens when an object reference is passed to a method?
+
+
+278. What happens when the method mutates the object?
+
+
+279. What happens when the method reassigns the reference?
+
+
+280. Why does reassignment not change the caller's reference?
+
+
+281. Demonstrate primitive pass-by-value.
+
+
+
+Advanced
+
+282. Explain object-reference value copying precisely.
+
+
+283. Distinguish mutation from reassignment.
+
+
+284. Explain aliasing.
+
+
+285. Explain why Java is still pass-by-value for objects.
+
+
+286. Predict a multi-reference mutation scenario.
+
+
+
+Traps
+
+287. "Java passes objects by reference." Explain why this statement is misleading.
+
+
+288. If two variables reference the same object, are the variables the same?
+
+
+289. Can a method replace the caller's reference?
+
+
+290. Can a method mutate the object visible to the caller?
+
+
+
+Design
+
+291. Design an API that avoids confusing mutation.
+
+
+292. Decide whether a method should mutate or return a new object.
+
+
+293. Design defensive copying where appropriate.
+
+
+
+Debugging Challenges
+
+294. Predict the output of a reference reassignment example.
+
+
+295. Predict the output of object mutation.
+
+
+296. Diagnose an aliasing bug.
+
+
+297. Diagnose unexpected caller-visible mutation.
+
+
+
+Production
+
+298. Why does pass-by-value matter for API design?
+
+
+299. How can mutable arguments create hidden coupling?
+
+
+300. When should defensive copies be used?
+
+
+301. When should immutable objects be preferred?
+
+
+
+The mastery source explicitly requires demonstrating mutation vs reassignment and understanding object-reference value copying. 
+
+
+---
+
+1.8.10 Java Reference Semantics
+
+Basic
+
+302. What is a Java reference?
+
+
+303. What does a reference variable contain conceptually?
+
+
+304. Can multiple references refer to one object?
+
+
+305. What is aliasing?
+
+
+
+Intermediate
+
+306. What happens when:
+
+
+
+A a = new A();
+A b = a;
+
+307. What happens when b mutates the object?
+
+
+308. What happens when b is reassigned?
+
+
+309. How does reference copying differ from object copying?
+
+
+310. What is ownership in an object graph?
+
+
+
+Advanced
+
+311. Explain aliasing in mutable object graphs.
+
+
+312. Explain defensive copying.
+
+
+313. Explain shallow vs deep copying conceptually.
+
+
+314. Explain lifecycle implications of references.
+
+
+315. Explain why implementation-specific pointer assumptions should be avoided.
+
+
+
+Traps
+
+316. Does b = a create a new object?
+
+
+317. Does passing a reference mean passing the object itself?
+
+
+318. Does assigning a new object to one reference affect another?
+
+
+319. Does copying a reference copy object state?
+
+
+
+Design
+
+320. Design a class that protects internal mutable state.
+
+
+321. Design defensive copies.
+
+
+322. Decide when sharing a reference is intentional.
+
+
+323. Decide when immutability is safer.
+
+
+
+Debugging Challenges
+
+324. Identify aliases.
+
+
+325. Find who owns a mutable object.
+
+
+326. Find unexpected mutation.
+
+
+327. Diagnose missing defensive copying.
+
+
+
+Production
+
+328. How can aliasing cause production bugs?
+
+
+329. How can immutable objects simplify ownership?
+
+
+330. How can reference retention affect memory?
+
+
+331. How should API boundaries treat mutable objects?
+
+
+
+The source's production debugging checklist explicitly recommends identifying aliases, ownership, mutation, reassignment, defensive copying and lifecycle. 
+
+
+---
+
+1.8.11 == vs equals()
+
+Basic
+
+332. What does == mean for primitives?
+
+
+333. What does == mean for references?
+
+
+334. What does equals() mean?
+
+
+335. Why are == and equals() different?
+
+
+336. How do you compare String contents correctly?
+
+
+
+Intermediate
+
+337. Why is String == unreliable?
+
+
+338. What is String pooling?
+
+
+339. What does intern() do?
+
+
+340. Why can wrapper identity be surprising?
+
+
+341. Why is equals() generally used for logical equality?
+
+
+
+Advanced
+
+342. Explain identity vs logical equality.
+
+
+343. Explain String pool behavior.
+
+
+344. Explain wrapper caching.
+
+
+345. Explain the equals/hashCode relationship.
+
+
+346. Design correct equality for a value object.
+
+
+347. Explain equality in inheritance hierarchies.
+
+
+
+Traps
+
+348. Why can this sometimes print true?
+
+
+
+Integer a = 127;
+Integer b = 127;
+System.out.println(a == b);
+
+349. Why can it differ for larger values?
+
+
+350. Why is == inappropriate for String content?
+
+
+351. Can equals() be true when == is false?
+
+
+352. Can == be true while equals() is false?
+
+
+
+Design
+
+353. Implement equality for a value object.
+
+
+354. Implement equals() and hashCode().
+
+
+355. Decide identity vs value equality.
+
+
+356. Design equality for an inheritance hierarchy.
+
+
+
+Debugging Challenges
+
+357. Diagnose a String comparison bug.
+
+
+358. Diagnose a wrapper comparison bug.
+
+
+359. Diagnose a HashMap lookup failure.
+
+
+360. Diagnose an equality implementation violating symmetry.
+
+
+361. Diagnose mutable-key failures.
+
+
+
+Production
+
+362. When should identity equality be used?
+
+
+363. When should logical equality be used?
+
+
+364. Why must hashCode agree with equals?
+
+
+365. How can bad equality break collections?
+
+
+366. How should equality be designed for entities vs value objects?
+
+
+
+The source explicitly includes String pooling, wrapper caching, identity vs logical equality, equality contracts and mutable-key failures. 
+
+
+---
+
+1.8.12 Equality Contract
+
+Basic
+
+367. What is the equals() contract?
+
+
+368. What is reflexivity?
+
+
+369. What is symmetry?
+
+
+370. What is transitivity?
+
+
+371. What is consistency?
+
+
+372. What is the null rule?
+
+
+
+Intermediate
+
+373. Why must equal objects have equal hash codes?
+
+
+374. What happens if equals and hashCode disagree?
+
+
+375. Why is mutable equality dangerous?
+
+
+376. How does inheritance complicate equality?
+
+
+
+Advanced
+
+377. Design equality for a value object.
+
+
+378. Explain symmetry violations.
+
+
+379. Explain equality across inheritance hierarchies.
+
+
+380. Explain equality and HashMap/HashSet.
+
+
+381. Explain how mutable keys break hash-based collections.
+
+
+
+Traps
+
+382. Can two unequal objects have the same hashCode?
+
+
+383. Can equal objects have different hashCodes?
+
+
+384. Should every field necessarily participate in equality?
+
+
+385. Should mutable fields participate in equality?
+
+
+
+Design
+
+386. Design an immutable UserId.
+
+
+387. Design an immutable Money.
+
+
+388. Decide which fields define identity.
+
+
+389. Design equality for a domain entity.
+
+
+
+Debugging Challenges
+
+390. HashSet contains an object but lookup fails.
+
+
+391. HashMap lookup fails after a key mutation.
+
+
+392. equals() violates symmetry.
+
+
+393. equals() and hashCode() disagree.
+
+
+
+Production
+
+394. How should equality be designed for database entities?
+
+
+395. How should equality be designed for value objects?
+
+
+396. Why should mutable objects rarely be used as hash keys?
+
+
+397. What production failures can incorrect equality create?
+
+
+
+
+---
+
+1.8.13 Identity
+
+Basic
+
+398. What is object identity?
+
+
+399. How does identity differ from equality?
+
+
+400. What does reference == test?
+
+
+401. What does logical equality test?
+
+
+
+Intermediate
+
+402. When can two objects be equal but not identical?
+
+
+403. When can identity be useful?
+
+
+404. Why is identity important for object lifecycle?
+
+
+405. How does identity relate to aliases?
+
+
+
+Advanced
+
+406. Explain identity vs value semantics.
+
+
+407. Explain identity in mutable domain entities.
+
+
+408. Explain identity in caches and object graphs.
+
+
+409. Explain why identity should not automatically be used as business equality.
+
+
+
+Traps
+
+410. Does same content mean same identity?
+
+
+411. Does same identity mean two objects exist?
+
+
+412. Should database IDs always determine Java object equality?
+
+
+
+Design
+
+413. Decide identity vs logical equality for:
+
+
+
+User
+
+Money
+
+Order
+
+OrderId
+
+
+414. Design a value object with no meaningful object identity.
+
+
+415. Design an entity with meaningful identity.
+
+
+
+Debugging Challenges
+
+416. Diagnose identity/equality confusion.
+
+
+417. Diagnose accidental duplicate domain objects.
+
+
+418. Diagnose incorrect use of ==.
+
+
+
+Production
+
+419. Why does identity matter for entities?
+
+
+420. Why is value equality useful for value objects?
+
+
+421. How can confusing the two create persistence or caching bugs?
+
+
+
+
+---
+
+1.8.14 Memory Retention
+
+Basic
+
+422. What is memory retention?
+
+
+423. What is an object reference chain?
+
+
+424. What is a GC root?
+
+
+425. How can references keep objects alive?
+
+
+
+Intermediate
+
+426. How can inner classes retain outer objects?
+
+
+427. How can anonymous callbacks retain objects?
+
+
+428. How can static fields retain objects?
+
+
+429. How can ThreadLocal retain objects?
+
+
+430. How can caches retain objects?
+
+
+
+Advanced
+
+431. Trace a GC-root → object-reference chain.
+
+
+432. Diagnose an inner-class retention problem.
+
+
+433. Diagnose callback retention.
+
+
+434. Diagnose static cache retention.
+
+
+435. Explain why an object can remain reachable even when application code "no longer needs it."
+
+
+
+Traps
+
+436. Does Java automatically prevent memory leaks?
+
+
+437. Does GC mean objects cannot be retained accidentally?
+
+
+438. Does setting one local reference to null guarantee collection?
+
+
+439. Does an inner class always leak its outer class?
+
+
+
+Design
+
+440. Design lifecycle-safe callbacks.
+
+
+441. Design bounded caches.
+
+
+442. Decide when weak references may be appropriate.
+
+
+443. Avoid unnecessary outer references.
+
+
+
+Debugging Challenges
+
+444. Identify GC roots.
+
+
+445. Follow the reference chain.
+
+
+446. Find the object preventing collection.
+
+
+447. Diagnose a cache retention problem.
+
+
+448. Diagnose a ThreadLocal retention problem.
+
+
+
+Production
+
+449. How would you investigate a memory leak?
+
+
+450. Which tools/heap-analysis concepts would you use?
+
+
+451. What production patterns commonly cause retention?
+
+
+452. How do nested/anonymous classes affect application lifecycle?
+
+
+
+The source gives a production checklist beginning with GC roots and specifically calls out inner classes, anonymous callbacks, static fields, ThreadLocal and caches. 
+
+
+---
+
+1.8.15 Integrated Traps
+
+Now combine the concepts.
+
+Trap Questions
+
+453. Static nested class vs inner class — which retains outer state?
+
+
+454. Anonymous class vs lambda — when are they semantically different?
+
+
+455. Local class capture vs normal local variable?
+
+
+456. Why does final/effectively-final matter for captured variables?
+
+
+457. Why is enum ordinal() unsafe for business meaning?
+
+
+458. Why can wrapper == produce surprising results?
+
+
+459. Why can String == appear to work?
+
+
+460. Why doesn't Java pass objects by reference?
+
+
+461. Why does mutation survive a method call but reassignment doesn't?
+
+
+462. Why can two references point to the same object?
+
+
+463. Why can an inner class retain an outer object?
+
+
+464. Why can a static field retain a large object graph?
+
+
+465. Why can a bad equals() break HashMap?
+
+
+466. Why can a mutable key become "lost" inside a HashMap?
+
+
+
+
+---
+
+1.8.16 Design Challenges
+
+Challenge 1 — Order Domain
+
+Design:
+
+Order
+│
+├── OrderStatus
+├── Builder
+├── Validation
+├── Audit metadata
+└── Equality
+
+Use:
+
+static nested Builder
+
+enum OrderStatus
+
+custom annotation
+
+equals()/hashCode()
+
+immutable/value semantics where appropriate
+
+
+This mirrors the source's production-style Order Processing Framework. 
+
+
+---
+
+Challenge 2 — Callback System
+
+Create:
+
+OrderService
+      ↓
+Callback
+      ↓
+Listener
+
+Implement the callback using:
+
+1. anonymous class
+
+
+2. lambda
+
+
+3. named class
+
+
+
+Then answer:
+
+> Which is best for production and why?
+
+
+
+
+---
+
+Challenge 3 — Generic Varargs
+
+Create a generic varargs utility and determine:
+
+Is it type-safe?
+
+Can heap pollution occur?
+
+Can @SafeVarargs be used?
+
+Does it allocate?
+
+Would a collection be better?
+
+
+
+---
+
+Challenge 4 — Equality
+
+Create:
+
+User
+UserId
+Money
+Order
+
+Determine:
+
+Identity?
+Logical equality?
+Mutable?
+Immutable?
+Hash key?
+
+Then implement equals() and hashCode().
+
+
+---
+
+1.8.17 Debugging Master Challenges
+
+Challenge 1 — String
+
+String a = new String("Java");
+String b = new String("Java");
+
+if (a == b) {
+    // ...
+}
+
+Explain the bug and fix it.
+
+
+---
+
+Challenge 2 — Wrapper
+
+Integer a = 127;
+Integer b = 127;
+
+Integer x = 1000;
+Integer y = 1000;
+
+Predict both == comparisons and explain why relying on this behavior is a trap.
+
+
+---
+
+Challenge 3 — Pass-by-value
+
+void change(User user) {
+    user.setName("Bob");
+    user = new User("Charlie");
+}
+
+Predict what the caller observes.
+
+
+---
+
+Challenge 4 — Aliasing
+
+List<String> a = new ArrayList<>();
+List<String> b = a;
+
+b.add("Java");
+
+What does a contain and why?
+
+
+---
+
+Challenge 5 — Memory Retention
+
+A long-lived executor stores a callback implemented as an inner class.
+
+The outer service contains a large object graph.
+
+Question:
+
+> Why might the entire graph remain reachable?
+
+
+
+The source specifically identifies threads/executors and callbacks as lifecycle-sensitive cases for inner classes. 
+
+
+---
+
+Challenge 6 — HashMap
+
+Map<User, String> map = new HashMap<>();
+
+User user = new User("Alex");
+map.put(user, "Admin");
+
+user.setName("Bob");
+
+map.get(user);
+
+Explain why this can fail if name participates in hashCode().
+
+
+---
+
+1.8.18 Production Decision Matrix
+
+For every feature, be able to answer:
+
+Feature	Main Production Question
+
+Static nested class	Does it really need outer state?
+Inner class	Could it accidentally retain outer state?
+Local class	Is the helper truly local?
+Anonymous class	Would lambda/named class be clearer?
+Enum	Is business meaning independent of ordinal?
+Annotation	Does runtime metadata justify the complexity?
+Varargs	Is convenience worth allocation/API trade-offs?
+Pass-by-value	Could mutation confuse callers?
+References	Who owns this mutable object?
+==	Am I testing identity intentionally?
+equals()	Am I testing logical equality correctly?
+hashCode()	Will this object be used in hash collections?
+Identity	Is this an entity or value object?
+Memory retention	What references keep this object alive?
+
+
+
+---
+
+🔥 1.8.19 Senior-Level Questions
+
+467. Why is a static nested class not an inner class?
+
+
+468. Why might static nested classes be safer from a memory-retention perspective?
+
+
+469. Explain Outer.this.
+
+
+470. Explain captured local variables and effectively-final semantics.
+
+
+471. Anonymous class vs lambda — semantic differences?
+
+
+472. How do enum identity and ordinal differ?
+
+
+473. Why should enum ordinal not be persisted?
+
+
+474. How would you design a stable enum-based business code?
+
+
+475. SOURCE vs CLASS vs RUNTIME annotation retention?
+
+
+476. How does reflection discover runtime annotations?
+
+
+477. When is annotation-driven architecture justified?
+
+
+478. How are varargs represented?
+
+
+479. What allocation can varargs introduce?
+
+
+480. Explain generic varargs heap pollution.
+
+
+481. Is Java pass-by-value?
+
+
+482. Explain object-reference value copying.
+
+
+483. Mutation vs reassignment?
+
+
+484. Explain aliasing.
+
+
+485. == vs equals()?
+
+
+486. Explain String pooling.
+
+
+487. Explain wrapper caching.
+
+
+488. Explain identity vs logical equality.
+
+
+489. Explain equals/hashCode contract.
+
+
+490. How can inheritance break equality symmetry?
+
+
+491. How can mutable keys break HashMap?
+
+
+492. How can inner classes cause memory retention?
+
+
+493. How would you debug a retention problem in production?
+
+
+494. How would you choose between nested class, lambda and separate class?
+
+
+
+
+---
+
+🏆 1.8.20 Final Mastery Gate
+
+Don't mark Module 1.8 complete until you can:
+
+[ ] Explain all four nested-class categories.
+
+[ ] Distinguish static nested vs inner classes.
+
+[ ] Explain outer-instance relationships.
+
+[ ] Explain Outer.this.
+
+[ ] Explain local-class scope.
+
+[ ] Explain effectively-final capture.
+
+[ ] Explain anonymous classes.
+
+[ ] Compare anonymous classes with lambdas.
+
+[ ] Implement enums with fields and behavior.
+
+[ ] Explain enum initialization and identity.
+
+[ ] Explain why ordinal should not normally be persisted.
+
+[ ] Create custom annotations.
+
+[ ] Explain SOURCE/CLASS/RUNTIME retention.
+
+[ ] Explain annotation targets.
+
+[ ] Process runtime annotations through reflection.
+
+[ ] Explain varargs syntax and representation.
+
+[ ] Explain varargs allocation.
+
+[ ] Explain generic varargs and heap pollution.
+
+[ ] Explain Java pass-by-value precisely.
+
+[ ] Explain object-reference value copying.
+
+[ ] Demonstrate mutation vs reassignment.
+
+[ ] Explain aliasing.
+
+[ ] Explain Java reference semantics without pointer-based misconceptions.
+
+[ ] Explain == for primitives.
+
+[ ] Explain == for references.
+
+[ ] Explain equals().
+
+[ ] Implement correct equals()/hashCode().
+
+[ ] Explain String pooling.
+
+[ ] Explain wrapper caching.
+
+[ ] Explain identity vs logical equality.
+
+[ ] Debug equality bugs.
+
+[ ] Debug aliasing/reference bugs.
+
+[ ] Diagnose memory retention.
+
+[ ] Discuss performance implications.
+
+[ ] Make production design decisions.
+
+[ ] Complete basic → production coding exercises.
+
+[ ] Defend decisions in senior-level interviews.
+
+
+This matches the source's own final mastery gate, which requires everything from nested types and annotations through pass-by-value, equality, identity, memory retention, performance, production trade-offs and senior-level questions. 
+
+⭐ Most important 1.8 concepts to master deeply
+
+If you want to prioritize the highest-value areas:
+
+1. Static nested class vs inner class
+
+
+2. Inner-class outer-reference and memory retention
+
+
+3. Local/anonymous class capture
+
+
+4. Lambda vs anonymous class
+
+
+5. Enum identity vs ordinal
+
+
+6. Annotation retention + reflection
+
+
+7. Varargs + generic heap pollution
+
+
+8. Java is pass-by-value
+
+
+9. Reference copying vs object copying
+
+
+10. Aliasing
+
+
+11. == vs equals()
+
+
+12. String pool
+
+
+13. Wrapper caching
+
+
+14. equals/hashCode contract
+
+
+15. Mutable keys
+
+
+16. Identity vs logical equality
+
+
+17. GC roots and memory retention
+
+
+
+This gives 1.8 the same learning progression as 1.6 and 1.7, while retaining every subtopic from your curriculum. 
