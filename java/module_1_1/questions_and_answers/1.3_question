@@ -1,0 +1,3912 @@
+Worked for 5s
+
+Yes. I’ll now redo Module 1.3 properly, using the same clean progression you approved for Modules 1.1 and 1.2.
+
+I’m basing the coverage on your actual Module 1.3 file, which contains Classes & Objects, Encapsulation, Inheritance, Polymorphism, Overloading, Overriding, Dynamic Dispatch, Abstraction, Interfaces, Abstract Classes, Composition vs Inheritance, IS-A/HAS-A, the OOP design matrix, Payment Processing project, debugging, JVM/performance follow-ups and the final mastery gate.  
+
+Module 1.3 — Object-Oriented Programming
+
+Complete Mastery Question Bank
+
+Fixed flow for every topic
+
+> Basic → Intermediate → Advanced → Major Traps → Design → Debugging Challenges → Production → Senior/Interview
+
+
+
+
+---
+
+1.3.1 Classes & Objects
+
+Your syllabus defines a class as a Java type defining structure/behavior and an object as a runtime instance, with state, behavior, identity and references as core terminology. 
+
+1. Basic
+
+1. What is a class?
+
+
+2. What is an object?
+
+
+3. What is an instance?
+
+
+4. What is the difference between a class and an object?
+
+
+5. What is object state?
+
+
+6. What is object behavior?
+
+
+7. What is object identity?
+
+
+8. What is a field?
+
+
+9. What is a method?
+
+
+10. What is a constructor?
+
+
+11. What is an instance member?
+
+
+12. What is a static member?
+
+
+13. What is an object reference?
+
+
+14. What does new do?
+
+
+15. Can one class create multiple objects?
+
+
+16. Can an application use a class without creating an object?
+
+
+17. What is the difference between an object and its reference?
+
+
+
+2. Intermediate
+
+18. What happens when new BankAccount(1000) executes?
+
+
+19. What is the difference between:
+
+
+
+BankAccount account;
+
+and:
+
+BankAccount account = new BankAccount(1000);
+
+20. Can two references refer to the same object?
+
+
+21. What happens when one reference is assigned to another?
+
+
+22. What is aliasing?
+
+
+23. What happens when an object becomes unreachable?
+
+
+24. How can object state be changed?
+
+
+25. Why should object state generally be controlled through methods?
+
+
+26. What is the difference between instance state and class state?
+
+
+27. Why might a class be unnecessary abstraction?
+
+
+28. When would a record be preferable to a traditional class?
+
+
+
+3. Advanced
+
+29. Explain the conceptual lifecycle of object creation.
+
+
+30. What happens between new and constructor completion?
+
+
+31. What is object allocation?
+
+
+32. What is an object header conceptually?
+
+
+33. What is class metadata?
+
+
+34. How are instance fields associated with an object?
+
+
+35. How is a reference conceptually represented?
+
+
+36. What is escape analysis?
+
+
+37. What is scalar replacement?
+
+
+38. Can JIT optimization change how an object is physically represented?
+
+
+39. Why is "objects are always on the heap" an oversimplification?
+
+
+40. How does garbage collection relate to object lifetime?
+
+
+41. What is thread-local allocation conceptually?
+
+
+
+The source explicitly calls out object headers, class metadata, references, escape analysis and scalar replacement as advanced areas. 
+
+4. Major Traps
+
+42. Is an object the same thing as its reference?
+
+
+43. Does assigning one reference to another copy the object?
+
+
+44. Does == compare object contents?
+
+
+45. Does every new necessarily result in a long-lived heap object?
+
+
+46. Does an object automatically become eligible for GC when a method ends?
+
+
+47. Are two references necessarily two objects?
+
+
+48. Are references equivalent to C/C++ raw pointers?
+
+
+49. Does inheritance mean a subclass object contains another separate parent object?
+
+
+
+Output Trap
+
+class User {
+    String name;
+}
+
+User a = new User();
+a.name = "Alex";
+
+User b = a;
+b.name = "Bob";
+
+System.out.println(a.name);
+
+50. Predict the output.
+
+
+51. How many objects exist?
+
+
+52. How many references exist?
+
+
+53. Why does a.name change?
+
+
+
+5. Design
+
+54. When should something be modeled as a class?
+
+
+55. When is a record more appropriate?
+
+
+56. When is an enum more appropriate?
+
+
+57. When is a static utility class better?
+
+
+58. When is a class unnecessary abstraction?
+
+
+59. How would you design a BankAccount?
+
+
+60. Which state should be mutable?
+
+
+61. Which state should be immutable?
+
+
+62. Which behavior belongs inside the object?
+
+
+
+6. Debugging Challenges
+
+63. Find an aliasing bug.
+
+
+64. Find an object accidentally shared between two components.
+
+
+65. Find a mutable field exposed directly.
+
+
+66. Diagnose an unexpected object mutation.
+
+
+67. Diagnose a NullPointerException caused by an uninitialized reference.
+
+
+68. Find unnecessary object creation.
+
+
+69. Diagnose a circular object graph.
+
+
+
+7. Production
+
+70. How can excessive object allocation affect GC?
+
+
+71. How can large object graphs affect memory?
+
+
+72. How would you investigate allocation pressure?
+
+
+73. When should you consider object pooling, if at all?
+
+
+74. How can mutable shared objects create concurrency problems?
+
+
+75. How would you design domain objects for a high-throughput service?
+
+
+
+8. Senior / Interview
+
+76. Explain class vs object vs reference.
+
+
+77. Explain object identity versus state.
+
+
+78. What happens when an object becomes unreachable?
+
+
+79. How would you reduce allocation pressure in production?
+
+
+80. Why shouldn't you optimize object allocation without profiling?
+
+
+
+
+---
+
+1.3.2 Encapsulation
+
+The module defines encapsulation as controlling access to internal state and exposing a well-defined API, emphasizing invariant protection, information hiding and defensive copying. 
+
+1. Basic
+
+1. What is encapsulation?
+
+
+2. Why is encapsulation important?
+
+
+3. What is information hiding?
+
+
+4. Why are fields commonly private?
+
+
+5. What is an accessor?
+
+
+6. What is a mutator?
+
+
+7. What is a domain method?
+
+
+8. What is an invariant?
+
+
+9. How does encapsulation protect invariants?
+
+
+
+2. Intermediate
+
+10. Why is this bad?
+
+
+
+account.setBalance(account.getBalance() + amount);
+
+11. Why is this better?
+
+
+
+account.deposit(amount);
+
+12. Why aren't getters/setters automatically good encapsulation?
+
+
+13. What is mutable state leakage?
+
+
+14. What is defensive copying?
+
+
+15. Why can returning an internal collection break encapsulation?
+
+
+16. How can an immutable object improve encapsulation?
+
+
+17. How does encapsulation reduce coupling?
+
+
+
+3. Advanced
+
+18. How does Java enforce access control?
+
+
+19. What role do compiler access checks play?
+
+
+20. What role do JVM access checks play?
+
+
+21. What are access flags?
+
+
+22. How can reflection interact with encapsulation?
+
+
+23. How can MethodHandles interact with access control?
+
+
+24. Does private create special memory protection?
+
+
+25. How does encapsulation affect API evolution?
+
+
+
+4. Major Traps
+
+class User {
+    private final List<String> roles;
+
+    public List<String> getRoles() {
+        return roles;
+    }
+}
+
+26. What is wrong?
+
+
+27. How can the caller mutate internal state?
+
+
+28. How would you fix it?
+
+
+29. Is private + getter + setter automatically encapsulation?
+
+
+30. Is returning Collections.unmodifiableList() always equivalent to defensive copying?
+
+
+31. Can a mutable object remain encapsulated if its internal object is returned directly?
+
+
+
+5. Design
+
+32. Design an immutable Money.
+
+
+33. Design an encapsulated BankAccount.
+
+
+34. Design a User whose roles cannot be externally mutated.
+
+
+35. Decide whether a class should expose a getter or behavior method.
+
+
+36. Decide when defensive copying is necessary.
+
+
+37. Design a domain object that protects all business invariants.
+
+
+
+6. Debugging Challenges
+
+38. Debug a mutable collection returned from a getter.
+
+
+39. Debug a public mutable field.
+
+
+40. Debug a setter allowing invalid state.
+
+
+41. Debug an object whose invariant can be bypassed.
+
+
+42. Identify where validation should occur.
+
+
+
+7. Production
+
+43. Why is encapsulation important in financial systems?
+
+
+44. How does it help security-sensitive state?
+
+
+45. How does it help thread-safe objects?
+
+
+46. How can defensive copying create performance costs?
+
+
+47. How can the JIT reduce the cost of small accessor methods?
+
+
+
+8. Senior
+
+48. Encapsulation vs abstraction?
+
+
+49. Why can getters/setters be an anemic design?
+
+
+50. How would you design a strongly encapsulated domain model?
+
+
+51. How does encapsulation support API stability?
+
+
+52. How can poor encapsulation create production bugs?
+
+
+
+
+---
+
+1.3.3 Inheritance
+
+The source stresses that inheritance provides reuse, specialization and polymorphism but creates a strong parent-child relationship and should not be used merely as a code-reuse mechanism. 
+
+1. Basic
+
+1. What is inheritance?
+
+
+2. What is a superclass?
+
+
+3. What is a subclass?
+
+
+4. What does extends mean?
+
+
+5. What is an IS-A relationship?
+
+
+6. What members can a subclass inherit?
+
+
+7. Are constructors inherited?
+
+
+8. Can constructors be overridden?
+
+
+9. Does Java support multiple inheritance of classes?
+
+
+10. What types of class inheritance does Java support?
+
+
+
+2. Intermediate
+
+11. What does super do?
+
+
+12. What is constructor chaining?
+
+
+13. How does parent construction occur?
+
+
+14. What is method overriding?
+
+
+15. What is field hiding?
+
+
+16. What is static method hiding?
+
+
+17. Why are private members special?
+
+
+18. What does final do to inheritance?
+
+
+19. What does a final class prevent?
+
+
+20. Why can inheritance increase coupling?
+
+
+
+3. Advanced
+
+21. Explain the conceptual relationship between a subclass object and superclass state.
+
+
+22. Does a subclass object contain a separate parent object?
+
+
+23. How does superclass metadata relate to subclass metadata?
+
+
+24. How does inheritance interact with dynamic dispatch?
+
+
+25. How does inheritance interact with constructor execution?
+
+
+26. How can deep inheritance increase complexity?
+
+
+27. How can inheritance violate LSP?
+
+
+28. Why is inheritance more than code reuse?
+
+
+
+4. Major Traps
+
+29. Are constructors inherited?
+
+
+30. Can a private method be overridden?
+
+
+31. Can a static method be overridden?
+
+
+32. Can a final method be overridden?
+
+
+33. Can fields be overridden?
+
+
+34. Does extends mean the child can access every parent member?
+
+
+35. Does super.method() invoke dynamic dispatch?
+
+
+36. Is inheritance always preferable to composition?
+
+
+
+5. Design
+
+37. When is inheritance appropriate?
+
+
+38. When should composition be preferred?
+
+
+39. How do you determine whether a true IS-A relationship exists?
+
+
+40. How does LSP influence the inheritance decision?
+
+
+41. How would you prevent a deep inheritance hierarchy?
+
+
+42. When is a framework extension point a reasonable inheritance use case?
+
+
+43. When is inheritance a design smell?
+
+
+
+6. Debugging Challenges
+
+44. Debug incorrect constructor order.
+
+
+45. Debug field hiding.
+
+
+46. Debug static method hiding.
+
+
+47. Debug an invalid override.
+
+
+48. Debug a subclass violating parent assumptions.
+
+
+49. Refactor an inheritance hierarchy that has become difficult to maintain.
+
+
+50. Identify a class inheriting only to reuse code.
+
+
+
+7. Production
+
+51. What problems can deep inheritance create?
+
+
+52. How can inheritance increase regression risk?
+
+
+53. How does inheritance affect API evolution?
+
+
+54. How can inheritance create tight coupling?
+
+
+55. How would you safely extend a framework using inheritance?
+
+
+
+8. Senior
+
+56. Why is composition often preferred over inheritance?
+
+
+57. Give a case where inheritance is clearly better.
+
+
+58. Give a case where inheritance is clearly wrong.
+
+
+59. How does inheritance relate to LSP?
+
+
+60. How would you review an inheritance hierarchy in a production codebase?
+
+
+
+
+---
+
+1.3.4 Polymorphism
+
+The source distinguishes compile-time polymorphism through overloading from runtime polymorphism through overriding, dynamic dispatch and interface dispatch. 
+
+1. Basic
+
+1. What is polymorphism?
+
+
+2. Why is polymorphism useful?
+
+
+3. What is compile-time polymorphism?
+
+
+4. What is runtime polymorphism?
+
+
+5. What is method overloading?
+
+
+6. What is method overriding?
+
+
+7. What is dynamic method dispatch?
+
+
+8. What is interface dispatch?
+
+
+
+2. Intermediate
+
+9. What happens here?
+
+
+
+Animal animal = new Dog();
+animal.speak();
+
+10. What is the reference type?
+
+
+11. What is the actual object type?
+
+
+12. Which method executes?
+
+
+13. Why?
+
+
+14. What is the difference between compile-time type and runtime type?
+
+
+15. How does casting interact with polymorphism?
+
+
+16. What is ClassCastException?
+
+
+17. Can polymorphism exist through interfaces?
+
+
+18. Can polymorphism exist without class inheritance?
+
+
+
+3. Advanced
+
+19. Explain dynamic dispatch step by step.
+
+
+20. What does the compiler determine?
+
+
+21. What does the runtime determine?
+
+
+22. What is invokevirtual conceptually associated with?
+
+
+23. What is invokeinterface?
+
+
+24. How does JIT optimize virtual calls?
+
+
+25. What is a monomorphic call site?
+
+
+26. What is a polymorphic call site?
+
+
+27. What is a megamorphic call site?
+
+
+28. What is devirtualization?
+
+
+29. What is JIT inlining?
+
+
+30. Why shouldn't performance concerns automatically lead you to avoid polymorphism?
+
+
+
+4. Major Traps
+
+Trap A
+
+class Parent {
+    void print(Object x) {
+        System.out.println("Parent");
+    }
+}
+
+class Child extends Parent {
+    void print(String x) {
+        System.out.println("Child");
+    }
+}
+
+Parent p = new Child();
+p.print("hello");
+
+31. What is printed?
+
+
+32. Is this overriding?
+
+
+33. Why?
+
+
+
+Trap B — Fields
+
+class Parent {
+    int value = 1;
+}
+
+class Child extends Parent {
+    int value = 2;
+}
+
+Parent p = new Child();
+System.out.println(p.value);
+
+34. What is printed?
+
+
+35. Why doesn't field access behave like method overriding?
+
+
+
+Trap C — Static
+
+36. Can static methods participate in runtime polymorphism?
+
+
+37. What is static method hiding?
+
+
+
+5. Design
+
+38. When should polymorphism replace an if/else chain?
+
+
+39. When should polymorphism not be introduced?
+
+
+40. How does polymorphism support OCP?
+
+
+41. How does polymorphism support dependency inversion?
+
+
+42. Design a pluggable payment architecture.
+
+
+43. Design a notification system using polymorphism.
+
+
+44. How would you support new providers without modifying existing business logic?
+
+
+
+6. Debugging Challenges
+
+45. "The overridden method isn't being called." Diagnose it.
+
+
+46. Diagnose accidental overloading instead of overriding.
+
+
+47. Diagnose incorrect casting.
+
+
+48. Diagnose static-method confusion.
+
+
+49. Diagnose a field-hiding bug.
+
+
+50. Diagnose an unexpected interface dispatch result.
+
+
+
+7. Production
+
+51. How does polymorphism improve extensibility?
+
+
+52. How does it improve testing?
+
+
+53. How can too much polymorphism hurt maintainability?
+
+
+54. What are the actual performance concerns around virtual dispatch?
+
+
+55. How would you investigate whether dispatch is actually a performance bottleneck?
+
+
+
+8. Senior
+
+56. Explain compile-time versus runtime polymorphism.
+
+
+57. Why are fields not polymorphic like overridden methods?
+
+
+58. Why are static methods hidden?
+
+
+59. Can polymorphism exist without inheritance?
+
+
+60. When would you deliberately choose a switch instead of polymorphism?
+
+
+
+
+---
+
+1.3.5 Method Overloading
+
+The module specifically requires exact understanding of overload resolution involving exact matches, widening, boxing, unboxing, varargs, null and ambiguity. 
+
+1. Basic
+
+1. What is method overloading?
+
+
+2. Why is overloading useful?
+
+
+3. What must differ between overloaded methods?
+
+
+4. Can methods be overloaded by return type alone?
+
+
+5. Can constructors be overloaded?
+
+
+6. Can static methods be overloaded?
+
+
+7. Can private methods be overloaded?
+
+
+
+2. Intermediate
+
+8. When is an overloaded method selected?
+
+
+9. What is overload resolution?
+
+
+10. How does exact matching affect overload selection?
+
+
+11. How does widening affect overload selection?
+
+
+12. How does boxing affect overload selection?
+
+
+13. How does unboxing affect overload selection?
+
+
+14. How does varargs affect overload selection?
+
+
+15. What happens with a null argument?
+
+
+
+3. Advanced
+
+16. Explain the overload-resolution process.
+
+
+17. Why is overloading primarily compile-time behavior?
+
+
+18. How do reference types affect overload resolution?
+
+
+19. How does boxing compete with widening?
+
+
+20. How does varargs participate in overload resolution?
+
+
+21. How can overloaded methods become ambiguous?
+
+
+22. How can generic methods complicate overload resolution?
+
+
+
+4. Major Traps
+
+void test(Object value) {
+    System.out.println("Object");
+}
+
+void test(String value) {
+    System.out.println("String");
+}
+
+test(null);
+
+23. What happens?
+
+
+24. Why?
+
+
+
+void test(String value) {}
+void test(Integer value) {}
+
+test(null);
+
+25. What happens?
+
+
+26. Why is this ambiguous?
+
+
+27. Can return type alone distinguish overloaded methods?
+
+
+28. Is overloading runtime polymorphism?
+
+
+
+5. Design
+
+29. When does overloading improve API usability?
+
+
+30. When does excessive overloading make an API confusing?
+
+
+31. How many overloads are too many?
+
+
+32. When should a configuration object replace multiple overloads?
+
+
+33. How can overloads interact badly with null?
+
+
+34. How can overload evolution break source compatibility?
+
+
+
+6. Debugging
+
+35. Find why the wrong overload executes.
+
+
+36. Diagnose a null ambiguity.
+
+
+37. Diagnose boxing/widening selection.
+
+
+38. Diagnose varargs unexpectedly being selected.
+
+
+39. Refactor confusing overloads.
+
+
+
+7. Production
+
+40. How can adding an overload change which method existing source code selects?
+
+
+41. Why should public APIs evolve overloads carefully?
+
+
+42. How can overloaded APIs affect readability?
+
+
+43. How would you review an overloaded public API?
+
+
+
+8. Senior
+
+44. Explain overload resolution without simply saying "compiler chooses it."
+
+
+45. Explain widening vs boxing vs varargs priority.
+
+
+46. Why can null be dangerous with overloaded methods?
+
+
+47. Why can't runtime object type normally decide the overload?
+
+
+
+
+---
+
+1.3.6 Method Overriding
+
+The module explicitly requires return compatibility, visibility, checked exceptions, @Override, covariant returns, final/static/private methods and constructor behavior. 
+
+1. Basic
+
+1. What is method overriding?
+
+
+2. Why is overriding useful?
+
+
+3. What is the difference between overriding and overloading?
+
+
+4. What is @Override?
+
+
+5. What is a covariant return type?
+
+
+
+2. Intermediate
+
+6. What must match for overriding?
+
+
+7. Can visibility be reduced?
+
+
+8. Can visibility be increased?
+
+
+9. Can a final method be overridden?
+
+
+10. Can a static method be overridden?
+
+
+11. Can a private method be overridden?
+
+
+12. Can constructors be overridden?
+
+
+13. What happens with checked exceptions?
+
+
+14. What happens with return types?
+
+
+
+3. Advanced
+
+15. Explain dynamic method dispatch.
+
+
+16. Why can a subclass return a subtype of the parent's return type?
+
+
+17. How does overriding interact with inheritance?
+
+
+18. How does overriding interact with interface methods?
+
+
+19. How does the JVM dispatch an overridden instance method?
+
+
+20. What bytecode instruction is generally associated with ordinary virtual invocation?
+
+
+
+4. Major Traps
+
+21. A subclass reduces a method from public to protected. What happens?
+
+
+22. A subclass attempts to override a final method. What happens?
+
+
+23. A subclass declares a static method with the same signature. Override or hide?
+
+
+24. A subclass declares a private method with the same name/signature. Override or independent method?
+
+
+25. A subclass changes only the return type incompatibly. What happens?
+
+
+26. A subclass throws a broader checked exception. What happens?
+
+
+
+Output
+
+class Parent {
+    Number getValue() {
+        return 10;
+    }
+}
+
+class Child extends Parent {
+    @Override
+    Integer getValue() {
+        return 20;
+    }
+}
+
+27. Is this legal?
+
+
+28. Why?
+
+
+
+5. Design
+
+29. When should overriding be used?
+
+
+30. When does overriding indicate a legitimate specialization?
+
+
+31. How can overriding violate a superclass contract?
+
+
+32. How does LSP apply to overriding?
+
+
+33. Why should @Override always be preferred when actually overriding?
+
+
+
+6. Debugging
+
+34. Find an accidental overload instead of override.
+
+
+35. Find an incorrect method signature.
+
+
+36. Find an invalid visibility change.
+
+
+37. Find an invalid checked exception change.
+
+
+38. Find a missing @Override.
+
+
+39. Diagnose unexpected parent behavior.
+
+
+
+7. Production
+
+40. How can incorrect overriding break framework behavior?
+
+
+41. Why are public superclass contracts important?
+
+
+42. How can overriding affect API compatibility?
+
+
+43. How can subclass behavior create production regressions?
+
+
+
+8. Senior
+
+44. Explain every major Java overriding restriction.
+
+
+45. Why are static methods not overridden?
+
+
+46. Why are private methods not overridden?
+
+
+47. Why are constructors not overridden?
+
+
+48. Explain covariant return types and their design value.
+
+
+
+
+---
+
+1.3.7 Dynamic Method Dispatch
+
+Your source treats invokevirtual, invokeinterface, static methods, private methods, final methods and constructors as important exceptions to ordinary dynamic dispatch. 
+
+1. Basic
+
+1. What is dynamic method dispatch?
+
+
+2. Why is it required for runtime polymorphism?
+
+
+3. What is the receiver object?
+
+
+4. What is the runtime type?
+
+
+5. What is the reference type?
+
+
+
+2. Intermediate
+
+6. Explain:
+
+
+
+Animal a = new Dog();
+a.speak();
+
+7. What does the compiler verify?
+
+
+8. What does runtime dispatch determine?
+
+
+9. What happens if Dog overrides speak()?
+
+
+10. What happens if it doesn't?
+
+
+
+3. Advanced
+
+11. What is invokevirtual?
+
+
+12. What is invokeinterface?
+
+
+13. What is invokespecial?
+
+
+14. What is invokestatic?
+
+
+15. Which invocation mechanisms are relevant to constructors?
+
+
+16. Which are relevant to static methods?
+
+
+17. Which are relevant to ordinary virtual calls?
+
+
+18. How does JIT optimization affect dynamic dispatch?
+
+
+19. What is a monomorphic call site?
+
+
+20. What is a megamorphic call site?
+
+
+
+4. Major Traps
+
+21. Do fields use dynamic dispatch?
+
+
+22. Do static methods use dynamic dispatch?
+
+
+23. Do constructors use dynamic dispatch?
+
+
+24. Does super.method() behave exactly like this.method()?
+
+
+25. Are private methods dynamically dispatched?
+
+
+
+5. Design
+
+26. When is dynamic dispatch useful?
+
+
+27. How does it enable plugin architectures?
+
+
+28. How does it support Strategy?
+
+
+29. How does it support dependency inversion?
+
+
+30. When is dynamic dispatch unnecessary?
+
+
+
+6. Debugging
+
+31. Debug unexpected method selection.
+
+
+32. Debug super.method().
+
+
+33. Debug interface dispatch.
+
+
+34. Debug a static method mistakenly expected to dispatch dynamically.
+
+
+35. Debug a private-method misunderstanding.
+
+
+
+7. Production
+
+36. How can dispatch improve extensibility?
+
+
+37. What performance considerations exist?
+
+
+38. When should you profile dispatch?
+
+
+39. How can excessive polymorphism complicate production debugging?
+
+
+
+8. Senior
+
+40. Explain the complete compiler → bytecode → runtime dispatch process.
+
+
+41. Explain invokevirtual vs invokeinterface.
+
+
+42. Explain why JIT can reduce the practical cost of polymorphism.
+
+
+43. Explain monomorphic vs megamorphic dispatch.
+
+
+
+
+---
+
+1.3.8 Abstraction
+
+The source defines abstraction as exposing essential behavior while hiding unnecessary implementation details, using interfaces, abstract classes, encapsulation and access modifiers. 
+
+1. Basic
+
+1. What is abstraction?
+
+
+2. Why is abstraction useful?
+
+
+3. What does "program to an abstraction" mean?
+
+
+4. What is an abstract class?
+
+
+5. What is an interface?
+
+
+6. How does encapsulation contribute to abstraction?
+
+
+
+2. Intermediate
+
+7. What should an abstraction expose?
+
+
+8. What should it hide?
+
+
+9. How does abstraction reduce coupling?
+
+
+10. Why should callers depend on behavior rather than implementation details?
+
+
+11. Interface vs abstract class?
+
+
+12. When is an abstraction useful?
+
+
+13. When is abstraction unnecessary?
+
+
+
+3. Advanced
+
+14. How does abstraction support dependency inversion?
+
+
+15. How does abstraction support testability?
+
+
+16. How does abstraction support extensibility?
+
+
+17. What is abstraction leakage?
+
+
+18. How can a poorly designed interface expose implementation details?
+
+
+19. How can excessive abstraction increase complexity?
+
+
+
+4. Major Traps
+
+20. Is every interface automatically a good abstraction?
+
+
+21. Is abstraction the same thing as encapsulation?
+
+
+22. Does adding an interface always reduce coupling?
+
+
+23. Is more abstraction always better?
+
+
+24. Should every concrete class have an interface?
+
+
+
+5. Design
+
+25. Design PaymentProcessor.
+
+
+26. Design a repository abstraction.
+
+
+27. Design a notification abstraction.
+
+
+28. Decide whether a type needs an interface.
+
+
+29. Decide whether shared state justifies an abstract class.
+
+
+30. Identify abstraction leakage.
+
+
+
+6. Debugging
+
+31. Debug an abstraction exposing database details.
+
+
+32. Debug an interface with too many unrelated methods.
+
+
+33. Debug a concrete implementation leaking through an API.
+
+
+34. Refactor an unnecessary abstraction.
+
+
+
+7. Production
+
+35. How does abstraction support testing?
+
+
+36. How does it support replacing external providers?
+
+
+37. How does abstraction affect API stability?
+
+
+38. What are the maintenance costs of unnecessary abstractions?
+
+
+
+8. Senior
+
+39. How do you know when an abstraction is good?
+
+
+40. Explain abstraction vs encapsulation.
+
+
+41. How does abstraction support architecture?
+
+
+42. When should YAGNI prevent you from introducing an abstraction?
+
+
+
+
+---
+
+1.3.9 Interfaces
+
+The module covers abstract/default/static/private interface methods, functional interfaces, multiple inheritance, interface dispatch and default-method conflicts. 
+
+1. Basic
+
+1. What is an interface?
+
+
+2. What does implements mean?
+
+
+3. Why use interfaces?
+
+
+4. Can a class implement multiple interfaces?
+
+
+5. Can an interface extend another interface?
+
+
+6. Can an interface be instantiated?
+
+
+
+2. Intermediate
+
+7. What is an abstract interface method?
+
+
+8. What is a default method?
+
+
+9. What is a static interface method?
+
+
+10. What is a private interface method?
+
+
+11. What is a functional interface?
+
+
+12. Why are default methods useful?
+
+
+13. How can interfaces model capabilities?
+
+
+14. Interface vs abstract class?
+
+
+
+3. Advanced
+
+15. What is interface metadata?
+
+
+16. How does interface dispatch work?
+
+
+17. What is invokeinterface?
+
+
+18. How are default methods resolved?
+
+
+19. What happens when two interfaces define the same default method?
+
+
+20. How does multiple interface inheritance work?
+
+
+21. How does a class method interact with an interface default method?
+
+
+22. How does a superclass method interact with an interface default method?
+
+
+
+4. Major Traps
+
+interface A {
+    default void test() {
+        System.out.println("A");
+    }
+}
+
+interface B {
+    default void test() {
+        System.out.println("B");
+    }
+}
+
+class C implements A, B {
+}
+
+23. Does this compile?
+
+
+24. Why?
+
+
+25. How do you resolve the conflict?
+
+
+26. Can an interface contain instance fields?
+
+
+27. Can an interface have constructors?
+
+
+28. Can a static interface method be overridden?
+
+
+
+5. Design
+
+29. When should you introduce an interface?
+
+
+30. When is an interface unnecessary?
+
+
+31. Design a payment-provider interface.
+
+
+32. Design a repository interface.
+
+
+33. Design a notification interface.
+
+
+34. Design multiple capabilities using interfaces.
+
+
+35. How can interfaces create testing seams?
+
+
+
+6. Debugging
+
+36. Debug default-method conflicts.
+
+
+37. Debug an incorrect interface implementation.
+
+
+38. Debug unexpected interface dispatch.
+
+
+39. Debug an interface that has become too large.
+
+
+40. Refactor a "god interface."
+
+
+
+7. Production
+
+41. How are interfaces used in dependency injection?
+
+
+42. How do interfaces support plugin architectures?
+
+
+43. How do interfaces support ports and adapters?
+
+
+44. How do interfaces help testing?
+
+
+45. What happens when a public interface needs to evolve?
+
+
+
+8. Senior
+
+46. Interface vs abstract class — give a design decision, not a memorized table.
+
+
+47. When should you avoid an interface?
+
+
+48. How do default methods affect API evolution?
+
+
+49. How do you design a stable public interface?
+
+
+50. How does interface-based design support dependency inversion?
+
+
+
+
+---
+
+1.3.10 Abstract Classes
+
+The source positions abstract classes for shared state, implementation, protected behavior, invariants and a common conceptual base. 
+
+1. Basic
+
+1. What is an abstract class?
+
+
+2. Why can't it be instantiated?
+
+
+3. What is an abstract method?
+
+
+4. Can an abstract class have concrete methods?
+
+
+5. Can it have fields?
+
+
+6. Can it have constructors?
+
+
+7. Can it have static members?
+
+
+8. Can it have final methods?
+
+
+
+2. Intermediate
+
+9. When should an abstract class be used?
+
+
+10. What shared behavior belongs in an abstract class?
+
+
+11. Why can constructors exist in an abstract class?
+
+
+12. Can an abstract class implement an interface?
+
+
+13. Can an abstract class extend another abstract class?
+
+
+14. Can an abstract class reference point to a concrete object?
+
+
+
+3. Advanced
+
+15. How does an abstract class participate in polymorphism?
+
+
+16. How does shared state affect the choice between interface and abstract class?
+
+
+17. How can protected methods influence subclass coupling?
+
+
+18. How can abstract classes enforce invariants?
+
+
+19. What design problems arise from a large abstract base class?
+
+
+
+4. Major Traps
+
+20. Can you instantiate an abstract class?
+
+
+21. Can an abstract class have a constructor?
+
+
+22. Can an abstract class contain no abstract methods?
+
+
+23. Does using an abstract class automatically mean good abstraction?
+
+
+24. Can an abstract class implement an interface without implementing every method?
+
+
+
+5. Design
+
+25. Design an abstract payment processor.
+
+
+26. Decide whether shared state justifies an abstract class.
+
+
+27. Decide between interface and abstract class for a framework extension point.
+
+
+28. Identify an abstract base class that should become composition.
+
+
+
+6. Debugging
+
+29. Debug an incomplete abstract implementation.
+
+
+30. Debug incorrect constructor behavior in an abstract hierarchy.
+
+
+31. Debug protected-state leakage.
+
+
+32. Debug an abstract class containing too many responsibilities.
+
+
+
+7. Production
+
+33. When is an abstract base class useful in frameworks?
+
+
+34. How can abstract classes reduce duplication?
+
+
+35. How can they increase coupling?
+
+
+36. How can they make future changes difficult?
+
+
+
+8. Senior
+
+37. Interface vs abstract class: make the decision for three different scenarios.
+
+
+38. Why is shared state a strong reason to consider an abstract class?
+
+
+39. When should composition replace an abstract base class?
+
+
+40. How does an abstract class affect API evolution?
+
+
+
+
+---
+
+1.3.11 Composition vs Inheritance
+
+The source explicitly gives a decision framework: true IS-A may justify inheritance; dependency/replacement needs generally favor composition. 
+
+1. Basic
+
+1. What is composition?
+
+
+2. What is inheritance?
+
+
+3. What is a HAS-A relationship?
+
+
+4. What is an IS-A relationship?
+
+
+5. What is delegation?
+
+
+6. What does composition over inheritance mean?
+
+
+
+2. Intermediate
+
+7. Why does composition usually reduce coupling?
+
+
+8. Why does composition improve runtime flexibility?
+
+
+9. Why can composition improve testing?
+
+
+10. What does inheritance provide that composition doesn't automatically provide?
+
+
+11. When is inheritance appropriate?
+
+
+12. When is composition appropriate?
+
+
+
+3. Advanced
+
+13. How does composition affect dependency replacement?
+
+
+14. How does inheritance affect parent-child coupling?
+
+
+15. How does composition support Strategy?
+
+
+16. How does composition support dependency injection?
+
+
+17. How does inheritance interact with LSP?
+
+
+18. Why can inheritance make API evolution harder?
+
+
+19. When can inheritance still be the better design?
+
+
+
+4. Major Traps
+
+20. "Always prefer composition." Is that a valid absolute rule?
+
+
+21. "Inheritance is mainly for code reuse." Why is this incomplete?
+
+
+22. Does an English IS-A phrase automatically justify inheritance?
+
+
+23. Does composition eliminate all coupling?
+
+
+24. Can composition itself be over-engineered?
+
+
+
+5. Design
+
+25. Car + Engine: inheritance or composition?
+
+
+26. Dog + Animal: inheritance or composition?
+
+
+27. PaymentService + PaymentProcessor: which?
+
+
+28. NotificationService + provider: which?
+
+
+29. ReportGenerator + formatter: which?
+
+
+30. Design a system where dependencies can be replaced at runtime.
+
+
+
+6. Debugging
+
+31. Find inappropriate inheritance.
+
+
+32. Refactor an inheritance-only-for-reuse hierarchy.
+
+
+33. Identify tight coupling caused by a base class.
+
+
+34. Find an LSP violation and replace inheritance with composition.
+
+
+
+7. Production
+
+35. Why is composition often easier to test?
+
+
+36. How does composition help microservice integration code?
+
+
+37. How can inheritance affect long-term maintainability?
+
+
+38. How would you decide in a large enterprise codebase?
+
+
+
+8. Senior
+
+39. Give a production example where inheritance is clearly superior.
+
+
+40. Give a production example where composition is clearly superior.
+
+
+41. Explain how runtime replacement changes the decision.
+
+
+42. Explain how LSP changes the decision.
+
+
+
+
+---
+
+1.3.12 IS-A vs HAS-A
+
+The module explicitly warns that English grammar alone isn't sufficient; behavioral substitutability matters. 
+
+1. Basic
+
+1. What is IS-A?
+
+
+2. What is HAS-A?
+
+
+3. How does inheritance represent IS-A?
+
+
+4. How does composition represent HAS-A?
+
+
+5. Give three IS-A examples.
+
+
+6. Give three HAS-A examples.
+
+
+
+2. Intermediate
+
+7. Is Dog IS-A Animal?
+
+
+8. Is Car HAS-A Engine?
+
+
+9. Is PaymentProcessor HAS-A PaymentService?
+
+
+10. How does interface implementation represent IS-A?
+
+
+11. How does dependency injection represent HAS-A?
+
+
+
+3. Advanced
+
+12. Why isn't English grammar enough to decide inheritance?
+
+
+13. What behavioral question should you ask?
+
+
+14. How does LSP apply?
+
+
+15. Can something conceptually be "a kind of" another thing but still be a poor inheritance relationship?
+
+
+16. How can composition represent a stronger real-world model?
+
+
+
+4. Major Traps
+
+17. Car extends Engine — why is this usually wrong?
+
+
+18. Stack extends ArrayList — what behavioral concerns arise?
+
+
+19. Square extends Rectangle — what design/LSP problems can occur?
+
+
+20. Why can a syntactically valid hierarchy still be conceptually wrong?
+
+
+
+5. Design
+
+21. Model a payment system.
+
+
+22. Model a vehicle system.
+
+
+23. Model a notification system.
+
+
+24. Identify all IS-A relationships.
+
+
+25. Identify all HAS-A relationships.
+
+
+26. Justify each relationship behaviorally.
+
+
+
+6. Debugging
+
+27. Find a false IS-A relationship.
+
+
+28. Identify a subclass that cannot substitute for its parent.
+
+
+29. Refactor the relationship.
+
+
+30. Find accidental inheritance used only for implementation reuse.
+
+
+
+7. Production
+
+31. Why does a wrong relationship increase maintenance cost?
+
+
+32. How can incorrect IS-A modeling cause production defects?
+
+
+33. How does composition make dependency boundaries clearer?
+
+
+
+8. Senior
+
+34. Explain why "IS-A" is necessary but not sufficient.
+
+
+35. Connect IS-A to LSP.
+
+
+36. Connect HAS-A to composition and dependency inversion.
+
+
+37. Defend a relationship choice in a production architecture review.
+
+
+
+
+---
+
+1.3.13 LSP / Behavioral Substitutability
+
+Although the module discusses Liskov Substitution mainly through the inheritance/design sections, it is part of the final mastery requirements. 
+
+1. Basic
+
+1. What is Liskov Substitution Principle?
+
+
+2. What does substitutability mean?
+
+
+3. Why does LSP matter for inheritance?
+
+
+4. What does it mean for a subclass to honor a superclass contract?
+
+
+
+2. Intermediate
+
+5. How can a subclass violate expected behavior?
+
+
+6. How can stronger preconditions violate substitutability?
+
+
+7. How can unexpected postconditions violate client expectations?
+
+
+8. How can throwing unexpected exceptions violate a contract?
+
+
+9. Why isn't "it compiles" enough to satisfy LSP?
+
+
+
+3. Advanced
+
+10. Analyze a hierarchy where one subclass rejects valid superclass inputs.
+
+
+11. Analyze a hierarchy where one subclass weakens expected behavior.
+
+
+12. Explain LSP in terms of behavioral contracts.
+
+
+13. How does LSP influence API design?
+
+
+14. How can composition solve an LSP problem?
+
+
+
+4. Major Traps
+
+15. Is every subclass automatically substitutable?
+
+
+16. Is IS-A by English definition sufficient?
+
+
+17. Does method overriding automatically guarantee LSP?
+
+
+18. Can a subclass technically satisfy the method signature but violate LSP?
+
+
+
+5. Design
+
+19. Design a hierarchy that satisfies LSP.
+
+
+20. Refactor a hierarchy that violates LSP.
+
+
+21. Decide whether inheritance should be removed.
+
+
+22. Design a payment abstraction whose implementations preserve the same behavioral contract.
+
+
+
+6. Debugging
+
+23. Diagnose a subclass violating caller expectations.
+
+
+24. Identify strengthened preconditions.
+
+
+25. Identify unexpected exceptions.
+
+
+26. Refactor the hierarchy.
+
+
+
+7. Production
+
+27. How can LSP violations cause runtime failures?
+
+
+28. How can LSP violations make polymorphism unsafe?
+
+
+29. How would you review a public inheritance hierarchy for LSP?
+
+
+
+8. Senior
+
+30. Explain LSP without using the phrase "subclass should behave like parent."
+
+
+31. Give a production example of an LSP violation.
+
+
+32. When should you replace inheritance with composition because of LSP?
+
+
+
+
+---
+
+1.3.14 OOP Design Decision Matrix
+
+Your source provides this decision framework: shared contract → interface; shared state/behavior → abstract class; replaceable dependency → composition; true subtype → inheritance; multiple capabilities → interfaces. 
+
+Basic
+
+1. When should you use an interface?
+
+
+2. When should you use an abstract class?
+
+
+3. When should you use composition?
+
+
+4. When should you use inheritance?
+
+
+
+Intermediate
+
+5. What does "shared contract" suggest?
+
+
+6. What does "shared state + behavior" suggest?
+
+
+7. What does "replaceable dependency" suggest?
+
+
+8. What does "true subtype" suggest?
+
+
+9. What does "multiple capabilities" suggest?
+
+
+
+Advanced
+
+10. Given a requirement, identify the correct mechanism.
+
+
+11. Explain why two apparently valid designs differ.
+
+
+12. Identify premature abstraction.
+
+
+13. Identify unnecessary inheritance.
+
+
+14. Identify a class that should use composition.
+
+
+
+Major Traps
+
+15. Interface for every class — good or bad?
+
+
+16. Inheritance for every reusable component — good or bad?
+
+
+17. Abstract class whenever two classes share code — always correct?
+
+
+18. Composition whenever possible — absolute rule?
+
+
+
+Design
+
+19. Design payment processing.
+
+
+20. Design notification providers.
+
+
+21. Design storage providers.
+
+
+22. Design a logging abstraction.
+
+
+23. Design a strategy-based pricing engine.
+
+
+24. Explain every design choice.
+
+
+
+Debugging
+
+25. Review an existing architecture and identify inappropriate relationships.
+
+
+26. Refactor unnecessary interfaces.
+
+
+27. Refactor unnecessary inheritance.
+
+
+28. Identify abstraction leakage.
+
+
+
+Production
+
+29. How do you choose between these mechanisms under time pressure?
+
+
+30. How do API evolution and team size affect the choice?
+
+
+31. How does testing affect the decision?
+
+
+
+Senior
+
+32. Given a production requirement, defend your choice between interface, abstract class, inheritance and composition.
+
+
+33. Explain when not to abstract.
+
+
+34. Explain when not to inherit.
+
+
+
+
+---
+
+1.3.15 Integrated Payment Processing System
+
+Your actual module requires a Payment Processing System containing Payment, PaymentProcessor, Card/UPI/Bank Transfer implementations, interfaces, an abstract class where justified, inheritance, overloading, overriding, dynamic dispatch, composition, constructor injection and explicit IS-A/HAS-A reasoning. 
+
+Basic
+
+1. Create Payment.
+
+
+2. Add payment ID.
+
+
+3. Add amount.
+
+
+4. Add status.
+
+
+5. Create PaymentProcessor.
+
+
+6. Create Card processor.
+
+
+7. Create UPI processor.
+
+
+8. Create Bank Transfer processor.
+
+
+
+Intermediate
+
+9. Encapsulate all fields.
+
+
+10. Add constructors.
+
+
+11. Add process().
+
+
+12. Add refund().
+
+
+13. Use an interface.
+
+
+14. Demonstrate method overriding.
+
+
+15. Demonstrate runtime polymorphism.
+
+
+16. Demonstrate constructor injection.
+
+
+17. Add validation.
+
+
+
+Advanced
+
+18. Introduce an abstract base class only where justified.
+
+
+19. Introduce composition for external dependencies.
+
+
+20. Make providers replaceable.
+
+
+21. Add Strategy-style provider selection.
+
+
+22. Add failure handling.
+
+
+23. Design the API for future providers.
+
+
+24. Explain every inheritance relationship.
+
+
+25. Explain every composition relationship.
+
+
+26. Explain where dynamic dispatch occurs.
+
+
+27. Inspect relevant bytecode.
+
+
+
+Major Traps
+
+28. Create a field-hiding bug and diagnose it.
+
+
+29. Create static method hiding and diagnose it.
+
+
+30. Create an accidental overload instead of override.
+
+
+31. Create an invalid downcast.
+
+
+32. Expose mutable payment state.
+
+
+33. Introduce unnecessary inheritance and explain why it is wrong.
+
+
+
+Design
+
+34. Should PaymentService extend PaymentProcessor?
+
+
+35. Should CardPaymentProcessor extend an abstract processor?
+
+
+36. Should the payment provider be injected?
+
+
+37. How should a new provider be added?
+
+
+38. How should unsupported payment types be handled?
+
+
+39. How should failure be represented?
+
+
+40. Which objects should be immutable?
+
+
+
+Debugging
+
+41. Payment provider isn't being dispatched correctly.
+
+
+42. Refund calls the wrong implementation.
+
+
+43. A new provider breaks existing behavior.
+
+
+44. Payment state can be modified externally.
+
+
+45. A provider cannot be substituted safely.
+
+
+46. A production failure occurs because of incorrect abstraction.
+
+
+
+Production
+
+47. How would you make the system testable?
+
+
+48. How would you replace a real payment provider with a fake?
+
+
+49. How would you handle provider failures?
+
+
+50. How would you prevent provider-specific details from leaking into PaymentService?
+
+
+51. How would you add another payment provider without modifying core business logic?
+
+
+52. How would you profile object allocation?
+
+
+
+Senior
+
+53. Defend the architecture.
+
+
+54. Explain why composition/inheritance was chosen for every relationship.
+
+
+55. Explain how the design follows OCP/DIP/LSP.
+
+
+56. Explain where abstraction would become over-engineering.
+
+
+57. Explain how you would evolve this system for five years.
+
+
+
+
+---
+
+1.3.16 Advanced OOP Debugging Challenges
+
+Your module explicitly lists field hiding, static hiding, incorrect overriding, missing @Override, constructor dispatch, null polymorphic references, invalid downcasting, default conflicts, broken encapsulation, God classes and excessive inheritance. 
+
+Challenge 1 — Field Hiding
+
+class Parent {
+    int x = 10;
+}
+
+class Child extends Parent {
+    int x = 20;
+}
+
+Parent p = new Child();
+
+1. Predict p.x.
+
+
+2. Explain why.
+
+
+3. Fix the design.
+
+
+
+Challenge 2 — Static Hiding
+
+Create parent/child static methods with the same signature.
+
+4. Predict output.
+
+
+5. Explain why this isn't overriding.
+
+
+6. Refactor if polymorphic behavior is actually required.
+
+
+
+Challenge 3 — Incorrect Override
+
+Create a subclass method with a subtly different signature.
+
+7. Why does it overload instead?
+
+
+8. How does @Override help?
+
+
+9. Fix it.
+
+
+
+Challenge 4 — Constructor Dispatch
+
+10. Create a superclass constructor that calls an overridable method.
+
+
+11. Demonstrate the unexpected behavior.
+
+
+12. Explain why.
+
+
+13. Redesign it safely.
+
+
+
+Challenge 5 — Downcasting
+
+Animal a = new Cat();
+Dog d = (Dog) a;
+
+14. What happens?
+
+
+15. Why?
+
+
+16. How would you redesign the code to avoid unsafe casting?
+
+
+
+Challenge 6 — Encapsulation
+
+17. Expose a mutable internal list.
+
+
+18. Demonstrate external mutation.
+
+
+19. Fix it.
+
+
+20. Compare defensive copy vs unmodifiable view.
+
+
+
+Challenge 7 — God Class
+
+21. Given a large class doing payment calculation, persistence, email and reporting:
+
+
+22. Identify responsibilities.
+
+
+23. Split the design.
+
+
+24. Explain why each new component exists.
+
+
+25. Ensure you haven't over-fragmented the system.
+
+
+
+
+---
+
+1.3.17 Performance & JVM
+
+Your module specifically includes object allocation, headers, references, escape analysis, scalar replacement, JIT inlining, virtual/interface calls, call-site types, devirtualization and GC impact. 
+
+Basic
+
+1. What is object allocation?
+
+
+2. What is GC pressure?
+
+
+3. What is virtual dispatch?
+
+
+4. What is interface dispatch?
+
+
+5. What is JIT compilation?
+
+
+
+Intermediate
+
+6. Why can excessive object creation increase GC activity?
+
+
+7. Why can object size matter?
+
+
+8. What is escape analysis?
+
+
+9. What is JIT inlining?
+
+
+10. What is a monomorphic call site?
+
+
+11. What is a polymorphic call site?
+
+
+12. What is a megamorphic call site?
+
+
+
+Advanced
+
+13. Explain scalar replacement.
+
+
+14. Explain devirtualization.
+
+
+15. How can JIT optimize virtual calls?
+
+
+16. Why can an allocation disappear from the physical runtime representation?
+
+
+17. How can object graphs increase GC cost?
+
+
+18. How would you investigate allocation pressure using JFR?
+
+
+19. How would you distinguish allocation problems from CPU problems?
+
+
+
+Major Traps
+
+20. "Interfaces are slow, so never use them." Explain why this is poor reasoning.
+
+
+21. "Every object is allocated on the heap." Explain the limitation.
+
+
+22. "Virtual dispatch always causes a significant performance penalty." Explain.
+
+
+23. "Avoid creating objects whenever possible." Why is this incomplete?
+
+
+
+Design
+
+24. Would you sacrifice clean polymorphism for theoretical dispatch performance?
+
+
+25. When should allocation be optimized?
+
+
+26. When should object pooling be considered?
+
+
+27. When is pooling actually harmful?
+
+
+
+Debugging
+
+28. Diagnose high allocation rate.
+
+
+29. Diagnose excessive GC.
+
+
+30. Diagnose unexpectedly high CPU in a polymorphic call path.
+
+
+31. Use profiling evidence to determine whether dispatch matters.
+
+
+
+Production
+
+32. How would you use JFR to investigate allocation?
+
+
+33. How would you investigate GC pressure?
+
+
+34. How would you determine whether polymorphism is actually a bottleneck?
+
+
+35. Why should optimization follow measurement?
+
+
+
+The source is explicit: do not sacrifice good OOP design merely because a method is virtual; measure first, then optimize the actual bottleneck. 
+
+Senior
+
+36. Explain how modern JVMs make simplistic "virtual calls are slow" arguments unreliable.
+
+
+37. Explain monomorphic vs megamorphic optimization.
+
+
+38. Explain allocation elimination conceptually.
+
+
+39. Design a performance investigation rather than guessing.
+
+
+
+
+---
+
+1.3.18 Concurrency & OOP Design
+
+The module includes immutable objects, shared mutable state, thread-safe domain objects, safe publication and synchronization around object state. 
+
+Basic
+
+1. What is mutable shared state?
+
+
+2. What is an immutable object?
+
+
+3. What is a thread-safe object?
+
+
+4. What is safe publication?
+
+
+
+Intermediate
+
+5. Why are immutable objects easier to share?
+
+
+6. Why can shared mutable objects create race conditions?
+
+
+7. Why does encapsulation matter for thread safety?
+
+
+8. Why isn't final alone equivalent to immutability?
+
+
+
+Advanced
+
+9. Design an immutable domain object.
+
+
+10. Identify unsafe shared state.
+
+
+11. Explain safe publication conceptually.
+
+
+12. Explain when synchronization is needed around object state.
+
+
+13. How can object design reduce synchronization requirements?
+
+
+
+Major Traps
+
+14. final List<String> — is the list immutable?
+
+
+15. Private mutable state — is it automatically thread-safe?
+
+
+16. Immutable reference — does it guarantee immutable object state?
+
+
+
+Design
+
+17. Design a thread-safe domain object.
+
+
+18. Prefer immutability where possible.
+
+
+19. Decide where synchronization belongs.
+
+
+20. Decide whether synchronization can be avoided through object design.
+
+
+
+Debugging
+
+21. Diagnose shared mutable state.
+
+
+22. Diagnose a race involving an object field.
+
+
+23. Diagnose unsafe publication.
+
+
+24. Refactor toward immutable state.
+
+
+
+Production
+
+25. How does immutable design simplify concurrent services?
+
+
+26. How can object ownership reduce synchronization?
+
+
+27. How would you design a high-concurrency payment object?
+
+
+
+Senior
+
+28. Explain why good OOP design can reduce concurrency complexity.
+
+
+29. Explain immutable object sharing.
+
+
+30. Explain the relationship between encapsulation and safe concurrency.
+
+
+
+
+---
+
+1.3.19 Production Architecture Follow-ups
+
+The module explicitly connects OOP to dependency inversion, ports and adapters, Strategy, repositories, services, DTOs, entities and value objects. 
+
+Basic
+
+1. What is a service?
+
+
+2. What is a repository?
+
+
+3. What is a DTO?
+
+
+4. What is a domain object?
+
+
+5. What is a value object?
+
+
+6. What is an entity?
+
+
+
+Intermediate
+
+7. DTO vs domain object?
+
+
+8. Entity vs value object?
+
+
+9. Why shouldn't infrastructure details leak into domain objects?
+
+
+10. What is dependency inversion?
+
+
+11. What is Strategy?
+
+
+12. What are ports and adapters?
+
+
+
+Advanced
+
+13. Design a domain model using these concepts.
+
+
+14. Where should interfaces live?
+
+
+15. Where should implementations live?
+
+
+16. How should dependencies flow?
+
+
+17. How can composition enforce architectural boundaries?
+
+
+18. How can inheritance accidentally violate those boundaries?
+
+
+
+Major Traps
+
+19. Should every DTO become a domain object?
+
+
+20. Should every domain object become a database entity?
+
+
+21. Should every service have an interface?
+
+
+22. Should every repository be an interface?
+
+
+23. Is dependency injection automatically good architecture?
+
+
+
+Design
+
+24. Design the Payment Processing architecture.
+
+
+25. Separate domain from infrastructure.
+
+
+26. Introduce provider abstractions.
+
+
+27. Introduce repository abstraction.
+
+
+28. Keep external API details outside the domain.
+
+
+
+Debugging
+
+29. Diagnose infrastructure leakage.
+
+
+30. Diagnose circular dependencies.
+
+
+31. Diagnose a service becoming a God class.
+
+
+32. Diagnose inappropriate inheritance across architectural boundaries.
+
+
+
+Production
+
+33. How does this design support testing?
+
+
+34. How does it support provider replacement?
+
+
+35. How does it support future architecture changes?
+
+
+36. What abstractions should remain stable?
+
+
+
+Senior
+
+37. Design a production OOP architecture from a blank page.
+
+
+38. Defend dependency direction.
+
+
+39. Explain why composition supports the architecture.
+
+
+40. Explain where you deliberately avoided abstraction.
+
+
+
+
+---
+
+1.3.20 Master Senior Interview Bank
+
+Your source has a dedicated master interview section covering basic through senior/production questions. 
+
+Basic
+
+1. What is a class?
+
+
+2. What is an object?
+
+
+3. What is encapsulation?
+
+
+4. What is inheritance?
+
+
+5. What is polymorphism?
+
+
+6. What is abstraction?
+
+
+7. What is an interface?
+
+
+8. What is an abstract class?
+
+
+9. What is overloading?
+
+
+10. What is overriding?
+
+
+
+Intermediate
+
+11. Overloading vs overriding?
+
+
+12. Interface vs abstract class?
+
+
+13. Composition vs inheritance?
+
+
+14. IS-A vs HAS-A?
+
+
+15. What is constructor chaining?
+
+
+16. What is dynamic dispatch?
+
+
+17. Does Java support multiple class inheritance?
+
+
+18. Why not?
+
+
+
+Advanced
+
+19. How does runtime polymorphism work?
+
+
+20. Field hiding vs method overriding?
+
+
+21. Are static methods overridden?
+
+
+22. Are private methods overridden?
+
+
+23. Why can't final methods be overridden?
+
+
+24. How is overload resolution performed?
+
+
+25. How are default-method conflicts resolved?
+
+
+26. What bytecode instructions relate to method invocation?
+
+
+27. How does JIT optimize virtual calls?
+
+
+
+Senior / Production
+
+28. When should composition be preferred?
+
+
+29. When is inheritance appropriate?
+
+
+30. How can inheritance violate LSP?
+
+
+31. When is an interface unnecessary?
+
+
+32. How would you design a pluggable payment system?
+
+
+33. How would you avoid deep inheritance?
+
+
+34. How can excessive object allocation affect a high-throughput service?
+
+
+35. How does polymorphism affect performance in theory and practice?
+
+
+36. How would you debug unexpected dispatch?
+
+
+37. How would you design immutable domain objects?
+
+
+38. How would you choose between interface, abstract class and composition?
+
+
+
+
+---
+
+1.3.21 Final Coding Assessment
+
+Your module defines a progression from basic classes through a production-style Payment Processing System. 
+
+Basic
+
+1. Create Person.
+
+
+2. Create BankAccount.
+
+
+3. Encapsulate fields.
+
+
+4. Add constructor validation.
+
+
+5. Build Animal hierarchy.
+
+
+6. Demonstrate overloading.
+
+
+7. Demonstrate overriding.
+
+
+
+Intermediate
+
+8. Build Shape.
+
+
+9. Implement Circle.
+
+
+10. Implement Rectangle.
+
+
+11. Implement Triangle.
+
+
+12. Demonstrate runtime polymorphism.
+
+
+13. Build abstract PaymentProcessor.
+
+
+14. Demonstrate constructor chaining.
+
+
+15. Demonstrate default interface methods.
+
+
+16. Build Car + Engine using composition.
+
+
+
+Advanced
+
+17. Build pluggable payment providers.
+
+
+18. Build Email/SMS/Push notification providers.
+
+
+19. Build in-memory/file storage implementations.
+
+
+20. Implement Strategy.
+
+
+21. Demonstrate field hiding vs method overriding.
+
+
+22. Investigate bytecode for overloaded/overridden methods.
+
+
+23. Create and resolve default-method conflicts.
+
+
+
+Production
+
+24. Build complete Payment Processing System.
+
+
+25. Use interfaces for replaceable providers.
+
+
+26. Use composition for external dependencies.
+
+
+27. Validate domain invariants.
+
+
+28. Prevent mutable-state leakage.
+
+
+29. Make appropriate objects immutable.
+
+
+30. Add failure handling.
+
+
+31. Design API for future providers.
+
+
+32. Profile object allocation.
+
+
+33. Analyze unnecessary inheritance.
+
+
+34. Explain every abstraction and relationship.
+
+
+
+
+---
+
+1.3.22 Final Mastery Examination
+
+Now the entire module gets tested in the same progression.
+
+Round 1 — Basic
+
+30 questions
+
+Cover:
+
+class
+
+object
+
+reference
+
+state
+
+behavior
+
+encapsulation
+
+inheritance
+
+polymorphism
+
+abstraction
+
+interfaces
+
+abstract classes
+
+composition
+
+IS-A/HAS-A
+
+overloading
+
+overriding
+
+
+
+---
+
+Round 2 — Intermediate
+
+35 questions
+
+Focus on:
+
+object creation
+
+constructor behavior
+
+access control
+
+inheritance rules
+
+overload resolution
+
+overriding rules
+
+interface features
+
+composition
+
+polymorphism
+
+casting
+
+design decisions
+
+
+
+---
+
+Round 3 — Advanced
+
+35 questions
+
+Focus on:
+
+object allocation
+
+references
+
+escape analysis
+
+scalar replacement
+
+dynamic dispatch
+
+JVM invocation
+
+invokevirtual
+
+invokeinterface
+
+invokespecial
+
+invokestatic
+
+JIT
+
+devirtualization
+
+interface dispatch
+
+LSP
+
+abstraction design
+
+
+These advanced topics are explicitly part of the module's follow-up material. 
+
+
+---
+
+Round 4 — Major Traps
+
+30 output/reasoning problems
+
+Especially:
+
+overloading vs overriding
+
+fields vs methods
+
+static hiding
+
+private methods
+
+final methods
+
+constructor dispatch
+
+super
+
+interface defaults
+
+downcasting
+
+null
+
+object/reference distinction
+
+mutable state
+
+encapsulation leakage
+
+
+
+---
+
+Round 5 — Design
+
+25 scenarios
+
+For every scenario, you must choose between:
+
+Interface
+Abstract class
+Inheritance
+Composition
+Concrete class
+
+and explain why.
+
+Examples:
+
+Payment providers
+
+Notification providers
+
+Storage
+
+Logging
+
+Pricing strategies
+
+Authentication providers
+
+File processors
+
+Report generation
+
+
+
+---
+
+Round 6 — Debugging
+
+20 broken systems
+
+You must:
+
+> Identify → Explain root cause → Fix → Explain prevention
+
+
+
+Including all deliberate bugs listed by the module: field hiding, static hiding, incorrect overrides, constructor dispatch, null polymorphism, invalid casts, default conflicts, encapsulation leakage, God classes and excessive inheritance. 
+
+
+---
+
+Round 7 — Production
+
+20 scenarios
+
+Examples:
+
+1. High allocation rate.
+
+
+2. Excessive GC.
+
+
+3. Payment-provider replacement.
+
+
+4. Broken abstraction.
+
+
+5. Deep inheritance hierarchy.
+
+
+6. Mutable shared state.
+
+
+7. Thread-safety problem.
+
+
+8. API evolution.
+
+
+9. Interface becoming too large.
+
+
+10. Domain object leaking infrastructure details.
+
+
+11. Incorrect equality/identity assumptions.
+
+
+12. Polymorphic dispatch investigation.
+
+
+
+
+---
+
+Round 8 — Senior
+
+20 questions
+
+You must defend:
+
+interface vs abstract class
+
+inheritance vs composition
+
+polymorphism vs switch
+
+abstraction vs YAGNI
+
+immutable vs mutable domain objects
+
+object allocation decisions
+
+API boundaries
+
+dependency direction
+
+LSP
+
+production architecture
+
+
+
+---
+
+🔥 Module 1.3 Final Mastery Gate
+
+Your source says do not mark 1.3 complete until you can explain classes/objects, identity/reference, encapsulation, inheritance, compile-time/runtime polymorphism, overloading, overriding, dynamic dispatch, field/static hiding, abstraction, interfaces, abstract classes, default methods, composition/inheritance, IS-A/HAS-A, LSP, JVM behavior, performance, production trade-offs and build a production-style OOP system. 
+
+So your final checklist becomes:
+
+MODULE 1.3 — OOP
+
+[ ] Basic concepts understood
+[ ] Classes & objects
+[ ] Object identity/reference
+[ ] Encapsulation
+[ ] Constructors
+[ ] this / super
+[ ] Inheritance
+[ ] Polymorphism
+[ ] Overloading
+[ ] Overriding
+[ ] Dynamic dispatch
+[ ] Field hiding
+[ ] Static method hiding
+[ ] Abstraction
+[ ] Interfaces
+[ ] Abstract classes
+[ ] Default methods
+[ ] Composition
+[ ] IS-A / HAS-A
+[ ] LSP
+[ ] Design decision matrix
+
+[ ] Major traps mastered
+[ ] Output prediction mastered
+[ ] Debugging mastered
+[ ] JVM internals understood
+[ ] Performance understood
+[ ] Concurrency implications understood
+[ ] Production architecture understood
+[ ] Payment Processing System implemented
+[ ] Code reviewed/refactored
+[ ] Senior questions answered
+
+                ↓
+
+        DEEP MASTERY COMPLETE
+
+This now follows the same disciplined flow you wanted rather than mixing the categories:
+
+> Basic → Intermediate → Advanced → Major Traps → Design → Debugging Challenges → Production → Senior/Interview → Final Mastery Test
+
+
+
+And importantly, the later sections build on the earlier ones: you first learn the OOP mechanism, then get trapped by its edge cases, then use it in design, debug it, and finally apply it to the production-style Payment Processing System. That is also consistent with the module's own completion standard: Explain → Implement → Explain internals → Handle edge cases → Discuss trade-offs → Debug → Use in production. 
