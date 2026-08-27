@@ -1,0 +1,2105 @@
+Yes. I understand the pattern you want for Module 1.6, and I’ll restructure it accordingly.
+
+For each individual topic/subtopic, the flow will be:
+
+> Basic → Intermediate → Advanced → Traps → Design → Debugging Challenges → Production
+
+
+
+Not a separate generic interview section mixed into the topic.
+
+Module 1.6 — Java Design Principles
+
+The module contains SOLID, SRP, OCP, LSP, ISP, DIP, composition over inheritance, coupling, cohesion, DRY, KISS, YAGNI, Law of Demeter, Tell Don't Ask, refactoring, and production architecture. 
+
+
+---
+
+1.6.1 SOLID
+
+Basic
+
+1. What is SOLID?
+
+
+2. What does each letter in SOLID represent?
+
+
+3. Why were SOLID principles introduced?
+
+
+4. What problems are SOLID principles intended to solve?
+
+
+5. How do SOLID principles relate to maintainability?
+
+
+6. How do they relate to coupling and cohesion?
+
+
+7. Are SOLID principles mandatory rules?
+
+
+8. Are SOLID principles specific to Java?
+
+
+9. Give a simple Java example for each principle.
+
+
+
+Intermediate
+
+10. Explain each SOLID principle with a real Java example.
+
+
+11. How do the five principles complement each other?
+
+
+12. How does polymorphism help implement SOLID?
+
+
+13. How does composition help implement SOLID?
+
+
+14. How does dependency injection support SOLID?
+
+
+15. How can SOLID improve testability?
+
+
+16. How can SOLID reduce the blast radius of changes?
+
+
+
+Advanced
+
+17. How do SOLID principles influence dependency direction?
+
+
+18. How do SOLID principles influence architectural boundaries?
+
+
+19. How can SOLID improve extensibility without excessive abstraction?
+
+
+20. Can two SOLID principles conflict?
+
+
+21. Can applying SOLID make a system worse?
+
+
+22. When should a SOLID principle deliberately not be applied?
+
+
+23. How would you evaluate SOLID in an existing production codebase?
+
+
+
+Traps
+
+24. Does SRP mean one class must have one method?
+
+
+25. Does OCP mean you must never modify existing code?
+
+
+26. Does DIP mean "use dependency injection"?
+
+
+27. Does LSP mean every subclass must have exactly the same methods?
+
+
+28. Does ISP mean every interface should contain only one method?
+
+
+29. Does SOLID automatically mean good architecture?
+
+
+30. Can excessive abstraction itself violate the goals of SOLID?
+
+
+
+Design
+
+31. Design a payment system using SOLID.
+
+
+32. Identify where each SOLID principle applies.
+
+
+33. Explain which abstractions you introduced and why.
+
+
+34. Explain which abstractions you deliberately avoided.
+
+
+35. Design the system so adding a new payment provider requires minimal modification.
+
+
+
+Debugging Challenges
+
+36. Given a badly designed service, identify all SOLID violations.
+
+
+37. Determine which violation is causing excessive change propagation.
+
+
+38. Determine which violation is making testing difficult.
+
+
+39. Determine which violation is creating unnecessary coupling.
+
+
+40. Refactor the code without overengineering it.
+
+
+
+Production
+
+41. How would you perform a SOLID review of a real Java/Spring application?
+
+
+42. How would you prioritize which violations to fix?
+
+
+43. How do you distinguish a genuine design problem from a stylistic preference?
+
+
+44. How do you defend a SOLID-based refactoring in a code review?
+
+
+45. When would you intentionally keep a simpler non-SOLID design?
+
+
+
+
+---
+
+1.6.2 Single Responsibility Principle — SRP
+
+Basic
+
+46. What is SRP?
+
+
+47. What does "one reason to change" mean?
+
+
+48. What is a responsibility?
+
+
+49. Why does SRP matter?
+
+
+50. Give an example of a class violating SRP.
+
+
+
+Intermediate
+
+51. Identify the responsibilities in:
+
+
+
+class InvoiceService {
+    void calculateTotal() {}
+    void saveToDatabase() {}
+    void sendEmail() {}
+    void generatePdf() {}
+}
+
+52. Why are these different reasons to change?
+
+
+53. How would you split this class?
+
+
+54. How does SRP reduce regression risk?
+
+
+55. How does SRP improve testing?
+
+
+56. How does SRP improve cohesion?
+
+
+
+The source uses this exact style of example and separates calculation, persistence, email and PDF generation into focused components. 
+
+Advanced
+
+57. How do you identify responsibilities in a 1,000-line service?
+
+
+58. Can a class have multiple methods and still obey SRP?
+
+
+59. Can a class be too small to justify separation?
+
+
+60. What is over-fragmentation?
+
+
+61. How does business responsibility differ from technical responsibility?
+
+
+62. How does cohesion help determine SRP boundaries?
+
+
+
+Traps
+
+63. "One class = one method" — why is this wrong?
+
+
+64. "Every database operation needs its own class" — always true?
+
+
+65. "Large class = SRP violation" — always true?
+
+
+66. Can splitting a class actually make the architecture worse?
+
+
+67. Can excessive SRP produce hundreds of meaningless classes?
+
+
+
+The source explicitly warns against interpreting SRP as one method per class and against meaningless fragmentation. 
+
+Design
+
+68. Design an order-processing system following SRP.
+
+
+69. Separate validation, pricing, persistence, notification and reporting.
+
+
+70. Decide which responsibilities belong together.
+
+
+71. Explain your class boundaries.
+
+
+72. Design packages around meaningful responsibilities.
+
+
+
+Debugging Challenges
+
+73. Find SRP violations in a God class.
+
+
+74. Identify the different reasons the class changes.
+
+
+75. Refactor the class incrementally.
+
+
+76. Ensure the refactoring doesn't duplicate business logic.
+
+
+77. Verify that tests remain valid.
+
+
+
+Production
+
+78. How would you refactor a 2,000-line production service?
+
+
+79. How would you avoid breaking existing clients?
+
+
+80. How would you determine whether a new class boundary is meaningful?
+
+
+81. When would you leave a large class alone?
+
+
+82. How does SRP affect deployment and team ownership?
+
+
+
+
+---
+
+1.6.3 Open/Closed Principle — OCP
+
+Basic
+
+83. What is OCP?
+
+
+84. What does "open for extension, closed for modification" mean?
+
+
+85. Why is OCP useful?
+
+
+86. How does polymorphism help OCP?
+
+
+87. How does composition help OCP?
+
+
+
+Intermediate
+
+88. Identify the OCP problem:
+
+
+
+class PaymentProcessor {
+    void process(String type) {
+        if (type.equals("CARD")) {
+            // ...
+        } else if (type.equals("UPI")) {
+            // ...
+        }
+    }
+}
+
+89. Why does adding a payment type require modifying this class?
+
+
+90. How could an interface solve this?
+
+
+91. How could the Strategy pattern help?
+
+
+92. How could dependency injection help?
+
+
+
+Advanced
+
+93. Design an OCP-compliant payment system.
+
+
+94. How do you identify genuine extension points?
+
+
+95. When is a switch statement actually acceptable?
+
+
+96. Can OCP cause excessive abstraction?
+
+
+97. How does OCP interact with YAGNI?
+
+
+98. When should OCP not be forced?
+
+
+
+Traps
+
+99. Does OCP mean existing code can never change?
+
+
+100. Should every if/else automatically be replaced with polymorphism?
+
+
+101. Should every switch become a strategy?
+
+
+102. Is an interface automatically an OCP solution?
+
+
+103. Can OCP create unnecessary complexity?
+
+
+
+Design
+
+104. Design:
+
+
+
+PaymentProcessor
+       ↓
+PaymentStrategy
+ ├── CardPayment
+ ├── UPIPayment
+ ├── WalletPayment
+ └── NetBankingPayment
+
+105. Add a new payment method.
+
+
+106. Ensure existing processor code remains unchanged.
+
+
+107. Explain dependency direction.
+
+
+108. Explain where OCP is useful and where it isn't.
+
+
+
+Debugging Challenges
+
+109. Find modification hotspots.
+
+
+110. Identify code repeatedly modified whenever a new type is introduced.
+
+
+111. Refactor the hotspot.
+
+
+112. Verify existing behavior remains unchanged.
+
+
+113. Check whether the new abstraction actually reduced change impact.
+
+
+
+Production
+
+114. How would you design extension points in a large application?
+
+
+115. How do you avoid building an unnecessary plugin framework?
+
+
+116. How do you balance OCP against KISS?
+
+
+117. How do you decide which variation deserves polymorphism?
+
+
+
+
+---
+
+1.6.4 Liskov Substitution Principle — LSP
+
+Basic
+
+118. What is LSP?
+
+
+119. What is substitutability?
+
+
+120. What does behavioral substitutability mean?
+
+
+121. Why is inheritance alone insufficient?
+
+
+122. Give a simple LSP violation.
+
+
+
+Intermediate
+
+123. What happens when a subclass changes the expected behavior of its parent?
+
+
+124. What is a behavioral contract?
+
+
+125. What is a precondition?
+
+
+126. What is a postcondition?
+
+
+127. How can a subclass violate those expectations?
+
+
+128. Explain the Square/Rectangle problem.
+
+
+
+Advanced
+
+129. Why is UnsupportedOperationException often a design smell?
+
+
+130. How can inheritance create false IS-A relationships?
+
+
+131. How can composition solve LSP violations?
+
+
+132. How does LSP affect API design?
+
+
+133. How does LSP relate to polymorphism?
+
+
+
+Traps
+
+134. Does "extends" automatically mean LSP is satisfied?
+
+
+135. Is overriding a method enough to satisfy substitutability?
+
+
+136. Can a subclass legally reject a parent's behavior?
+
+
+137. Can a subclass strengthen preconditions?
+
+
+138. Can a subclass weaken expected guarantees?
+
+
+
+Design
+
+139. Design a valid payment hierarchy.
+
+
+140. Design a notification abstraction satisfying LSP.
+
+
+141. Identify operations that shouldn't exist on the parent.
+
+
+142. Replace inappropriate inheritance with composition.
+
+
+
+Debugging Challenges
+
+143. Given a subclass that throws UnsupportedOperationException, identify the problem.
+
+
+144. Find behavioral differences between parent and child.
+
+
+145. Identify a broken contract.
+
+
+146. Refactor the hierarchy.
+
+
+
+Production
+
+147. How do you detect LSP violations during code review?
+
+
+148. How can LSP violations cause runtime failures?
+
+
+149. How would you refactor a legacy inheritance hierarchy?
+
+
+150. When should inheritance be retained?
+
+
+
+
+---
+
+1.6.5 Interface Segregation Principle — ISP
+
+Basic
+
+151. What is ISP?
+
+
+152. What is a fat interface?
+
+
+153. Why should clients not depend on methods they don't use?
+
+
+154. What is interface pollution?
+
+
+
+Intermediate
+
+155. Identify the problem:
+
+
+
+interface Worker {
+    void work();
+    void eat();
+    void sleep();
+}
+
+156. Why is this problematic for a Robot?
+
+
+157. How would you split the interface?
+
+
+158. How does ISP improve testability?
+
+
+159. How does ISP reduce coupling?
+
+
+
+Advanced
+
+160. How do you identify the correct interface boundary?
+
+
+161. Can an interface be too small?
+
+
+162. Can too many interfaces make a system harder to understand?
+
+
+163. How does ISP work with composition?
+
+
+164. How does ISP work with DIP?
+
+
+
+Traps
+
+165. Does ISP mean every interface must have one method?
+
+
+166. Is a 20-method interface always bad?
+
+
+167. Should interfaces be split merely because they're large?
+
+
+168. Can excessive interface segregation cause abstraction explosion?
+
+
+
+Design
+
+169. Design notification interfaces for:
+
+
+
+Email
+SMS
+Push
+WhatsApp
+
+170. Ensure clients depend only on capabilities they require.
+
+
+171. Explain the resulting interface boundaries.
+
+
+
+Debugging Challenges
+
+172. Identify a fat interface.
+
+
+173. Determine which clients actually need which methods.
+
+
+174. Split the interface.
+
+
+175. Update implementations without breaking behavior.
+
+
+
+Production
+
+176. How would you refactor a widely used fat interface?
+
+
+177. How would you maintain backward compatibility?
+
+
+178. How do you avoid interface explosion?
+
+
+
+
+---
+
+1.6.6 Dependency Inversion Principle — DIP
+
+Basic
+
+179. What is DIP?
+
+
+180. What is a high-level module?
+
+
+181. What is a low-level module?
+
+
+182. What does "depend on abstractions" mean?
+
+
+183. Why is DIP useful?
+
+
+
+Intermediate
+
+184. Identify the problem:
+
+
+
+class OrderService {
+    private final MySqlOrderRepository repository =
+        new MySqlOrderRepository();
+}
+
+185. Why is this tightly coupled?
+
+
+186. Introduce OrderRepository.
+
+
+187. Inject it through the constructor.
+
+
+188. How does this improve testing?
+
+
+
+Advanced
+
+189. DIP vs Dependency Injection?
+
+
+190. Can DIP exist without Spring?
+
+
+191. Can dependency injection exist without good DIP?
+
+
+192. What does dependency direction mean?
+
+
+193. How does DIP isolate infrastructure from business logic?
+
+
+
+Traps
+
+194. Does using @Autowired automatically mean DIP?
+
+
+195. Does every dependency need an interface?
+
+
+196. Is constructor injection alone sufficient to achieve DIP?
+
+
+197. Can abstractions themselves be poorly designed?
+
+
+
+Design
+
+198. Design:
+
+
+
+OrderService
+      ↓
+OrderRepository
+      ↓
+PostgreSQL
+
+199. Replace PostgreSQL with another persistence implementation.
+
+
+200. Inject a test double.
+
+
+201. Keep business logic independent of infrastructure.
+
+
+
+Debugging Challenges
+
+202. Find concrete dependencies created inside services.
+
+
+203. Identify hard-to-test dependencies.
+
+
+204. Refactor them behind appropriate abstractions.
+
+
+205. Verify that business logic remains unchanged.
+
+
+
+Production
+
+206. How would you apply DIP in a Spring Boot application?
+
+
+207. Where should repository abstractions live?
+
+
+208. How much abstraction is enough?
+
+
+209. How can excessive DIP create unnecessary interfaces?
+
+
+210. How would you explain the dependency direction during architecture review?
+
+
+
+
+---
+
+1.6.7 Composition Over Inheritance
+
+Basic
+
+211. What is composition?
+
+
+212. What is inheritance?
+
+
+213. What does "composition over inheritance" mean?
+
+
+214. What is IS-A?
+
+
+215. What is HAS-A?
+
+
+
+Intermediate
+
+216. Why does inheritance create coupling?
+
+
+217. Why can composition be more flexible?
+
+
+218. What is the fragile base-class problem?
+
+
+219. Why are deep hierarchies difficult to maintain?
+
+
+220. When is inheritance appropriate?
+
+
+
+Advanced
+
+221. How does composition support OCP?
+
+
+222. How does composition support DIP?
+
+
+223. How does composition improve testing?
+
+
+224. How can strategy objects replace inheritance?
+
+
+225. When is inheritance actually the better design?
+
+
+
+Traps
+
+226. Is inheritance always bad?
+
+
+227. Is composition always better?
+
+
+228. Should every inheritance relationship be replaced?
+
+
+229. Can composition create excessive delegation?
+
+
+230. Can composition become harder to understand?
+
+
+
+Design
+
+231. Replace a payment inheritance hierarchy with composition.
+
+
+232. Implement configurable payment strategies.
+
+
+233. Explain the trade-off.
+
+
+
+Debugging Challenges
+
+234. Identify a fragile inheritance hierarchy.
+
+
+235. Find behavior that depends on base-class implementation.
+
+
+236. Refactor to composition.
+
+
+237. Verify behavior after refactoring.
+
+
+
+Production
+
+238. When would you permit inheritance in a production Java codebase?
+
+
+239. How do frameworks influence this decision?
+
+
+240. How do you prevent inheritance hierarchies from becoming unmaintainable?
+
+
+
+
+---
+
+1.6.8 Coupling
+
+Basic
+
+241. What is coupling?
+
+
+242. What is tight coupling?
+
+
+243. What is loose coupling?
+
+
+244. Why is coupling important?
+
+
+
+Intermediate
+
+245. How does direct object creation increase coupling?
+
+
+246. How do concrete dependencies increase coupling?
+
+
+247. How do interfaces reduce coupling?
+
+
+248. How does dependency injection reduce coupling?
+
+
+
+Advanced
+
+249. What is implementation coupling?
+
+
+250. What is temporal coupling?
+
+
+251. What is data coupling?
+
+
+252. Is zero coupling possible?
+
+
+253. Is lower coupling always better?
+
+
+
+Traps
+
+254. Does using interfaces automatically mean loose coupling?
+
+
+255. Can excessive abstraction increase coupling?
+
+
+256. Can dependency injection hide rather than eliminate coupling?
+
+
+
+Design
+
+257. Design a loosely coupled order system.
+
+
+258. Identify dependency boundaries.
+
+
+259. Explain which dependencies should remain concrete.
+
+
+
+Debugging Challenges
+
+260. Identify a change that propagates across many modules.
+
+
+261. Find the coupling responsible.
+
+
+262. Refactor the dependency boundary.
+
+
+
+Production
+
+263. How does coupling affect deployment?
+
+
+264. How does coupling affect testing?
+
+
+265. How does coupling affect team scalability?
+
+
+266. How do you reduce coupling without creating excessive abstraction?
+
+
+
+
+---
+
+1.6.9 Cohesion
+
+Basic
+
+267. What is cohesion?
+
+
+268. What is high cohesion?
+
+
+269. What is low cohesion?
+
+
+270. Coupling vs cohesion?
+
+
+
+Intermediate
+
+271. How do you determine whether methods belong together?
+
+
+272. How do fields indicate cohesion?
+
+
+273. How does SRP improve cohesion?
+
+
+274. Why does high cohesion improve maintainability?
+
+
+
+Advanced
+
+275. Can a class be highly cohesive and highly coupled?
+
+
+276. Can a class be loosely coupled but poorly cohesive?
+
+
+277. How do package boundaries influence cohesion?
+
+
+278. How does cohesion influence architecture?
+
+
+
+Traps
+
+279. Does high cohesion mean fewer methods?
+
+
+280. Does a small class automatically have high cohesion?
+
+
+281. Can splitting a class reduce cohesion?
+
+
+
+Design
+
+282. Design a cohesive Order domain.
+
+
+283. Separate unrelated behavior.
+
+
+284. Explain the resulting boundaries.
+
+
+
+Debugging Challenges
+
+285. Find unrelated fields and methods.
+
+
+286. Identify low-cohesion classes.
+
+
+287. Refactor them into cohesive components.
+
+
+
+Production
+
+288. How do you evaluate cohesion in a real codebase?
+
+
+289. How does cohesion affect ownership and maintenance?
+
+
+290. How do you avoid over-fragmentation?
+
+
+
+
+---
+
+1.6.10 DRY
+
+Basic
+
+291. What does DRY mean?
+
+
+292. Why is duplication dangerous?
+
+
+293. What is duplicated code?
+
+
+294. What is duplicated knowledge?
+
+
+
+Intermediate
+
+295. Should every repeated line be extracted?
+
+
+296. When should duplicate code remain?
+
+
+297. What is premature abstraction?
+
+
+298. How can abstraction itself introduce coupling?
+
+
+
+Advanced
+
+299. Two methods look identical but represent different business rules. Should they be merged?
+
+
+300. What is semantic duplication?
+
+
+301. What is accidental duplication?
+
+
+302. How do you decide whether duplication represents shared knowledge?
+
+
+
+Traps
+
+303. Is duplicate code always bad?
+
+
+304. Is extracting a common method always good?
+
+
+305. Can DRY produce a giant utility class?
+
+
+306. Can DRY produce a wrong abstraction?
+
+
+
+Design
+
+307. Identify duplicated business rules.
+
+
+308. Extract a meaningful abstraction.
+
+
+309. Ensure unrelated concepts remain independent.
+
+
+
+Debugging Challenges
+
+310. Find inconsistent duplicated business logic.
+
+
+311. Fix the duplication.
+
+
+312. Verify all callers still behave correctly.
+
+
+
+Production
+
+313. How do you decide whether duplication is worth refactoring?
+
+
+314. How does DRY interact with KISS?
+
+
+315. How does DRY interact with YAGNI?
+
+
+
+
+---
+
+1.6.11 KISS
+
+Basic
+
+316. What is KISS?
+
+
+317. Why is simplicity valuable?
+
+
+318. What is unnecessary complexity?
+
+
+
+Intermediate
+
+319. Identify unnecessary abstraction.
+
+
+320. Identify unnecessary design patterns.
+
+
+321. Identify unnecessary layers.
+
+
+322. How does complexity increase maintenance cost?
+
+
+
+Advanced
+
+323. Can simple code become too simplistic?
+
+
+324. How does KISS interact with OCP?
+
+
+325. How does KISS interact with DIP?
+
+
+326. How do you distinguish simplicity from poor design?
+
+
+
+Traps
+
+327. Does KISS mean "never use design patterns"?
+
+
+328. Does KISS mean "write everything in one class"?
+
+
+329. Does simple mean fewer lines of code?
+
+
+330. Can premature simplicity create future problems?
+
+
+
+Design
+
+331. Design a simple CRUD application.
+
+
+332. Remove unnecessary abstractions.
+
+
+333. Explain why the resulting architecture is sufficient.
+
+
+
+Debugging Challenges
+
+334. Identify complexity that isn't contributing business value.
+
+
+335. Simplify the design.
+
+
+336. Ensure behavior remains unchanged.
+
+
+
+Production
+
+337. How do you prevent architecture from becoming unnecessarily complex?
+
+
+338. When is complexity justified?
+
+
+339. How do you defend simplicity during architecture review?
+
+
+
+
+---
+
+1.6.12 YAGNI
+
+Basic
+
+340. What does YAGNI mean?
+
+
+341. Why shouldn't unused features be implemented?
+
+
+342. What is speculative generality?
+
+
+
+Intermediate
+
+343. What is premature extensibility?
+
+
+344. What is overengineering?
+
+
+345. How can YAGNI reduce maintenance cost?
+
+
+346. How does YAGNI relate to KISS?
+
+
+
+Advanced
+
+347. Does YAGNI mean ignoring future requirements?
+
+
+348. When should future requirements influence design?
+
+
+349. How do you distinguish real extensibility from imaginary extensibility?
+
+
+350. How does YAGNI interact with OCP?
+
+
+
+Traps
+
+351. Does YAGNI mean "never design for change"?
+
+
+352. Is every abstraction YAGNI?
+
+
+353. Should architecture ignore known future requirements?
+
+
+354. Can YAGNI itself be misused?
+
+
+
+Design
+
+355. A team wants a plugin architecture "just in case." Decide whether to build it.
+
+
+356. Explain what evidence would justify the abstraction.
+
+
+357. Design the simplest architecture that satisfies current requirements.
+
+
+
+Debugging Challenges
+
+358. Identify unnecessary abstractions.
+
+
+359. Remove speculative functionality.
+
+
+360. Verify that legitimate extension points remain.
+
+
+
+Production
+
+361. How do you balance YAGNI with long-term architecture?
+
+
+362. When is future-proofing justified?
+
+
+363. How do you prevent overengineering in a large team?
+
+
+
+
+---
+
+1.6.13 Law of Demeter
+
+Basic
+
+364. What is the Law of Demeter?
+
+
+365. What does "talk to your immediate friends" mean?
+
+
+366. Why is deep object navigation problematic?
+
+
+
+Intermediate
+
+367. Analyze:
+
+
+
+order.getCustomer()
+     .getAddress()
+     .getCity()
+     .getCountry();
+
+368. What dependencies are created?
+
+
+369. How could encapsulation improve this?
+
+
+370. What does a better API look like?
+
+
+
+Advanced
+
+371. Is every method chain a violation?
+
+
+372. Why are fluent APIs different?
+
+
+373. Why are builders different?
+
+
+374. How does Tell Don't Ask complement the Law of Demeter?
+
+
+
+Traps
+
+375. Is method chaining automatically bad?
+
+
+376. Is every getter chain a design violation?
+
+
+377. Should all getters be removed?
+
+
+
+Design
+
+378. Refactor deep navigation into meaningful behavior.
+
+
+379. Move knowledge into the appropriate object.
+
+
+380. Explain the new boundary.
+
+
+
+Debugging Challenges
+
+381. Find object-graph navigation creating excessive coupling.
+
+
+382. Refactor it.
+
+
+383. Verify that behavior remains correct.
+
+
+
+Production
+
+384. How do you apply Law of Demeter without becoming dogmatic?
+
+
+385. How do you distinguish harmful navigation from fluent APIs?
+
+
+386. When is direct navigation perfectly reasonable?
+
+
+
+The source specifically requires this distinction. 
+
+
+---
+
+1.6.14 Tell Don't Ask
+
+Basic
+
+387. What is Tell Don't Ask?
+
+
+388. What does it mean to give an object a command rather than inspect its state?
+
+
+389. How does it relate to encapsulation?
+
+
+
+Intermediate
+
+390. Identify the problem:
+
+
+
+if (account.getBalance() >= amount) {
+    account.setBalance(
+        account.getBalance() - amount
+    );
+}
+
+391. Why is the caller controlling domain behavior?
+
+
+392. How should the behavior move into Account?
+
+
+393. How does this protect invariants?
+
+
+
+Advanced
+
+394. Refactor the example.
+
+
+395. When are getters appropriate?
+
+
+396. Does Tell Don't Ask prohibit getters?
+
+
+397. How does Tell Don't Ask relate to SRP?
+
+
+398. How does it relate to Law of Demeter?
+
+
+
+Traps
+
+399. Are getters always bad?
+
+
+400. Should all state be completely hidden?
+
+
+401. Is every procedural service violating Tell Don't Ask?
+
+
+402. Can a DTO legitimately expose state?
+
+
+
+Design
+
+403. Design an Account with:
+
+
+
+deposit()
+withdraw()
+transfer()
+
+404. Keep balance invariants inside the domain object.
+
+
+405. Explain why the design is better.
+
+
+
+Debugging Challenges
+
+406. Find business logic scattered across services.
+
+
+407. Move behavior into appropriate domain objects.
+
+
+408. Verify invariants remain protected.
+
+
+
+Production
+
+409. When should business logic remain in an application service?
+
+
+410. When should behavior move into the domain model?
+
+
+411. How do you balance Tell Don't Ask with practical Spring architectures?
+
+
+
+
+---
+
+1.6.15 Refactoring
+
+Basic
+
+412. What is refactoring?
+
+
+413. Does refactoring change externally observable behavior?
+
+
+414. Why is refactoring important?
+
+
+415. Why are tests important before refactoring?
+
+
+
+Intermediate
+
+416. What is a God class?
+
+
+417. What is a fat interface?
+
+
+418. What is a deep inheritance hierarchy?
+
+
+419. What is duplicated logic?
+
+
+420. What is excessive coupling?
+
+
+
+Advanced
+
+421. How do you refactor incrementally?
+
+
+422. How do you preserve behavior?
+
+
+423. How do you identify safe extraction boundaries?
+
+
+424. How do you refactor without creating new abstractions unnecessarily?
+
+
+
+Traps
+
+425. Is every large class bad?
+
+
+426. Is every duplication worth removing?
+
+
+427. Is every refactoring improvement?
+
+
+428. Can refactoring introduce bugs?
+
+
+429. Can refactoring increase complexity?
+
+
+
+Design
+
+430. Refactor a God class.
+
+
+431. Refactor a fat interface.
+
+
+432. Refactor deep inheritance.
+
+
+433. Reduce coupling.
+
+
+434. Increase cohesion.
+
+
+
+Debugging Challenges
+
+435. Add tests around existing behavior.
+
+
+436. Refactor incrementally.
+
+
+437. Run regression tests after every meaningful step.
+
+
+438. Diagnose a behavior change introduced by refactoring.
+
+
+
+Production
+
+439. How do you refactor legacy production code safely?
+
+
+440. How do you handle a large refactoring PR?
+
+
+441. How do you convince stakeholders to invest in refactoring?
+
+
+442. How do you measure whether the refactoring actually improved the system?
+
+
+
+
+---
+
+1.6.16 Production Architecture
+
+Basic
+
+443. What makes Java code production-quality?
+
+
+444. What is an architectural boundary?
+
+
+445. What is a dependency boundary?
+
+
+446. Why are package boundaries important?
+
+
+447. How do design principles affect architecture?
+
+
+
+Intermediate
+
+448. Design:
+
+
+
+API
+ ↓
+Application Service
+ ↓
+Domain
+ ↓
+Repository
+ ↓
+Infrastructure
+
+449. Where should business logic live?
+
+
+450. Where should infrastructure logic live?
+
+
+451. Where should abstractions live?
+
+
+452. How should dependencies flow?
+
+
+
+Advanced
+
+453. Apply SRP to package design.
+
+
+454. Apply OCP to extension points.
+
+
+455. Apply DIP to infrastructure.
+
+
+456. Apply ISP to service boundaries.
+
+
+457. Apply composition to domain design.
+
+
+458. Optimize for cohesion and manageable coupling.
+
+
+
+Traps
+
+459. Does a layered architecture automatically mean good architecture?
+
+
+460. Does using interfaces everywhere improve architecture?
+
+
+461. Does using every SOLID principle produce a better system?
+
+
+462. Is microservice-style decomposition always better?
+
+
+463. Can clean architecture become overengineered?
+
+
+
+Design
+
+464. Design a production payment system.
+
+
+465. Identify modules and boundaries.
+
+
+466. Identify dependencies.
+
+
+467. Identify extension points.
+
+
+468. Identify domain ownership.
+
+
+469. Explain every major architectural decision.
+
+
+
+Debugging Challenges
+
+470. A small change requires modifying 15 classes. Diagnose the design.
+
+
+471. A service cannot be unit tested without a database. Diagnose the dependency problem.
+
+
+472. A subclass constantly breaks parent behavior. Diagnose the LSP problem.
+
+
+473. A service contains 10 unrelated responsibilities. Diagnose the SRP problem.
+
+
+474. A new feature requires modifying many existing branches. Diagnose the OCP problem.
+
+
+
+Production
+
+475. How would you review the architecture of a real Spring Boot application?
+
+
+476. Which principles would you prioritize?
+
+
+477. How would you identify overengineering?
+
+
+478. How would you balance maintainability against delivery speed?
+
+
+479. How would you defend your architectural decisions to a senior review board?
+
+
+480. When would you deliberately violate a design principle?
+
+
+
+
+---
+
+🔥 1.6 Final Integrated Challenges
+
+After finishing individual topics, these should combine all the principles.
+
+Challenge 1 — Payment System
+
+Design:
+
+Payment
+ ├── Card
+ ├── UPI
+ ├── Wallet
+ └── Net Banking
+
+You must demonstrate:
+
+SRP
+
+OCP
+
+LSP
+
+ISP
+
+DIP
+
+Composition
+
+Low coupling
+
+High cohesion
+
+DRY
+
+KISS
+
+YAGNI
+
+
+
+---
+
+Challenge 2 — God Class
+
+Start with:
+
+class OrderManager {
+
+    void validate() {}
+    void calculatePrice() {}
+    void save() {}
+    void sendEmail() {}
+    void generateInvoice() {}
+    void processPayment() {}
+    void audit() {}
+}
+
+Your task:
+
+Identify → Explain → Refactor → Test → Defend the design.
+
+
+---
+
+Challenge 3 — Legacy Inheritance
+
+Given a deep hierarchy:
+
+BasePayment
+     ↓
+OnlinePayment
+     ↓
+CardPayment
+     ↓
+CreditCardPayment
+     ↓
+InternationalCreditCardPayment
+
+Determine:
+
+LSP problems
+
+coupling
+
+inheritance misuse
+
+whether composition is better
+
+appropriate abstraction boundaries
+
+
+
+---
+
+Challenge 4 — Production Code Review
+
+Given a real-world service containing:
+
+1,500 lines
+
+20 dependencies
+
+multiple if/else branches
+
+direct database creation
+
+large interfaces
+
+deep getter chains
+
+duplicated business rules
+
+speculative abstractions
+
+
+Identify which principle applies to which problem, then decide which changes are actually worth making.
+
+
+---
+
+🏆 Module 1.6 Mastery Standard
+
+The source's final mastery gate requires you to explain all five SOLID principles, implement them, identify violations, use composition, reason about coupling/cohesion, apply DRY/KISS/YAGNI appropriately, understand Law of Demeter and Tell Don't Ask, refactor major design smells, design an extensible payment system, review production code, and—most importantly—know when not to apply a principle. 
+
+So your final learning flow for every 1.6 topic is now fixed as:
+
+> 1. Basic
+↓
+2. Intermediate
+↓
+3. Advanced
+↓
+4. Traps / Common Mistakes
+↓
+5. Design
+↓
+6. Debugging Challenges
+↓
+7. Production
+
+
+
+This is the same progression you used for the earlier modules, and it is a much better structure for deep Java mastery than simply having Basic/Intermediate/Advanced/Interview questions.
