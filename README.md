@@ -1,4 +1,4 @@
-# Collection-Tuto
+# java
 Core Java (Deep Mastery)
 Language Fundamentals
 OOP pillars: Encapsulation, Inheritance, Polymorphism (compile-time vs runtime), Abstraction
